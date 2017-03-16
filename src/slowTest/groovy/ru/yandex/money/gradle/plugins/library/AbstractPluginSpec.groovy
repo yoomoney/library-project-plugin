@@ -24,7 +24,6 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
         }
     }
     apply plugin: 'java'
-    apply plugin: 'io.spring.dependency-management'
     apply plugin: 'yamoney-library-project-plugin'
     """.stripIndent()
 
