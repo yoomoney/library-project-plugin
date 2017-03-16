@@ -1,11 +1,13 @@
 package ru.yandex.money.gradle.plugins.library;
 
+import io.spring.gradle.dependencymanagement.DependencyManagementPlugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
 import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
 import ru.yandex.money.gradle.plugins.library.readme.ReadmePlugin;
+import ru.yandex.money.gradle.plugins.library.release.jira.JiraReleasePlugin;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,9 +26,11 @@ public class LibraryProjectPlugin implements Plugin<Project> {
      * Все остальные настройки должны делаться в самом добавляемом плагине.
      */
     private static final Collection<Class<?>> PLUGINS_TO_APPLY = Arrays.asList(
+            DependencyManagementPlugin.class,
             ReadmePlugin.class,
             CheckChangelogPlugin.class,
-            CheckDependenciesPlugin.class
+            CheckDependenciesPlugin.class,
+            JiraReleasePlugin.class
     );
 
     @Override

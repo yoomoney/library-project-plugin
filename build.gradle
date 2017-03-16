@@ -33,7 +33,11 @@ dependencies {
     compile localGroovy(),
             'org.ajoberstar:gradle-git:1.5.0',
             'ru.yandex.money.common:yamoney-doc-publishing:1.0.1',
-            'io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE'
+            'ru.yandex.money.gradle.plugins:yamoney-check-changelog-plugin:1.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-check-dependencies-plugin:1.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-jira-release-plugin:1.0.4',
+            'ru.yandex.money.gradle.plugins:yamoney-publish-readme-plugin:1.0.0',
+            'io.spring.gradle:dependency-management-plugin:1.0.1.RELEASE'
 
     testCompile gradleTestKit(),
             "ru.yandex.money.common:yamoney-test-utils:5.0.4",
@@ -44,7 +48,7 @@ dependencies {
     }
 }
 
-jar{
+jar {
     baseName "yamoney-library-project-plugin"
 }
 
