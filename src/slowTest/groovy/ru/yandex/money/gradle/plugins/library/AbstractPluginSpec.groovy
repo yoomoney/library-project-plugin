@@ -20,7 +20,6 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
         dependencies {
             classpath 'org.ajoberstar:gradle-git:1.5.0'
             classpath 'ru.yandex.money.common:yamoney-doc-publishing:1.0.1'
-            classpath 'io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE'
         }
     }
     apply plugin: 'java'
