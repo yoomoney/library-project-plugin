@@ -5,6 +5,7 @@ import org.gradle.api.Project;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
 import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
+import ru.yandex.money.gradle.plugins.library.helpers.GitRepositoryProperties;
 import ru.yandex.money.gradle.plugins.library.readme.ReadmePlugin;
 
 import java.util.Arrays;
@@ -40,15 +41,23 @@ public class LibraryProjectPlugin implements Plugin<Project> {
      */
     private void configureRepositories(Project project) {
         RepositoryHandler repositories = project.getRepositories();
-        Stream.of(
+        Stream<String> repositoriesToApply = Stream.of(
                 "http://nexus.yamoney.ru/content/repositories/central/",
                 "http://nexus.yamoney.ru/content/repositories/releases/",
-                "http://nexus.yamoney.ru/content/repositories/snapshots/",
                 "http://nexus.yamoney.ru/content/repositories/thirdparty/",
-                "http://nexus.yamoney.ru/content/repositories/spp-snapshots/",
                 "http://nexus.yamoney.ru/content/repositories/spp-releases/"
-        )
-                .map(repoUrl -> repositories.maven(mavenArtifactRepository -> mavenArtifactRepository.setUrl(repoUrl)))
+        );
+
+        GitRepositoryProperties properties = new GitRepositoryProperties(project.getProjectDir().getAbsolutePath());
+        if (!properties.isMasterBranch() && !properties.isDevBranch() && !properties.isReleaseBranch()) {
+            repositoriesToApply = Stream.concat(repositoriesToApply, Stream.of(
+                    "http://nexus.yamoney.ru/content/repositories/snapshots/",
+                    "http://nexus.yamoney.ru/content/repositories/spp-snapshots/"
+            ));
+        }
+
+        repositoriesToApply.map(repoUrl -> repositories.maven(mavenArtifactRepository -> mavenArtifactRepository.setUrl(repoUrl)))
                 .forEach(repositories::add);
+
     }
 }
