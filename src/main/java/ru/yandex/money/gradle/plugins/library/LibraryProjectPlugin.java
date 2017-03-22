@@ -43,9 +43,7 @@ public class LibraryProjectPlugin implements Plugin<Project> {
         Stream.of(
                 "http://nexus.yamoney.ru/content/repositories/central/",
                 "http://nexus.yamoney.ru/content/repositories/releases/",
-                "http://nexus.yamoney.ru/content/repositories/snapshots/",
                 "http://nexus.yamoney.ru/content/repositories/thirdparty/",
-                "http://nexus.yamoney.ru/content/repositories/spp-snapshots/",
                 "http://nexus.yamoney.ru/content/repositories/spp-releases/"
         )
                 .map(repoUrl -> repositories.maven(mavenArtifactRepository -> mavenArtifactRepository.setUrl(repoUrl)))
