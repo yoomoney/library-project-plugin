@@ -1,9 +1,13 @@
 package ru.yandex.money.gradle.plugins.library.helpers;
 
+import org.ajoberstar.grgit.Commit;
 import org.ajoberstar.grgit.Grgit;
+import org.ajoberstar.grgit.Tag;
 import org.ajoberstar.grgit.operation.OpenOp;
+import org.ajoberstar.grgit.operation.TagListOp;
 
-import java.util.regex.Pattern;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Утилитный класс для получения свойств git-репозитория.
@@ -13,11 +17,6 @@ import java.util.regex.Pattern;
  * @since 22.12.2016
  */
 public class GitRepositoryProperties {
-
-    private static final String MASTER_BRANCH_NAME = "master";
-    private static final String DEV_BRANCH_NAME = "dev";
-    private static final Pattern RELEASE_BRANCH_PATTERN = Pattern.compile("release/.*");
-
     private final Grgit grgit;
 
     /**
@@ -33,48 +32,26 @@ public class GitRepositoryProperties {
     }
 
     /**
-     * Показывает, является ли текущая ветка master веткой или нет.
-     *
-     * @return true, если является, false - если нет.
-     */
-    public boolean isMasterBranch() {
-        String name = getCurrentBranchName();
-        return getCurrentBranchName().equalsIgnoreCase(MASTER_BRANCH_NAME);
-    }
-
-    /**
-     * Показывает, является ли текущая ветка dev веткой или нет.
-     *
-     * @return true, если является, false - если нет.
-     */
-    public boolean isDevBranch() {
-        return getCurrentBranchName().equalsIgnoreCase(DEV_BRANCH_NAME);
-    }
-
-    /**
-     * Показывает, является ли текущая ветка релизной или нет.
-     *
-     * @return true, если является, false - если нет.
-     */
-    public boolean isReleaseBranch() {
-        return RELEASE_BRANCH_PATTERN.matcher(getCurrentBranchName()).find();
-    }
-
-    /**
-     * Показывает, содержит ли текущая ветка релизный тэг
-     *
-     * @return true, если содержит, false - если нет.
-     */
-    public boolean isReleaseTag() {
-        return GitTag.fromCurrentBranch(grgit).isRelease() || GitTag.fromHead().isRelease();
-    }
-
-    /**
      * Возвращает имя текущей ветки.
      *
      * @return имя текущей ветки.
      */
-    public String getCurrentBranchName() {
-        return grgit.getBranch().getCurrent().getName();
+    public BranchName getCurrentBranchName() {
+        return new BranchName(grgit.getBranch().getCurrent().getName());
+    }
+
+    /**
+     * Возвращает имя тега HEAD-указателя
+     *
+     * @return имя тега
+     */
+    public TagName getTagNameOnHead() {
+        Commit head = grgit.head();
+        List<Tag> tags = new TagListOp(grgit.getRepository()).call();
+        Optional<Tag> tagOnHead = tags.stream()
+                                      .filter(tag -> tag.getCommit().getId().equals(head.getId()))
+                                      .findFirst();
+
+        return tagOnHead.isPresent() ? new TagName(tagOnHead.get().getName()) : new TagName("");
     }
 }

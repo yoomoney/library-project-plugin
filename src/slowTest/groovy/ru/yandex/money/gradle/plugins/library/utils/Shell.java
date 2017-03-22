@@ -1,4 +1,4 @@
-package ru.yandex.money.gradle.plugins.library.helpers;
+package ru.yandex.money.gradle.plugins.library.utils;
 
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
@@ -16,20 +16,9 @@ import java.util.Arrays;
  * @since 21.03.2017
  */
 public class Shell {
-    private static final File CURRENT_WORKING_DIRECTORY = new File(".");
     private final Logger log = Logging.getLogger(Shell.class);
     private final File workingDirectory;
     private final String[] args;
-
-    /**
-     * Запускает команду с указанными аргументами в текущей директории и возвращает вывод команды
-     *
-     * @param args аргументы командные строки
-     * @return вывод команды
-     */
-    public static String execute(String... args) {
-        return execute(CURRENT_WORKING_DIRECTORY, args);
-    }
 
     /**
      * Запускает команду с указанными аргументами в указанной директории и возвращает вывод команды

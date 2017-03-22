@@ -5,7 +5,7 @@ import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.testfixtures.ProjectBuilder
 import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin
-import ru.yandex.money.gradle.plugins.library.helpers.Shell
+import ru.yandex.money.gradle.plugins.library.utils.Shell
 import ru.yandex.money.gradle.plugins.library.readme.PublishReadmeTask
 
 /**
@@ -30,7 +30,6 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     def 'check that when current branch is master then snapshot repositories are not defined'() {
         given:
-        initGitWithBranch('master')
         def project = createProjectWithDependencyManagement()
 
         when:
@@ -42,7 +41,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     def 'check that when current branch is dev then snapshot repositories are not defined'() {
         given:
-        initGitWithBranch('dev')
+        checkoutNewBranch('dev')
         def project = createProjectWithDependencyManagement()
 
         when:
@@ -54,7 +53,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     def 'check that when current branch is release then snapshot repositories are not defined'() {
         given:
-        initGitWithBranch('release/foo-1.1.1')
+        checkoutNewBranch('release/foo-1.1.1')
         def project = createProjectWithDependencyManagement()
 
         when:
@@ -66,7 +65,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     def 'check that when current branch is tags-named-branch than snapshot repositories are not defined'() {
         given:
-        initGitWithBranch('tags/1.1.1')
+        checkoutNewBranch('tags/1.1.1')
         def project = createProjectWithDependencyManagement()
 
         when:
@@ -78,7 +77,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     def 'check that when there is release tag on current branch than snapshot repositories are not defined'() {
         given:
-        initGitWithTag('1.1.1')
+        createTag('1.1.1')
         def project = createProjectWithDependencyManagement()
 
         when:
@@ -90,9 +89,9 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     def 'check that when HEAD refers to release-branch than snapshot repositories are not defined'() {
         given:
-        initGitWithBranch('release/some')
+        checkoutNewBranch('release/some')
         checkoutNewBranch('other')
-        createRefOnBranch('release/some')
+        setRefToBranch('release/some')
 
         def project = createProjectWithDependencyManagement()
 
@@ -103,9 +102,9 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
     }
 
-    def 'check that when current branch is feature than snapshot repositories are defined'() {
+    def 'check that when current branch is non-release-related than snapshot repositories are defined'() {
         given:
-        initGitWithBranch('feature/SOME-0000')
+        checkoutNewBranch('feature/SOME-0000')
         def project = createProjectWithDependencyManagement()
 
         when:
@@ -115,11 +114,11 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).any({ it.contains("snapshot") })
     }
 
-    def 'check that when HEAD refers to non-release-branch than snapshot repositories are not defined'() {
+    def 'check that when HEAD refers to non-release-branch than snapshot repositories are defined'() {
         given:
-        initGitWithBranch('feature/SOME-0000')
+        checkoutNewBranch('feature/SOME-0000')
         checkoutNewBranch('other')
-        createRefOnBranch('feature/SOME-0000')
+        setRefToBranch('feature/SOME-0000')
 
         def project = createProjectWithDependencyManagement()
 
@@ -128,28 +127,18 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
         then:
         getMavenRepositoryUrls(project).any({ it.contains("snapshot") })
-    }
-
-    def initGitWithTag(String tagName) {
-        initGit()
-        Shell.execute(projectDir, "git tag ${tagName}".split())
-    }
-
-    def initGitWithBranch(String branchName) {
-        initGit()
-        checkoutNewBranch(branchName)
-    }
-
-    def initGit() {
-        Shell.execute(projectDir, 'git init'.split(" "))
     }
 
     def checkoutNewBranch(String branchName) {
-        Shell.execute(projectDir, "git checkout -b ${branchName}".split(" "))
+        grgit.checkout(branch: branchName, createBranch: true)
     }
 
-    def createRefOnBranch(String branchName) {
+    def setRefToBranch(String branchName) {
         Shell.execute(projectDir, "git symbolic-ref HEAD refs/heads/${branchName}".split(" "))
+    }
+
+    def createTag(String tagName) {
+        grgit.tag.add(name: tagName)
     }
 
     def createProjectWithDependencyManagement() {

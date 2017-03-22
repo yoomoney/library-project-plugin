@@ -2,6 +2,7 @@ package ru.yandex.money.gradle.plugins.library.readme;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import ru.yandex.money.gradle.plugins.library.helpers.BranchName;
 import ru.yandex.money.gradle.plugins.library.helpers.GitRepositoryProperties;
 
 /**
@@ -17,11 +18,12 @@ public class ReadmePlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         gitRepositoryProperties = new GitRepositoryProperties(project.getProjectDir().getAbsolutePath());
+        BranchName currentBranch = gitRepositoryProperties.getCurrentBranchName();
 
         project.getExtensions().create(ReadmePluginExtension.EXTENSION_NAME, ReadmePluginExtension.class, project);
 
         PublishReadmeTask task = project.getTasks().create(PublishReadmeTask.TASK_NAME, PublishReadmeTask.class);
-        task.onlyIf(element -> gitRepositoryProperties.isMasterBranch());
+        task.onlyIf(element -> currentBranch.isMaster());
         task.setGroup("publishing");
         task.setDescription("Publishes README.md to confluence");
     }

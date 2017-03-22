@@ -5,7 +5,9 @@ import org.gradle.api.Project;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
 import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
+import ru.yandex.money.gradle.plugins.library.helpers.BranchName;
 import ru.yandex.money.gradle.plugins.library.helpers.GitRepositoryProperties;
+import ru.yandex.money.gradle.plugins.library.helpers.TagName;
 import ru.yandex.money.gradle.plugins.library.readme.ReadmePlugin;
 
 import java.io.File;
@@ -61,16 +63,20 @@ public class LibraryProjectPlugin implements Plugin<Project> {
     }
 
     /**
-     * Определяет допустимость использования в проекте SNAPSHOT-репозиториев
+     * Определяет допустимость использования в проекте SNAPSHOT-репозиториев на основании текущей git-ветки
      *
      * @param projectDir корневая папка текущего проекта
      * @return true, если допустимо, false - иначе
      */
     private boolean canConsumeSnapshots(File projectDir) {
         GitRepositoryProperties properties = new GitRepositoryProperties(projectDir.getAbsolutePath());
-        return !properties.isMasterBranch()
-            && !properties.isDevBranch()
-            && !properties.isReleaseBranch()
-            && !properties.isReleaseTag();
+        BranchName currentBranch = properties.getCurrentBranchName();
+        TagName currentTag = properties.getTagNameOnHead();
+
+        return !currentBranch.isMaster()
+            && !currentBranch.isDev()
+            && !currentBranch.isRelease()
+            && !currentBranch.isTagRelease()
+            && !currentTag.isRelease();
     }
 }
