@@ -8,6 +8,7 @@ import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlug
 import ru.yandex.money.gradle.plugins.library.helpers.GitRepositoryProperties;
 import ru.yandex.money.gradle.plugins.library.readme.ReadmePlugin;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -40,7 +41,6 @@ public class LibraryProjectPlugin implements Plugin<Project> {
      * Добавляем в проект все репозитории, нужные для получения зависимостей.
      */
     private void configureRepositories(Project project) {
-        RepositoryHandler repositories = project.getRepositories();
         Stream<String> repositoriesToApply = Stream.of(
                 "http://nexus.yamoney.ru/content/repositories/central/",
                 "http://nexus.yamoney.ru/content/repositories/releases/",
@@ -48,16 +48,29 @@ public class LibraryProjectPlugin implements Plugin<Project> {
                 "http://nexus.yamoney.ru/content/repositories/spp-releases/"
         );
 
-        GitRepositoryProperties properties = new GitRepositoryProperties(project.getProjectDir().getAbsolutePath());
-        if (!properties.isMasterBranch() && !properties.isDevBranch() && !properties.isReleaseBranch()) {
+        if (canConsumeSnapshots(project.getProjectDir())) {
             repositoriesToApply = Stream.concat(repositoriesToApply, Stream.of(
                     "http://nexus.yamoney.ru/content/repositories/snapshots/",
                     "http://nexus.yamoney.ru/content/repositories/spp-snapshots/"
             ));
         }
 
-        repositoriesToApply.map(repoUrl -> repositories.maven(mavenArtifactRepository -> mavenArtifactRepository.setUrl(repoUrl)))
-                .forEach(repositories::add);
+        RepositoryHandler repositories = project.getRepositories();
+        repositoriesToApply.map(repoUrl -> repositories.maven(mavenRepository -> mavenRepository.setUrl(repoUrl)))
+                           .forEach(repositories::add);
+    }
 
+    /**
+     * Определяет допустимость использования в проекте SNAPSHOT-репозиториев
+     *
+     * @param projectDir корневая папка текущего проекта
+     * @return true, если допустимо, false - иначе
+     */
+    private boolean canConsumeSnapshots(File projectDir) {
+        GitRepositoryProperties properties = new GitRepositoryProperties(projectDir.getAbsolutePath());
+        return !properties.isMasterBranch()
+            && !properties.isDevBranch()
+            && !properties.isReleaseBranch()
+            && !properties.isReleaseTag();
     }
 }

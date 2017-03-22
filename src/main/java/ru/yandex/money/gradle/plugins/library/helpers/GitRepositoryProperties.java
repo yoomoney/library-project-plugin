@@ -38,11 +38,12 @@ public class GitRepositoryProperties {
      * @return true, если является, false - если нет.
      */
     public boolean isMasterBranch() {
+        String name = getCurrentBranchName();
         return getCurrentBranchName().equalsIgnoreCase(MASTER_BRANCH_NAME);
     }
 
     /**
-     * Показывает, является ли текущая ветра dev веткой или нет.
+     * Показывает, является ли текущая ветка dev веткой или нет.
      *
      * @return true, если является, false - если нет.
      */
@@ -51,12 +52,21 @@ public class GitRepositoryProperties {
     }
 
     /**
-     * Показывает, является ли текущая ветра релизной или нет.
+     * Показывает, является ли текущая ветка релизной или нет.
      *
      * @return true, если является, false - если нет.
      */
     public boolean isReleaseBranch() {
         return RELEASE_BRANCH_PATTERN.matcher(getCurrentBranchName()).find();
+    }
+
+    /**
+     * Показывает, содержит ли текущая ветка релизный тэг
+     *
+     * @return true, если содержит, false - если нет.
+     */
+    public boolean isReleaseTag() {
+        return GitTag.fromCurrentBranch(grgit).isRelease() || GitTag.fromHead().isRelease();
     }
 
     /**
@@ -67,5 +77,4 @@ public class GitRepositoryProperties {
     public String getCurrentBranchName() {
         return grgit.getBranch().getCurrent().getName();
     }
-
 }
