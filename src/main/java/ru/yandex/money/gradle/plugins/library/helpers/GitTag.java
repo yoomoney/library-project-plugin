@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  */
 class GitTag {
     private static final String TAGS_PREFIX = "tags/";
-    private static final Pattern RELEASE_TAG_NAME_FORMAT = Pattern.compile("(\\d+\\.\\d+\\.\\d+)(\\.\\d+)?");
+    private static final Pattern RELEASE_TAG_NAME_FORMAT = Pattern.compile("\\d+\\.\\d+\\.\\d+(\\.\\d+)?");
     private final String name;
 
     /**
