@@ -5,6 +5,7 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPlugin;
+import ru.yandex.money.gradle.plugins.library.helpers.BranchName;
 import ru.yandex.money.gradle.plugins.library.helpers.GitRepositoryProperties;
 
 /**
@@ -35,10 +36,11 @@ public class CheckChangelogPlugin implements Plugin<Project> {
 
     private Task addCheckChangelogTask(Project project) {
         CheckChangelogTask task = project.getTasks().create(CHECK_CHANGELOG_TASK_NAME, CheckChangelogTask.class);
+        BranchName currentBranch = gitRepositoryProperties.getCurrentBranchName();
         task.onlyIf(element ->
-                !gitRepositoryProperties.isMasterBranch() &&
-                !gitRepositoryProperties.isReleaseBranch() &&
-                !gitRepositoryProperties.isDevBranch());
+                !currentBranch.isMaster() &&
+                !currentBranch.isRelease() &&
+                !currentBranch.isDev());
         task.setGroup(CHECK_CHANGELOG_TASK_GROUP);
         task.setDescription(String.format("Check description for current release version in file %s", CheckChangelogTask.CHANGELOG_FILE_NAME));
         return task;
