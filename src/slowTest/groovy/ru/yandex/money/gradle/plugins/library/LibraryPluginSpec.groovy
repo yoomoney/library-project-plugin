@@ -15,7 +15,7 @@ import ru.yandex.money.gradle.plugins.library.readme.PublishReadmeTask
  */
 class LibraryPluginSpec extends AbstractPluginSpec {
 
-    def "check that all custom tasks exist"() {
+    def "проверяем, что таски плагина определены и запускаются"() {
         def expectedTasks = [PublishReadmeTask.TASK_NAME, CheckChangelogPlugin.CHECK_CHANGELOG_TASK_NAME,
                              CheckDependenciesPlugin.CHECK_DEPENDENCIES_TASK_NAME]
 
@@ -28,7 +28,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         })
     }
 
-    def 'check that when current branch is master then snapshot repositories are not defined'() {
+    def 'если имя текущей ветки равно master, тогда SNAPSHOT-репозитории НЕ должны быть включены в проект'() {
         given:
         def project = createProjectWithDependencyManagement()
 
@@ -39,7 +39,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
     }
 
-    def 'check that when current branch is dev then snapshot repositories are not defined'() {
+    def 'если имя текущей ветки равно dev, тогда SNAPSHOT-репозитории НЕ должны быть включены в проект'() {
         given:
         checkoutNewBranch('dev')
         def project = createProjectWithDependencyManagement()
@@ -51,7 +51,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
     }
 
-    def 'check that when current branch is release then snapshot repositories are not defined'() {
+    def 'если имя текущей ветки начинается с release/, тогда SNAPSHOT-репозитории НЕ должны быть включены в проект'() {
         given:
         checkoutNewBranch('release/foo-1.1.1')
         def project = createProjectWithDependencyManagement()
@@ -63,7 +63,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
     }
 
-    def 'check that when current branch is tags-named-branch than snapshot repositories are not defined'() {
+    def 'если имя текущей ветки имеет формат tag/N.N.N, тогда SNAPSHOT-репозитории НЕ должны быть включены в проект'() {
         given:
         checkoutNewBranch('tags/1.1.1')
         def project = createProjectWithDependencyManagement()
@@ -75,7 +75,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
     }
 
-    def 'check that when there is release tag on current branch than snapshot repositories are not defined'() {
+    def 'если в текущей ветке для последнего коммита определен релизный tag, тогда SNAPSHOT-репозитории НЕ должны быть включены в проект'() {
         given:
         createTag('1.1.1')
         def project = createProjectWithDependencyManagement()
@@ -87,7 +87,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
     }
 
-    def 'check that when HEAD refers to release-branch than snapshot repositories are not defined'() {
+    def 'если HEAD-указатель ссылается на релизную ветку, тогда SNAPSHOT-репозитории НЕ должны быть включены в проект'() {
         given:
         checkoutNewBranch('release/some')
         checkoutNewBranch('other')
@@ -102,7 +102,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
     }
 
-    def 'check that when current branch is non-release-related than snapshot repositories are defined'() {
+    def 'если текущая ветка является рабочей, тогда SNAPSHOT-репозитории должны быть включены в проект'() {
         given:
         checkoutNewBranch('feature/SOME-0000')
         def project = createProjectWithDependencyManagement()
@@ -114,7 +114,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).any({ it.contains("snapshot") })
     }
 
-    def 'check that when HEAD refers to non-release-branch than snapshot repositories are defined'() {
+    def 'если HEAD-указатель ссылается на рабочую ветку, тогда SNAPSHOT-репозитории должны быть включены в проект'() {
         given:
         checkoutNewBranch('feature/SOME-0000')
         checkoutNewBranch('other')
