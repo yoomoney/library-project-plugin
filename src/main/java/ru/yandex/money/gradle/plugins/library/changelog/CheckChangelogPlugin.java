@@ -38,7 +38,7 @@ public class CheckChangelogPlugin implements Plugin<Project> {
         CheckChangelogTask task = project.getTasks().create(CHECK_CHANGELOG_TASK_NAME, CheckChangelogTask.class);
         BranchName currentBranch = gitRepositoryProperties.getCurrentBranchName();
         task.onlyIf(element ->
-                !currentBranch .isMaster() &&
+                !currentBranch.isMaster() &&
                 !currentBranch.isRelease() &&
                 !currentBranch.isDev());
         task.setGroup(CHECK_CHANGELOG_TASK_GROUP);
