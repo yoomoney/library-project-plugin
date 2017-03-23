@@ -3,6 +3,9 @@ package ru.yandex.money.gradle.plugins.library.helpers;
 import java.util.regex.Pattern;
 
 /**
+ * Предоставляет информацию об имени ветки, в частности, является ли ветка master-веткой, dev-веткой,
+ * релизной веткой или рабочей веткой
+ *
  * @author Konstantin Novokreshchenov (knovokresch@yamoney.ru)
  * @since 22.03.2017
  */
@@ -14,6 +17,11 @@ public class BranchName {
 
     private final String name;
 
+    /**
+     * Конструктор класса
+     *
+     * @param name имя ветки
+     */
     BranchName(String name) {
         this.name = name;
     }
