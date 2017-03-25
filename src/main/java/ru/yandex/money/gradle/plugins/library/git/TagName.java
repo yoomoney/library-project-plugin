@@ -1,4 +1,4 @@
-package ru.yandex.money.gradle.plugins.library.helpers;
+package ru.yandex.money.gradle.plugins.library.git;
 
 import java.util.regex.Pattern;
 

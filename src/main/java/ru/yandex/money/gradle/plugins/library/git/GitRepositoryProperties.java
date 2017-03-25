@@ -1,4 +1,4 @@
-package ru.yandex.money.gradle.plugins.library.helpers;
+package ru.yandex.money.gradle.plugins.library.git;
 
 import org.ajoberstar.grgit.Commit;
 import org.ajoberstar.grgit.Grgit;
