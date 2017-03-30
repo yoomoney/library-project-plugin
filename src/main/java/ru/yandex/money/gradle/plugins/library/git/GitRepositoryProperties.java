@@ -45,13 +45,12 @@ public class GitRepositoryProperties {
      *
      * @return имя тега
      */
-    public TagName getTagNameOnHead() {
+    public Optional<TagName> getTagNameOnHead() {
         Commit head = grgit.head();
         List<Tag> tags = new TagListOp(grgit.getRepository()).call();
         Optional<Tag> tagOnHead = tags.stream()
                                       .filter(tag -> tag.getCommit().getId().equals(head.getId()))
                                       .findFirst();
-
-        return tagOnHead.isPresent() ? new TagName(tagOnHead.get().getName()) : new TagName("");
+        return tagOnHead.map(tag -> new TagName(tag.getName()));
     }
 }

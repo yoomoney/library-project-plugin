@@ -15,6 +15,7 @@ import ru.yandex.money.gradle.plugins.library.release.jira.JiraReleasePlugin;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -75,12 +76,19 @@ public class LibraryProjectPlugin implements Plugin<Project> {
     private boolean canConsumeSnapshots(File projectDir) {
         GitRepositoryProperties properties = new GitRepositoryProperties(projectDir.getAbsolutePath());
         BranchName currentBranch = properties.getCurrentBranchName();
-        TagName currentTag = properties.getTagNameOnHead();
+        Optional<TagName> currentTag = properties.getTagNameOnHead();
 
-        return !currentBranch.isMaster()
-            && !currentBranch.isDev()
-            && !currentBranch.isRelease()
-            && !currentBranch.isTagRelease()
-            && !currentTag.isRelease();
+        return !isReleaseRelated(currentBranch) && !isReleaseRelated(currentTag);
+    }
+
+    private static boolean isReleaseRelated(BranchName branchName) {
+        return branchName.isMaster()
+            || branchName.isDev()
+            || branchName.isRelease()
+            || branchName.isTagRelease();
+    }
+
+    private static boolean isReleaseRelated(Optional<TagName> tag) {
+        return tag.map(TagName::isRelease).orElse(false);
     }
 }
