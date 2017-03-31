@@ -1,18 +1,15 @@
+apply from: 'http://jenkins-dev.yamoney.ru/build-scripts/backend-platform/build-common-without-plugins.gradle'
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'groovy'
-apply plugin: 'maven-publish'
-
-apply from: 'http://jenkins-dev.yamoney.ru/build-scripts/backend-platform/build-git-flow.gradle'
-apply from: 'http://jenkins-dev.yamoney.ru/build-scripts/backend-platform/build-test.gradle'
-apply from: 'http://jenkins-dev.yamoney.ru/build-scripts/backend-platform/release/library-release.gradle'
-apply from: 'http://jenkins-dev.yamoney.ru/build-scripts/backend-platform/coverage.gradle'
 
 description 'Plugin with all features for development and usage of yamoney librares.'
-group 'ru.yandex.money.gradle.plugins'
+
+//noinspection GroovyUnusedAssignment
+groupIdSuffix = "gradle.plugins"
+//noinspection GroovyUnusedAssignment
+artifactID = "yamoney-library-project-plugin"
 
 repositories {
-    maven { url 'http://nexus.yamoney.ru/content/repositories/central/' }
-    maven { url 'http://nexus.yamoney.ru/content/repositories/releases/' }
     maven { url 'http://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
 }
 
@@ -35,7 +32,7 @@ dependencies {
             'org.ajoberstar:gradle-git:1.5.0',
             'ru.yandex.money.common:yamoney-doc-publishing:1.0.1',
             'ru.yandex.money.gradle.plugins:yamoney-check-changelog-plugin:1.0.0',
-            'ru.yandex.money.gradle.plugins:yamoney-check-dependencies-plugin:2.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-check-dependencies-plugin:2.2.0',
             'ru.yandex.money.gradle.plugins:yamoney-jira-release-plugin:1.0.4',
             'ru.yandex.money.gradle.plugins:yamoney-publish-readme-plugin:1.0.0',
             'io.spring.gradle:dependency-management-plugin:1.0.1.RELEASE'
@@ -49,38 +46,12 @@ dependencies {
     }
 }
 
-jar {
-    baseName "yamoney-library-project-plugin"
-}
-
-ext {
-    releaseRepoProxyUrl = 'http://nexus.yamoney.ru/content/repositories/releases/'
-    snapshotRepoProxyUrl = 'http://nexus.yamoney.ru/content/repositories/snapshots/'
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            artifactId jar.getBaseName()
-        }
-    }
-
-    repositories {
-        maven {
-            url project.version.endsWith('-SNAPSHOT') ? project.ext.snapshotRepoProxyUrl : project.ext.releaseRepoProxyUrl
-            credentials {
-                def nexusUser = System.getenv('NEXUS_USER')
-                if (nexusUser == "") {
-                    throw new IllegalStateException("Cannot publish plugins. Nexus user name is empty.'")
-                }
-                def nexusPassword = System.getenv('NEXUS_PASSWORD')
-                if (nexusPassword == "") {
-                    throw new IllegalStateException("Cannot publish plugins. Nexus user name is password.'")
-                }
-                username nexusUser
-                password nexusPassword
-            }
-        }
-    }
+// DANGER! Major versions conflicts!
+excludedVersionConflictLibraries = {
+    ['org.springframework:spring-beans',
+     'com.google.guava:guava',
+     'com.google.code.findbugs:jsr305',
+     'com.google.guava:guava',
+     'joda-time:joda-time',
+     'org.ow2.asm:asm']
 }
