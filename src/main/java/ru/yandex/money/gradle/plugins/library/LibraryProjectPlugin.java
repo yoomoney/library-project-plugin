@@ -4,6 +4,8 @@ import io.spring.gradle.dependencymanagement.DependencyManagementPlugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
+import org.gradle.api.logging.Logger;
+import org.gradle.api.logging.Logging;
 import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
 import ru.yandex.money.gradle.plugins.library.git.BranchName;
@@ -25,7 +27,6 @@ import java.util.stream.Stream;
  * @since 22.12.2016
  */
 public class LibraryProjectPlugin implements Plugin<Project> {
-
     /**
      * Для подключения новой функциональности, достаточно добавить плагин в этот список.
      * Все остальные настройки должны делаться в самом добавляемом плагине.
@@ -56,6 +57,7 @@ public class LibraryProjectPlugin implements Plugin<Project> {
         );
 
         if (canConsumeSnapshots(project.getProjectDir())) {
+            System.out.println("Using snapshot repositories");
             repositoriesToApply = Stream.concat(repositoriesToApply, Stream.of(
                     "http://nexus.yamoney.ru/content/repositories/snapshots/",
                     "http://nexus.yamoney.ru/content/repositories/spp-snapshots/"
