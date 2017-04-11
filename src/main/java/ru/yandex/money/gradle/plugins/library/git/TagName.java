@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * @since 21.03.2017
  */
 public class TagName {
-    private static final Pattern RELEASE_TAG_NAME_FORMAT = Pattern.compile("\\d+\\.\\d+\\.\\d+(\\.\\d+)?");
+    private static final Pattern RELEASE_TAG_NAME_FORMAT = Pattern.compile("((\\w+-)+)?\\d+\\.\\d+\\.\\d+(\\.\\d+)?");
     private final String name;
 
     TagName(String name) {

@@ -75,6 +75,18 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
     }
 
+    def 'если имя текущей ветки имеет формат tag/foo-bar-N.N.N, тогда SNAPSHOT-репозитории НЕ должны быть включены в проект'() {
+        given:
+        checkoutNewBranch('tags/calypso-latin-1.1.1')
+        def project = createProjectWithDependencyManagement()
+
+        when:
+        project.apply plugin: 'yamoney-library-project-plugin'
+
+        then:
+        getMavenRepositoryUrls(project).every({ !it.contains("snapshot") })
+    }
+
     def 'если в текущей ветке для последнего коммита определен релизный tag, тогда SNAPSHOT-репозитории НЕ должны быть включены в проект'() {
         given:
         createTag('1.1.1')
