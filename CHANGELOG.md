@@ -2,6 +2,10 @@
 
 ## NEXT_VERSION
 
+## [1.1.3]() (19-04-2017)
+
+Обновлена версия плагина check-dependencies-plugin на 2.2.2
+
 ## [1.1.2]() (14-04-2017)
 
 Обновлена версия плагина check-dependencies-plugin на 2.2.1
