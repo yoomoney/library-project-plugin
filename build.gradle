@@ -33,7 +33,7 @@ dependencies {
             'ru.yandex.money.common:yamoney-doc-publishing:1.0.1',
             'ru.yandex.money.gradle.plugins:yamoney-check-changelog-plugin:1.0.0',
             'ru.yandex.money.gradle.plugins:yamoney-check-dependencies-plugin:2.2.2',
-            'ru.yandex.money.gradle.plugins:yamoney-jira-release-plugin:1.0.4',
+            'ru.yandex.money.gradle.plugins:yamoney-jira-release-plugin:1.2.0',
             'ru.yandex.money.gradle.plugins:yamoney-publish-readme-plugin:1.0.0',
             'io.spring.gradle:dependency-management-plugin:1.0.1.RELEASE'
 
