@@ -2,6 +2,10 @@
 
 ## NEXT_VERSION
 
+## [1.2.0]() (03-08-2017)
+
+Изменена версия check-dependencies-plugin на 2.3.0
+
 ## [1.1.4]() (16-05-2017)
 
 Изменена версия gradle-release-plugin на 1.2.0
