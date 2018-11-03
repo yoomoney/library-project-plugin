@@ -1,0 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
+        maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
+
+        dependencies {
+            classpath 'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:2.+'
+        }
+    }
+}
+
+apply plugin: ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin
+
+emailForGitExpiredBranches {
+    emailHost = 'mail.yamoney.ru'
+    emailPort = 25
+    emailAuthUser = System.getenv("MAIL_USER")
+    emailAuthPassword = System.getenv("MAIL_PASSWORD")
+}

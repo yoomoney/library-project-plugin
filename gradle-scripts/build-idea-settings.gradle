@@ -1,0 +1,45 @@
+apply plugin: 'idea'
+
+ext {
+    if (!project.hasProperty("springContexts")) {
+        springContexts = [""]
+    }
+}
+
+
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.optional]
+        downloadJavadoc = true
+        downloadSources = true
+        inheritOutputDirs = true
+        excludeDirs -= file(buildDir)
+        def toExclude = ["classes", "docs", "jacoco", "deb-templates", "publications", "out", "tmp",
+                         "dependency-cache", "resources", "libs", "test-results", "test-reports", "reports",
+                         "production", "test", "findbugsReports", "debSource", "debSourceDeploy", "debian",
+                         "distributions", "bindings-common", "schema", "checkstyleReports", "../build"]
+        toExclude.each { excludeDirs += file("${buildDir}/${it}") }
+        iml.withXml { xmlFile ->
+            def module = xmlFile.asNode()
+            if (!springContexts.isEmpty()) {
+                customizeSpringContextMappings(module, springContexts)
+            }
+
+        }
+    }
+}
+
+def customizeSpringContextMappings(iml, contexts) {
+    def facetManagerComponent = iml.appendNode('component', [name: 'FacetManager'])
+    def fileset = facetManagerComponent.appendNode("facet", [type: 'Spring', name: 'Spring'])
+            .appendNode("configuration").appendNode("fileset", [id: 'fileset', name: 'Spring Application Context', removed: 'false'])
+    contexts.each { ctxFile ->
+        def contextPath = ""
+        if (ctxFile.endsWith(".xml")) {
+            contextPath = "src/main/resources/META-INF/${ctxFile}";
+        } else /* Java config */ {
+            contextPath = "src/main/java/${ctxFile}"
+        }
+        fileset.appendNode("file", "file://\$MODULE_DIR\$/${contextPath}")
+    }
+}

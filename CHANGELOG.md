@@ -2,6 +2,51 @@
 
 ## NEXT_VERSION
 
+## [2.0.0]() (03-11-2018)
+
+Скрипты build-scripts/backend-platform/build-common-without-plugins.gradle и все включаемые скрипты перенесены 
+в папку gradle-scripts и публикуются в zip артефакт в целях версионирования.
+
+Минимальная конфигурация выглядит так:
+
+build.gradle:
+```groovy
+buildscript {
+    apply from: 'project.gradle', to: buildscript
+    copy {
+        from zipTree(buildscript.configurations.classpath.files.iterator().next())
+        into 'tmp/gradle-scripts'
+    }
+}
+apply from: 'tmp/gradle-scripts/_root.gradle'
+
+groupIdSuffix = "common"
+artifactID = "yamoney-json-utils"
+
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+}
+```
+
+project.gradle:
+```groovy
+repositories {
+    maven { url 'https://nexus.yamoney.ru/content/repositories/snapshots/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
+
+    dependencies {
+        def prjVersion = '2.+'
+        def depsVersion = '3.+'
+        classpath group: 'ru.yandex.money.gradle.plugins', name: 'yamoney-library-project-plugin', version: prjVersion, ext: 'zip'
+        classpath 'ru.yandex.money.gradle.plugins:yamoney-library-project-plugin:' + prjVersion
+        classpath group: 'ru.yandex.money.platform', name: 'yamoney-libraries-dependencies', version: depsVersion, ext: 'zip'
+    }
+}
+```
+
 ## [1.2.0]() (03-08-2017)
 
 Изменена версия check-dependencies-plugin на 2.3.0

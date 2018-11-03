@@ -1,8 +1,23 @@
-apply from: 'http://jenkins-dev.yamoney.ru/build-scripts/backend-platform/build-common-without-plugins.gradle'
+apply from: 'gradle-scripts/build-utils.gradle'
+apply from: 'gradle-scripts/build-git-flow.gradle'
+apply from: 'gradle-scripts/build-jar.gradle'
+apply from: 'gradle-scripts/build-test.gradle'
+apply from: 'gradle-scripts/coverage.gradle'
+apply from: 'gradle-scripts/build-check-version.gradle'
+apply from: 'gradle-scripts/check-dependencies.gradle'
+apply from: 'gradle-scripts/show-dependencies.gradle'
+apply from: 'gradle-scripts/build-publishing.gradle'
+apply from: 'gradle-scripts/build-idea-settings.gradle'
+apply from: 'gradle-scripts/manual-release.gradle'
+apply from: 'gradle-scripts/library-release.gradle'
+apply from: 'gradle-scripts/checkstyle.gradle'
+apply from: 'gradle-scripts/findbugs.gradle'
+apply from: 'gradle-scripts/compile-check.gradle'
+apply from: 'gradle-scripts/git-expired-branches.gradle'
+apply from: 'gradle-scripts/snapshot-dependencies.gradle'
+
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'groovy'
-
-description 'Plugin with all features for development and usage of yamoney librares.'
 
 //noinspection GroovyUnusedAssignment
 groupIdSuffix = "gradle.plugins"
@@ -22,7 +37,20 @@ buildscript {
         dependencies {
             classpath 'org.ajoberstar:gradle-git:1.5.0'
             classpath 'ru.yandex.money.common:yamoney-doc-publishing:1.0.1'
-            classpath 'net.researchgate:gradle-release:2.3.0'
+            classpath 'net.researchgate:gradle-release:2.4.0'
+        }
+    }
+}
+
+task zipContent(type: Zip) {
+    from('gradle-scripts') {
+        include "*"
+    }
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact zipContent
         }
     }
 }
@@ -31,11 +59,11 @@ dependencies {
     compile localGroovy(),
             'org.ajoberstar:gradle-git:1.5.0',
             'ru.yandex.money.common:yamoney-doc-publishing:1.0.1',
+            'net.researchgate:gradle-release:2.4.0',
             'ru.yandex.money.gradle.plugins:yamoney-check-changelog-plugin:1.0.0',
             'ru.yandex.money.gradle.plugins:yamoney-check-dependencies-plugin:2.3.0',
-            'ru.yandex.money.gradle.plugins:yamoney-jira-release-plugin:1.2.0',
             'ru.yandex.money.gradle.plugins:yamoney-publish-readme-plugin:1.0.0',
-            'io.spring.gradle:dependency-management-plugin:1.0.1.RELEASE'
+            'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
 
     testCompile gradleTestKit(),
             "ru.yandex.money.common:yamoney-test-utils:5.0.4",
@@ -46,7 +74,6 @@ dependencies {
     }
 }
 
-// DANGER! Major versions conflicts!
 excludedVersionConflictLibraries = {
     ['org.springframework:spring-beans',
      'com.google.guava:guava',

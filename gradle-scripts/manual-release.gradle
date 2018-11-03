@@ -1,0 +1,54 @@
+/**
+ * Скрипт для выполнения ручного релиза средствами релизного плагина.
+ *
+ * Накладывает ограничения на бранч из которого можно выпустить релиз.
+ *
+ * Usage:
+ *
+ *    apply from: 'manual-release.gradle'
+ */
+apply plugin: 'net.researchgate.release'
+
+def hasReleaseChanges = {
+    return !repo.log(maxCommits: 1).get(0).shortMessage.contains("[Gradle Release Plugin]")
+}
+
+if (!project.tasks.findByName('checkReleaseStateForManualRelease')) {
+    task checkReleaseStateForManualRelease {
+        doLast {
+            def isForceRelease = project.hasProperty("forceRelease") && project.getProperty("forceRelease") == "true"
+            if (isForceRelease) {
+                logger.lifecycle("Force release action, continue")
+            } else if (hasReleaseChanges()) {
+                logger.lifecycle("Release has changes, continue")
+            } else {
+                String skipMessage = "Release has no changes, skip task"
+                logger.lifecycle(skipMessage)
+                tasks.each {
+                    try {
+                        it.enabled = false
+                    } catch (e) {
+                    }
+                }
+                throw new StopExecutionException(skipMessage)
+            }
+
+            if (!project.ext.isReleaseBranch && !project.ext.isMasterBranch) {
+                throw new java.lang.IllegalStateException("You must release in master branch or in release branch! " +
+                        "Current branch is ${project.ext.branchName}")
+            }
+        }
+    }
+}
+
+release {
+    git {
+        requireBranch = ''
+    }
+}
+
+tasks.each {
+    if (it.name == 'release') {
+        it.dependsOn checkReleaseStateForManualRelease
+    }
+}

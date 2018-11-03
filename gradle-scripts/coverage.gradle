@@ -1,0 +1,96 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: "jacoco"
+
+jacoco {
+    toolVersion = "0.7.7.201606060606"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+task jacocoAggReport(type: JacocoReport) {
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories = files(sourceSets.main.output)
+    executionData = files()
+    doFirst {
+        def reportDir = file('target/jacoco')
+        if (reportDir.exists()) {
+            executionData = files(reportDir.listFiles())
+        }
+    }
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    onlyIf = {
+        true
+    }
+}
+
+task checkCoverage {
+    doLast {
+        def coveragePropertiesFile = file("${project.projectDir.getAbsolutePath()}/coverage.properties")
+        if (!coveragePropertiesFile.exists() || !coveragePropertiesFile.isFile()) {
+            logger.warn('Have not found coverage.properties, skipping check.')
+            return
+        }
+
+        def jacocoTestReport = file("${project.projectDir.getAbsolutePath()}/target/reports/jacoco/jacocoAggReport/jacocoAggReport.xml")
+        if (!jacocoTestReport.exists()) {
+            logger.warn('Have not found jacocoAggReport.xml, skipping check.')
+            return
+        }
+
+        Properties coverageLimits = new Properties()
+        coverageLimits.load(new FileInputStream(coveragePropertiesFile))
+
+        def parser = new XmlSlurper()
+        parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+        parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+
+        def actualCoverageData = parser.parse(jacocoTestReport)
+        def isLimitsCheckPass = true
+        def errorMsgs = ""
+        def currentCoverageInfo = "Current coverage:"
+        def newCoverage = "\n"
+        actualCoverageData.counter.each { counter ->
+            def type = counter.@type.text().toLowerCase()
+            if (type == "line" || type == "complexity") {
+                return
+            }
+            def coverageLimit = coverageLimits[type]
+            if (coverageLimit == null) {
+                throw new GradleException("Not found settings in coverage.properties for: type=$type")
+            }
+            def limit = Double.parseDouble(coverageLimit)
+            def covered = Double.parseDouble(counter.@covered.text())
+            Double coveragePercent = (100 * covered / (Double.parseDouble(counter.@missed.text()) + covered)).round(2)
+            currentCoverageInfo += "\n[$type]: actual=${coveragePercent}, limit=$limit"
+            newCoverage += "$type=${coveragePercent.intValue()}\n"
+            if (coveragePercent < limit) {
+                isLimitsCheckPass = false
+                errorMsgs += "\nNeed more tests! Not enough coverage for: type=$type, actual=${coveragePercent}, limit=$limit"
+            }
+            if (coveragePercent > limit + 3) {
+                isLimitsCheckPass = false
+                errorMsgs += "\nGreat! Coverage gone up, increase it to ${coveragePercent.intValue()} in coverage.properties and you're good to go: type=$type, actual=${coveragePercent}, limit=$limit"
+            }
+        }
+        logger.lifecycle(currentCoverageInfo)
+        if (!isLimitsCheckPass) {
+            logger.info("New coverage.properties: $newCoverage")
+            throw new GradleException("Coverage limit failure: $errorMsgs")
+        } else {
+            logger.info('Coverage check successfully passed')
+        }
+    }
+}
+jacocoAggReport.dependsOn(check)
+jacocoAggReport.dependsOn(slowTest)
+checkCoverage.dependsOn(jacocoAggReport)
