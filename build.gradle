@@ -4,15 +4,11 @@ apply from: 'gradle-scripts/build-jar.gradle'
 apply from: 'gradle-scripts/build-test.gradle'
 apply from: 'gradle-scripts/coverage.gradle'
 apply from: 'gradle-scripts/build-check-version.gradle'
-apply from: 'gradle-scripts/check-dependencies.gradle'
 apply from: 'gradle-scripts/show-dependencies.gradle'
 apply from: 'gradle-scripts/build-publishing.gradle'
 apply from: 'gradle-scripts/build-idea-settings.gradle'
 apply from: 'gradle-scripts/manual-release.gradle'
 apply from: 'gradle-scripts/library-release.gradle'
-apply from: 'gradle-scripts/checkstyle.gradle'
-apply from: 'gradle-scripts/findbugs.gradle'
-apply from: 'gradle-scripts/compile-check.gradle'
 apply from: 'gradle-scripts/git-expired-branches.gradle'
 apply from: 'gradle-scripts/snapshot-dependencies.gradle'
 
@@ -42,18 +38,13 @@ buildscript {
     }
 }
 
-task zipContent(type: Zip) {
-    from('gradle-scripts') {
-        include "*"
+jar {
+    from(projectDir.absolutePath) {
+        include "gradle-scripts/**/*"
+        into "/"
     }
 }
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact zipContent
-        }
-    }
-}
+
 
 dependencies {
     compile localGroovy(),

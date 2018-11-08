@@ -5,9 +5,6 @@
  *  ext.showInnerDependencies - включает показ доступных новых версий внутренних зависимостей (ru.yandex.money)
  *  По умолчанию true.
  *
- *  ext.showOuterDependencies - включает показ доступных новых версий внешних зависимостей
- *  По умолчанию false.
- *
  *  Usage:
  *
  *    apply from: 'show-dependencies.gradle'
@@ -21,13 +18,6 @@ boolean isShowInnerDependencies() {
         return true;
     }
     return project.ext.isFeatureBranch && project.ext.showInnerDependencies
-}
-
-boolean isShowOuterDependencies() {
-    if (!project.hasProperty('showOuterDependencies')) {
-        return false;
-    }
-    return project.ext.isFeatureBranch && project.ext.showOuterDependencies
 }
 
 ext {
@@ -82,43 +72,6 @@ ext {
         logger.lifecycle("====================================================")
     }
 
-    printOuterDependencies = { String groupIdFilter ->
-        if (gradle.startParameter.offline == true) {
-            logger.lifecycle("Skipping printOuterDependenciesVersions. Gradle mode is offline.")
-            return
-        }
-
-        if (!isShowOuterDependencies()) {
-            logger.info("Skipping printOuterDependenciesVersions.")
-            return
-        }
-
-        logger.lifecycle("===============New outer dependencies===============")
-
-        def checked = [:]
-        allprojects {
-            configurations.each { configuration ->
-                Map resolvedVersionMap = new HashMap()
-                configuration.getResolvedConfiguration().getResolvedArtifacts().each {
-                    resolvedVersionMap.put(it.getName(), it.getModuleVersion().getId().getVersion())
-                }
-
-                configuration.allDependencies.each { dependency ->
-                    if (checked[dependency]) {
-                        return
-                    }
-                    checked[dependency] = true
-
-                    if (dependency.group == null || dependency.group.startsWith('ru.yandex.money')) {
-                        return
-                    }
-                    printLatestDependencyVersion(dependency, resolvedVersionMap.get(dependency.name))
-                }
-            }
-        }
-        logger.lifecycle("====================================================")
-    }
-
 }
 
 task printInnerDependenciesVersions {
@@ -127,14 +80,7 @@ task printInnerDependenciesVersions {
     }
 }
 
-task printOuterDependenciesVersions {
-    doLast {
-        project.ext.printOuterDependencies()
-    }
-}
-
 compileJava.dependsOn(printInnerDependenciesVersions)
-compileJava.dependsOn(printOuterDependenciesVersions)
 
 
 

@@ -25,25 +25,7 @@ import static java.lang.Math.min
 apply plugin: 'checkstyle'
 apply plugin: 'java'
 
-class DownloadCheckstyleFileTask extends DefaultTask {
-    @Input
-    String sourceUrl
-
-    @OutputFile
-    File target
-
-    @TaskAction
-    void download() {
-        new URL(sourceUrl).withInputStream { i -> target.withOutputStream { it << i } }
-    }
-}
-
-String defaultCheckstyleConfig = "$buildDir/tmp/checkstyle.xml"
-
-task downloadCheckstyleConfig(type: DownloadCheckstyleFileTask) {
-    sourceUrl = 'http://jenkins-dev.yamoney.ru/build-scripts/backend-platform/configs/checkstyle.xml'
-    target = file(defaultCheckstyleConfig)
-}
+String defaultCheckstyleConfig = "tmp/gradle-scripts/configs/checkstyle.xml"
 
 ext {
     if (!project.hasProperty("checkstyleEnabled")) {
@@ -78,17 +60,12 @@ checkstyle {
 }
 
 tasks.findAll { task -> task.name.contains('checkstyle') }*.onlyIf { project.checkstyleEnabled }
-tasks.findAll { task -> task.name.contains('downloadCheckstyleConfig') }*.onlyIf { project.checkstyleUseDefaultConfig }
 
 tasks.withType(Checkstyle) {
     reports {
         xml.enabled true
         html.enabled false
     }
-}
-
-tasks.withType(Checkstyle) {
-    it.dependsOn downloadCheckstyleConfig
 }
 
 def getCheckstyleLowerLimit = { int limit ->

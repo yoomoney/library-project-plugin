@@ -60,16 +60,8 @@ publishing {
         maven {
             url project.version.endsWith('-SNAPSHOT') ? project.ext.snapshotRepoProxyUrl : project.ext.releaseRepoProxyUrl
             credentials {
-                def nexusUser = System.getenv('NEXUS_USER')
-                if (nexusUser == "") {
-                    nexusUser = console.readLine('> Enter nexus user name: ')
-                }
-                def nexusPassword = System.getenv('NEXUS_PASSWORD')
-                if (nexusPassword == "") {
-                    nexusPassword = console.readLine('> Enter nexus password: ')
-                }
-                username nexusUser
-                password nexusPassword
+                username System.getenv('NEXUS_USER')
+                password System.getenv('NEXUS_PASSWORD')
             }
         }
     }
@@ -89,9 +81,9 @@ task storeVersion {
         try {
             File versionFile = new File(versionDir, filename)
             versionFile.text = content
-            logger.lifecycle("File with deb package version generated successfully into ${versionFile.getAbsolutePath()}")
+            logger.lifecycle("File with version generated successfully into ${versionFile.getAbsolutePath()}")
         } catch (Exception e) {
-            logger.lifecycle("Error occurred during storing version of deb package: '${e.getMessage()}'. SKIPPED")
+            logger.lifecycle("Error occurred during storing version: '${e.getMessage()}'. SKIPPED")
         }
     }
 

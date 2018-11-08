@@ -46,17 +46,18 @@ public class LibraryProjectPlugin implements Plugin<Project> {
      */
     private void configureRepositories(Project project) {
         Stream<String> repositoriesToApply = Stream.of(
-                "http://nexus.yamoney.ru/content/repositories/central/",
-                "http://nexus.yamoney.ru/content/repositories/releases/",
-                "http://nexus.yamoney.ru/content/repositories/thirdparty/",
-                "http://nexus.yamoney.ru/content/repositories/spp-releases/"
+                "https://nexus.yamoney.ru/content/repositories/central/",
+                "https://nexus.yamoney.ru/content/repositories/releases/",
+                "https://nexus.yamoney.ru/content/repositories/thirdparty/",
+                "https://nexus.yamoney.ru/content/repositories/spp-releases/",
+                "https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/"
         );
 
         if (canConsumeSnapshots(project.getProjectDir())) {
             System.out.println("Using snapshot repositories");
             repositoriesToApply = Stream.concat(repositoriesToApply, Stream.of(
-                    "http://nexus.yamoney.ru/content/repositories/snapshots/",
-                    "http://nexus.yamoney.ru/content/repositories/spp-snapshots/"
+                    "https://nexus.yamoney.ru/content/repositories/snapshots/",
+                    "https://nexus.yamoney.ru/content/repositories/spp-snapshots/"
             ));
         }
 

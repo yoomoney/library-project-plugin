@@ -14,8 +14,9 @@ build.gradle:
 buildscript {
     apply from: 'project.gradle', to: buildscript
     copy {
-        from zipTree(buildscript.configurations.classpath.files.iterator().next())
-        into 'tmp/gradle-scripts'
+        from zipTree(buildscript.configurations.classpath.files.find{ it.name.contains('library-project-plugin')})
+        into 'tmp'
+        include 'gradle-scripts/**'
     }
 }
 apply from: 'tmp/gradle-scripts/_root.gradle'
@@ -30,19 +31,20 @@ dependencies {
 
 project.gradle:
 ```groovy
+System.setProperty("platformLibraryProjectVersion", "2.+")
+System.setProperty("platformDependenciesVersion", "3.+")
+
 repositories {
-    maven { url 'https://nexus.yamoney.ru/content/repositories/snapshots/' }
     maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
     maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
     maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
     maven { url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
 
     dependencies {
-        def prjVersion = '2.+'
-        def depsVersion = '3.+'
-        classpath group: 'ru.yandex.money.gradle.plugins', name: 'yamoney-library-project-plugin', version: prjVersion, ext: 'zip'
-        classpath 'ru.yandex.money.gradle.plugins:yamoney-library-project-plugin:' + prjVersion
-        classpath group: 'ru.yandex.money.platform', name: 'yamoney-libraries-dependencies', version: depsVersion, ext: 'zip'
+        classpath 'ru.yandex.money.gradle.plugins:yamoney-library-project-plugin:' + 
+                System.getProperty("platformLibraryProjectVersion")
+        classpath group: 'ru.yandex.money.platform', name: 'yamoney-libraries-dependencies', 
+                version: System.getProperty("platformDependenciesVersion"), ext: 'zip'
     }
 }
 ```

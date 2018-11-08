@@ -60,21 +60,6 @@ ext {
         return maxVersion
     }
 
-    findProjectEverywhere = { String projName ->
-        return rootProject.allprojects.find({ it.name == projName })
-    }
-
-    getHostName = {
-        new ByteArrayOutputStream().withStream { h ->
-            def result = exec {
-                executable = 'hostname'
-                standardOutput = h
-            }
-            ext.hostname = h.toString().trim()
-        }
-        return ext.hostname
-    }
-
     getLimit = { String limitsFileName, String limitName ->
         def limitsFile = file("${project.projectDir.getAbsolutePath()}/$limitsFileName")
         if (!limitsFile.exists() || !limitsFile.isFile()) {

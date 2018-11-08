@@ -1,25 +1,3 @@
-ext.forbiddenLibraries = { ['ru.yandex.money.portal:yamoney-portal-common',
-                            'ru.yandex.money.common:calypso-deprecated-utils'] }
-
-// TODO: ждет окончания перевода приложений Калипсо
-//ext.forbiddenLibraries = { ['ru.yandex.money.portal',
-//                        'ru.yamoney.test',
-//                        'ru.yandex.money.common.calypso',
-//                        'ru.yamoney.calypso',
-//                        'ru.yandex.money.common:calypso-deprecated-utils'] }
-
-def applyBaseRules(DependencyResolveDetails details) {
-    def allowedLibraries = ['ru.yandex.money.portal:yamoney-bindings-common']
-    String artifactName = "$details.requested.group:$details.requested.name"
-    if (allowedLibraries.contains(artifactName)) {
-        return;
-    }
-    if (forbiddenLibraries().contains(artifactName) ||
-            forbiddenLibraries().contains(details.requested.group)) {
-        throw new IllegalStateException("Usage of " + artifactName + " is forbidden");
-    }
-}
-
 def applyApiRules(DependencyResolveDetails details) {
     if ("api" != project.ext.groupIdSuffix) {
         return;
@@ -34,7 +12,6 @@ configurations {
     all.each {
         it.resolutionStrategy {
             eachDependency { DependencyResolveDetails details ->
-                applyBaseRules(details)
                 applyApiRules(details)
             }
         }

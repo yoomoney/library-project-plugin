@@ -32,21 +32,7 @@ dependencies {
             'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 }
 
-
-class DownloadFindbugsFileTask extends DefaultTask {
-    @Input
-    String sourceUrl
-
-    @OutputFile
-    File target
-
-    @TaskAction
-    void download() {
-        new URL(sourceUrl).withInputStream { i -> target.withOutputStream { it << i } }
-    }
-}
-
-def findbugsDefaultExcludeFilterPath = "$buildDir/tmp/findbugs-exclude.xml"
+def findbugsDefaultExcludeFilterPath = "tmp/gradle-scripts/configs/findbugs-exclude.xml"
 
 ext {
 
@@ -73,11 +59,6 @@ ext {
     }
 }
 
-task downloadFindbugsExcludeFilter(type: DownloadFindbugsFileTask) {
-    sourceUrl = 'http://jenkins-dev.yamoney.ru/build-scripts/backend-platform/configs/findbugs-exclude.xml'
-    target = file(findbugsDefaultExcludeFilterPath)
-}
-
 findbugs {
     toolVersion = project.findbugsToolVersion
     sourceSets = [sourceSets.main]
@@ -96,12 +77,7 @@ tasks.withType(FindBugs) {
 
 }
 
-tasks.findAll { task -> task.name.equals('downloadFindbugsExcludeFilter') }*.onlyIf { project.findbugsUseDefaultExcludeFilter }
 tasks.findAll { task -> task.name.contains('findbugs') }*.onlyIf { project.findbugsEnabled }
-
-tasks.withType(FindBugs) {
-    it.dependsOn downloadFindbugsExcludeFilter
-}
 
 build.dependsOn findbugsMain
 

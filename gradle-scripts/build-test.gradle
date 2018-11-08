@@ -5,7 +5,6 @@ apply plugin: 'groovy'
 //noinspection GroovyAssignabilityCheck
 test {
     useTestNG()
-    exclude "**/Swagger.class"
     systemProperty "file.encoding", "UTF-8"
 
     options.parallel = 'tests'
@@ -13,7 +12,6 @@ test {
 }
 
 task testJunit(type: Test) {
-    exclude "**/Swagger.class"
     systemProperty "file.encoding", "UTF-8"
 }
 test.dependsOn testJunit
@@ -33,11 +31,6 @@ sourceSets {
         }
         resources.srcDir file('src/slowTest/resources')
     }
-
-    integrationTest {
-        java.srcDir file('src/integrationTest/java')
-        resources.srcDir file('src/integrationTest/resources')
-    }
 }
 
 //noinspection GroovyAssignabilityCheck
@@ -51,7 +44,6 @@ task slowTestTestNg(type: Test) {
     systemProperty "file.encoding", "UTF-8"
     options.parallel = 'tests'
     options.threadCount = 10
-    exclude "**/Swagger.class"
     if (gradle.gradleVersion >= "4.0") {
         testClassesDirs = sourceSets.slowTest.output.classesDirs
     } else {
@@ -62,44 +54,20 @@ task slowTestTestNg(type: Test) {
 
 task slowTest(type: Test) {
     systemProperty "file.encoding", "UTF-8"
-    exclude "**/Swagger.class"
     if (gradle.gradleVersion >= "4.0") {
         testClassesDirs = sourceSets.slowTest.output.classesDirs
     } else {
         testClassesDir = sourceSets.slowTest.output.classesDir
     }
     classpath = sourceSets.slowTest.runtimeClasspath
-
 }
 slowTest.dependsOn slowTestTestNg
-
-task integrationTest(type: Test) {
-    outputs.upToDateWhen { false }
-    def testSuite = file("${projectDir.getAbsolutePath()}/src/integrationTest/resources/integration-test-suite.xml")
-    useTestNG()
-    systemProperty "file.encoding", "UTF-8"
-    ignoreFailures = true
-    options.suites(testSuite)
-    if (gradle.gradleVersion >= "4.0") {
-        testClassesDirs = sourceSets.integrationTest.output.classesDirs
-    } else {
-        testClassesDir = sourceSets.integrationTest.output.classesDir
-    }
-    classpath = sourceSets.integrationTest.runtimeClasspath
-}
-
 
 tasks.withType(Test) {
     reports.junitXml.destination = file("${project.testResultsDir}/$name")
     reports.html.destination = file("${project.reporting.baseDir}/$name")
 }
 
-
-
 check.dependsOn.remove(slowTest)
 check.dependsOn.remove(slowTestTestNg)
-check.dependsOn.remove(integrationTest)
-
-
 check.dependsOn(compileSlowTestJava)
-check.dependsOn(compileIntegrationTestJava)

@@ -2,7 +2,6 @@ import java.text.SimpleDateFormat
 
 apply plugin: 'java'
 
-
 buildDir = 'target'
 archivesBaseName = archivesBaseName.replace('\\bmoney-', '')
 archivesBaseName = (archivesBaseName.startsWith('yamoney-')) ? archivesBaseName : 'yamoney-' + archivesBaseName
@@ -73,7 +72,7 @@ configurations.all {
 }
 
 task wrapper(type: Wrapper) {
-    distributionUrl 'https://nexus.yamoney.ru/content/repositories/thirdparty/org/gradle/gradle/2.10/gradle-2.10-all.zip'
+    distributionUrl 'https://nexus.yamoney.ru/content/repositories/http-proxy-services.gradle.org/distributions/gradle-4.10.2-all.zip'
 }
 
 
