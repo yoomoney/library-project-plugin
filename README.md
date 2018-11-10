@@ -1,30 +1,47 @@
 # library-plugin
-Плагин создан для упрощения сборки существующих yamoney библиотек и разработки новых.
+Плагин создан для упрощения сборки существующих библиотек и разработки новых.
 
 ## Подключение
-Для подключения в проект библиотеки этого плагина, нужно добавить в `build.gradle` библиотеки следующее:
+Для подключения в проект этого плагина, нужно добавить файл ```project.gradle```:
 ```groovy
-buildscript {
-    repositories {
-        maven { url 'http://nexus.yamoney.ru/content/repositories/thirdparty/' }
-        maven { url 'http://nexus.yamoney.ru/content/repositories/central/' }
-        maven { url 'http://nexus.yamoney.ru/content/repositories/releases/' }
-        maven { url 'http://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
-        mavenLocal()
-    }
+System.setProperty("platformLibraryProjectVersion", "2.+")
+System.setProperty("platformDependenciesVersion", "3.+")
+
+repositories {
+    maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
+
     dependencies {
-        classpath 'io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE'
-        classpath 'ru.yandex.money.gradle.plugins:yamoney-library-project-plugin:0.3.0'
+        classpath 'ru.yandex.money.gradle.plugins:yamoney-library-project-plugin:' + 
+                System.getProperty("platformLibraryProjectVersion")
+        classpath group: 'ru.yandex.money.platform', name: 'yamoney-libraries-dependencies', 
+                version: System.getProperty("platformDependenciesVersion"), ext: 'zip'
     }
 }
 ```
-Если блок buildscript уже есть, нужно просто добавить необходимые записи в repositories и dependencies.
-
-После добавления зависимостей, нужно применить сам плагин, добавив строчки в `build.gradle` после обновлённого `buildscript`: 
+А в `build.gradle` добавить соответствующую секцию, чтобы конфигурационный файл выглядел подобным образом:
 ```groovy
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'yamoney-library-project-plugin'
+buildscript {
+    apply from: 'project.gradle', to: buildscript
+    copy {
+        from zipTree(buildscript.configurations.classpath.files.find{ it.name.contains('library-project-plugin')})
+        into 'tmp'
+        include 'gradle-scripts/**'
+    }
+}
+apply from: 'tmp/gradle-scripts/_root.gradle'
+/////////////////////////////////////////////
+
+groupIdSuffix = "common"
+artifactID = "yamoney-json-utils"
+
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+}
 ```
+
 
 ## Конфигурация
 Задачи плагина можно настраивать.
