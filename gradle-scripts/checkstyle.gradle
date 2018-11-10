@@ -1,0 +1,109 @@
+import static java.lang.Math.max
+import static java.lang.Math.min
+
+/**
+ *  Скрипт проверяет исходный код модуля в соответствии с правилами checkstyle
+ *
+ *  ext.checkstyleEnabled - включает или выключает проверку checkstyle.
+ *  По умолчанию true.
+ *
+ *  ext.checkstyleConfig - путь до файла с конфигурацией checkstyle.
+ *  Если он не задан, то скачивается файл по умолчанию.
+ *
+ *  ext.checkstyleIgnoreFailures - если выставлено в false,
+ *  то нарушение правил вызовет падение сборки. По умолчанию true
+ *
+ *  ext.checkstyleToolVersion - версия checkstyle.
+ *
+ *  Usage:
+ *
+ *
+ *    apply from: 'checkstyle.gradle'
+ *
+ */
+
+apply plugin: 'checkstyle'
+apply plugin: 'java'
+
+String defaultCheckstyleConfig = "tmp/gradle-scripts/configs/checkstyle.xml"
+
+ext {
+    if (!project.hasProperty("checkstyleEnabled")) {
+        checkstyleEnabled = true
+    }
+
+    if (!project.hasProperty("checkstyleUseDefaultConfig")) {
+        checkstyleUseDefaultConfig = false
+    }
+
+    if (!project.hasProperty("checkstyleConfig")) {
+        checkstyleUseDefaultConfig = true
+        checkstyleConfig = defaultCheckstyleConfig
+    }
+
+    if (!project.hasProperty("checkstyleIgnoreFailures")) {
+        checkstyleIgnoreFailures = "true"
+    }
+
+    if (!project.hasProperty("checkstyleToolVersion")) {
+        checkstyleToolVersion = "7.3"
+    }
+}
+
+
+checkstyle {
+    toolVersion = project.checkstyleToolVersion
+    sourceSets = [sourceSets.main]
+    ignoreFailures = project.checkstyleIgnoreFailures
+    reportsDir = file("$project.buildDir/checkstyleReports")
+    configFile = file(project.checkstyleConfig)
+}
+
+tasks.findAll { task -> task.name.contains('checkstyle') }*.onlyIf { project.checkstyleEnabled }
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+def getCheckstyleLowerLimit = { int limit ->
+    return limit * 95 / 100
+}
+
+task checkCheckstyle {
+    doLast {
+        java.util.Optional<Integer> limitOpt = getStaticAnalysisLimit("checkstyle")
+        if (!limitOpt.isPresent()) {
+            logger.warn('skipping check checkstyle')
+            return
+        }
+        def limit = limitOpt.get()
+
+        def checkStyleReport = file("$project.checkstyle.reportsDir/main.xml")
+        if (!checkStyleReport.exists()) {
+            logger.warn('Have not found checkstyleReports/main.xml, skipping check.')
+            return
+        }
+
+        def parser = new XmlSlurper()
+        parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+        parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+
+        def errorsCount = 0
+        def checkStyleReportDoc = parser.parseText(checkStyleReport.text)
+        checkStyleReportDoc.file.forEach { errorsCount += it.error.size() }
+
+        if (errorsCount > limit) {
+            throw new GradleException("Too much checkstyle errors: actual=$errorsCount, limit=$limit")
+        } else if (errorsCount < getCheckstyleLowerLimit(limit)) {
+            throw new GradleException("Сheckstyle limit is too high, must be $errorsCount. Decrease it in file static-analysis.properties.")
+        } else {
+            logger.lifecycle("Checkstyle check successfully passed with $errorsCount errors")
+        }
+    }
+}
+checkstyleMain.doLast {
+    tasks.checkCheckstyle.execute()
+}

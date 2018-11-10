@@ -1,0 +1,16 @@
+apply plugin: 'yamoney-library-project-plugin'
+
+
+dependencyManagement {
+    // Запрещаем переопределять версии библиотек в обычной секции Gradle dependencies
+    overriddenByDependencies = false
+
+    // Фиксируем версии библиотек
+    imports {
+        mavenBom 'ru.yandex.money.platform:yamoney-libraries-dependencies:' + System.getProperty("platformDependenciesVersion")
+    }
+}
+
+// Исключаем из проверки согласованности версий библиотек следующие конфигурации:
+checkDependencies.excludedConfigurations = ["checkstyle", "errorprone", "optional", "findbugs"]
+checkDependencies.exclusionsRulesSources = ['ru.yandex.money.platform:yamoney-libraries-dependencies']

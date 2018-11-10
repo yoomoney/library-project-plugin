@@ -1,0 +1,64 @@
+ext {
+    enableVersionConflictCheck = { true }
+    excludedVersionConflictLibraries = { [] }
+}
+
+configurations {
+    all.each {
+        def configurationLowerName = it.name.toLowerCase()
+        if (!configurationLowerName.endsWith("compile") && !configurationLowerName.endsWith("runtime")) {
+            return;
+        }
+        it.resolutionStrategy {
+            def moduleVersions = new HashMap<String, String>()
+            def conflictModules = new HashMap<String, Set<String>>()
+            def getMajorVer = { String ver -> ver.tokenize(".")[0] }
+            eachDependency { DependencyResolveDetails details ->
+                def requestedVersion = details.requested.version
+                if (requestedVersion.toUpperCase().contains('FEATURE-')) {
+                    return
+                }
+                if ((requestedVersion == '+') || (requestedVersion == 'latest.release')) {
+                    if (gradle.startParameter.offline == true) {
+                        return
+                    }
+                    requestedVersion = getArtifactLatestVersion(details.requested.group, details.requested.name)
+                }
+                def moduleGroupAndName = "${details.requested.group}:${details.requested.name}".toString()
+
+                def savedVersion = moduleVersions.get(moduleGroupAndName)
+                if (savedVersion == null) {
+                    moduleVersions.put(moduleGroupAndName, requestedVersion)
+                } else {
+                    if (requestedVersion == null){
+                        println("RequestedVersion is null for " + details)
+                        return
+                    }
+                    def isVersionConflict = getMajorVer(requestedVersion) != getMajorVer(savedVersion)
+                    if (enableVersionConflictCheck() && !excludedVersionConflictLibraries().contains(moduleGroupAndName) && isVersionConflict) {
+                        def versionSet = conflictModules.get(moduleGroupAndName);
+                        if (versionSet == null) {
+                            versionSet = new HashSet<String>()
+                        }
+                        versionSet.add(details.requested.version);
+                        versionSet.add(savedVersion);
+                        conflictModules.put(moduleGroupAndName, versionSet);
+                    }
+                }
+            }
+
+            eachDependency { DependencyResolveDetails details ->
+                def moduleGroupAndName = "${details.requested.group}:${details.requested.name}".toString()
+                if (conflictModules.containsKey(moduleGroupAndName)) {
+                    def errorMsg = "There is major vesion conflict for group: '${details.requested.group}', module: '${details.requested.name}' " +
+                            ", versions = ${conflictModules.get(moduleGroupAndName)}"
+                    if (project.getGradle().startParameter.taskNames.get(0).endsWith('dependencies')) {
+                        println(errorMsg)
+                    } else {
+                        throw new IllegalStateException(errorMsg)
+                    }
+                }
+            }
+        }
+    }
+}

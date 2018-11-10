@@ -1,0 +1,73 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+//noinspection GroovyAssignabilityCheck
+test {
+    useTestNG()
+    systemProperty "file.encoding", "UTF-8"
+
+    options.parallel = 'tests'
+    options.threadCount = 10
+}
+
+task testJunit(type: Test) {
+    systemProperty "file.encoding", "UTF-8"
+}
+test.dependsOn testJunit
+
+//noinspection GroovyAssignabilityCheck
+sourceSets {
+    slowTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/slowTest/java')
+        }
+        groovy {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/slowTest/groovy')
+        }
+        resources.srcDir file('src/slowTest/resources')
+    }
+}
+
+//noinspection GroovyAssignabilityCheck
+configurations {
+    slowTestCompile.extendsFrom testCompile
+    slowTestRuntime.extendsFrom testRuntime
+}
+
+task slowTestTestNg(type: Test) {
+    useTestNG()
+    systemProperty "file.encoding", "UTF-8"
+    options.parallel = 'tests'
+    options.threadCount = 10
+    if (gradle.gradleVersion >= "4.0") {
+        testClassesDirs = sourceSets.slowTest.output.classesDirs
+    } else {
+        testClassesDir = sourceSets.slowTest.output.classesDir
+    }
+    classpath = sourceSets.slowTest.runtimeClasspath
+}
+
+task slowTest(type: Test) {
+    systemProperty "file.encoding", "UTF-8"
+    if (gradle.gradleVersion >= "4.0") {
+        testClassesDirs = sourceSets.slowTest.output.classesDirs
+    } else {
+        testClassesDir = sourceSets.slowTest.output.classesDir
+    }
+    classpath = sourceSets.slowTest.runtimeClasspath
+}
+slowTest.dependsOn slowTestTestNg
+
+tasks.withType(Test) {
+    reports.junitXml.destination = file("${project.testResultsDir}/$name")
+    reports.html.destination = file("${project.reporting.baseDir}/$name")
+}
+
+check.dependsOn.remove(slowTest)
+check.dependsOn.remove(slowTestTestNg)
+check.dependsOn(compileSlowTestJava)

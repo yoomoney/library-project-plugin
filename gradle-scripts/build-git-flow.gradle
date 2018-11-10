@@ -1,0 +1,112 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://nexus.yamoney.ru/content/repositories/central/'
+        }
+        dependencies {
+            classpath 'org.ajoberstar:gradle-git:1.3.1'
+        }
+    }
+}
+
+ext {
+    branchName = 'unknown'
+    isMasterOrDev = false
+    isReleaseBranch = false
+    isReleaseTag = false
+}
+
+def getValueOfHead = {
+    logger.info("get value of HEAD, if it's not detached, or return empty string, otherwise")
+    try {
+        new ByteArrayOutputStream().withStream { outputExec ->
+            def result = exec {
+                executable = 'git'
+                args = ['symbolic-ref', "-q", "--short", "HEAD"]
+                standardOutput = outputExec
+                errorOutput = outputExec
+            }
+            ext.releaseTagNameOnHead = outputExec.toString()
+        }
+        return ext.releaseTagNameOnHead
+    } catch(Exception e) {
+        logger.info("Getting value on HEAD failed with error: '${e.getMessage()}'. Return empty string.")
+        return ''
+    }
+}
+
+def getTagNameOnHead = {
+    logger.info("get tag name on HEAD, if tag exact match with HEAD, or empty string, if value of HEAD isn't detached tag.")
+    if (getValueOfHead() != '') {
+        logger.info("Value of HEAD isn't detached tag. Return empty string.")
+        return ''
+    }
+
+    try {
+        new ByteArrayOutputStream().withStream { outputExec ->
+            def result = exec {
+                executable = 'git'
+                args = ['describe', "--tags", "--exact-match"]
+                standardOutput = outputExec
+                errorOutput = outputExec
+            }
+            ext.releaseTagNameOnHead = outputExec.toString().replaceAll("\n", '')
+        }
+        return ext.releaseTagNameOnHead
+    } catch (Exception e) {
+        logger.info("Getting tag on HEAD failed with error: '${e.getMessage()}'. Return empty string.")
+        return ''
+    }
+}
+
+import org.ajoberstar.grgit.*
+
+ext.repo = null
+try {
+    repo = Grgit.open(project.file('.'))
+} catch (Exception e) {
+    try {
+        repo = Grgit.open(project.file('..'))
+    } catch (Exception ex) {
+        try {
+            repo = Grgit.open(project.file('../..'))
+        } catch (Exception x) {
+            try {
+                repo = Grgit.open(project.file('../../..'))
+            } catch (Exception except) {
+                logger.log(LogLevel.ERROR, "Error during find git repo \"${except.message}\"")
+            }
+        }
+    }
+}
+
+def getTagNameFromCurrentBranch = {
+    return (repo.branch.current.name ==~ 'tags/.*') ? repo.branch.current.name.minus('tags/') : ''
+}
+
+def hasTagReleaseFormat = { String tagName ->
+    return tagName.matches($/((\w+-)*\d+\.\d+\.\d+(\.\d+)?)/$)
+}
+
+project.ext.isReleaseTag = (hasTagReleaseFormat(getTagNameFromCurrentBranch()) || hasTagReleaseFormat(getTagNameOnHead()))
+
+project.ext.headCommitId = repo.head().id
+project.ext.branchName = repo.branch.current.name
+project.ext.isMasterBranch = branchName.equalsIgnoreCase('master')
+project.ext.isDevBranch = branchName.equalsIgnoreCase('dev')
+project.ext.isMasterOrDev = project.ext.isMasterBranch || project.ext.isDevBranch
+project.ext.isReleaseBranch = (branchName ==~ '(release)/.*')
+project.ext.isHotfixBranch = (branchName ==~ '(hotfix)/.*')
+
+project.ext.isFeatureBranch = !project.ext.isReleaseTag && !project.ext.isMasterOrDev && !project.ext.isReleaseBranch && !project.ext.isHotfixBranch
+
+if (!project.ext.isReleaseTag) {
+    logger.info("Branch name is : ${project.ext.branchName}")
+}
+
+if (project.ext.isFeatureBranch) {
+    def branchFullName = branchName.replaceAll($/[^a-zA-Z0-9\-\.]+/$,"-")
+    def mainVersion = project.version.minus("-SNAPSHOT")
+    project.version = "$mainVersion-$branchFullName-SNAPSHOT"
+    logger.log(LogLevel.WARN, "Version of project ${project.name} changed to: ${project.version}")
+}

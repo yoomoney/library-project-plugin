@@ -1,0 +1,86 @@
+/**
+ *  Скрипт печатает доступные новые версии внутренних и внешних зависимости при условии,
+ *  что выполнение происходит в фиче бранче.
+ *
+ *  ext.showInnerDependencies - включает показ доступных новых версий внутренних зависимостей (ru.yandex.money)
+ *  По умолчанию true.
+ *
+ *  Usage:
+ *
+ *    apply from: 'show-dependencies.gradle'
+ *
+ */
+apply plugin: 'java'
+
+
+boolean isShowInnerDependencies() {
+    if (!project.hasProperty('showInnerDependencies')) {
+        return true;
+    }
+    return project.ext.isFeatureBranch && project.ext.showInnerDependencies
+}
+
+ext {
+
+    def printLatestDependencyVersion = { Dependency dependency, String realVersion ->
+        def newest = getArtifactLatestVersion(dependency.group, dependency.name)
+        if (newest != null && realVersion != newest) {
+            println "${dependency.group}:${dependency.name} ${realVersion} -> $newest"
+            return true
+        }
+        return false
+    }
+
+    printInnerDependencies = {
+        if (gradle.startParameter.offline == true) {
+            logger.lifecycle("Skipping printInnerDependenciesVersions. Gradle mode is offline.")
+            return
+        }
+
+        if (!isShowInnerDependencies()) {
+            logger.info("Skipping printInnerDependenciesVersions.")
+            return
+        }
+
+        logger.lifecycle("===============New inner dependencies===============")
+        def checked = [:]
+        allprojects {
+            configurations.each { configuration ->
+                Map resolvedVersionMap = new HashMap()
+                try {
+                    configuration.getResolvedConfiguration().getResolvedArtifacts().each {
+                        resolvedVersionMap.put(it.getName(), it.getModuleVersion().getId().getVersion())
+                    }
+                } catch (e) {
+                    return
+                }
+
+                configuration.allDependencies.each { dependency ->
+                    if (checked[dependency]) {
+                        return
+                    }
+                    checked[dependency] = true
+
+                    if (dependency.group == null || !dependency.group.startsWith('ru.yandex.money')) {
+                        return
+                    }
+
+                    printLatestDependencyVersion(dependency, resolvedVersionMap.get(dependency.name))
+                }
+            }
+        }
+        logger.lifecycle("====================================================")
+    }
+
+}
+
+task printInnerDependenciesVersions {
+    doLast {
+        project.ext.printInnerDependencies()
+    }
+}
+
+compileJava.dependsOn(printInnerDependenciesVersions)
+
+
+

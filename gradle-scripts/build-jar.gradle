@@ -1,0 +1,125 @@
+import java.text.SimpleDateFormat
+
+apply plugin: 'java'
+
+buildDir = 'target'
+archivesBaseName = archivesBaseName.replace('\\bmoney-', '')
+archivesBaseName = (archivesBaseName.startsWith('yamoney-')) ? archivesBaseName : 'yamoney-' + archivesBaseName
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+ext {
+    schemaHome = 'schema'
+    artifactID = "${project.name}"
+    groupIdSuffix = ""
+
+    centralRepoProxyUrl = 'https://nexus.yamoney.ru/content/repositories/central/'
+    snapshotRepoProxyUrl = 'https://nexus.yamoney.ru/content/repositories/snapshots/'
+    releaseRepoProxyUrl = 'https://nexus.yamoney.ru/content/repositories/releases/'
+    thirdPartyLocalRepoUrl = 'https://nexus.yamoney.ru/content/repositories/thirdparty/'
+    sppSnapshotRepoProxyUrl = 'https://nexus.yamoney.ru/content/repositories/spp-snapshots/'
+    sppReleasesRepoProxyUrl = 'https://nexus.yamoney.ru/content/repositories/spp-releases/'
+   
+}
+
+
+repositories {
+    maven {
+        url releaseRepoProxyUrl
+    }
+
+    maven {
+        url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/'
+    }
+
+    def isStableBranch = project.ext.isMasterOrDev || project.ext.isReleaseTag || project.ext.isReleaseBranch
+    if (!isStableBranch) {
+        mavenLocal()
+        maven {
+            url snapshotRepoProxyUrl
+        }
+        maven {
+            url sppSnapshotRepoProxyUrl
+        }
+    }
+    maven {
+        url sppReleasesRepoProxyUrl
+    }
+    maven {
+        url thirdPartyLocalRepoUrl
+    }
+    maven {
+        url centralRepoProxyUrl
+    }
+}
+
+configurations {
+    optional
+    testCompile.extendsFrom optional
+}
+
+sourceSets.main.compileClasspath += configurations.optional
+
+configurations.all {
+    resolutionStrategy {
+        cacheDynamicVersionsFor 0, 'seconds'
+        cacheChangingModulesFor 0, 'seconds'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    distributionUrl 'https://nexus.yamoney.ru/content/repositories/http-proxy-services.gradle.org/distributions/gradle-4.10.2-all.zip'
+}
+
+
+def getHostName() {
+    new ByteArrayOutputStream().withStream { h ->
+        def result = exec {
+            executable = 'hostname'
+            standardOutput = h
+        }
+        ext.hostname = h.toString().trim()
+    }
+    return ext.hostname
+}
+
+jar {
+    def buildDate = new SimpleDateFormat('yyyy-MM-dd', Locale.ENGLISH).format(new Date())
+    manifest {
+        attributes(
+                'Implementation-Version': "built at ${buildDate} on ${getHostName()}",
+                'Bundle-SymbolicName': "${project.name}",
+                'Built-By': java.lang.System.getProperty('user.name'),
+                'Built-Date': "${buildDate}",
+                'Built-At': "${getHostName()}"
+        )
+    }
+
+    from(projectDir.absolutePath) {
+        include "CHANGELOG.md", "README.md"
+        into "META-INF"
+    }
+}
+
+buildscript {
+    repositories {
+        maven { url 'https://nexus.yamoney.ru/content/repositories/gradle-plugins/' }
+        dependencies {
+            classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.10"
+        }
+    }
+}
+
+apply plugin: net.ltgt.gradle.errorprone.ErrorPronePlugin
+
+configurations.errorprone {
+    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.12'
+}
+
+dependencies {
+    errorprone 'com.google.errorprone:error_prone_core:2.0.12'
+}

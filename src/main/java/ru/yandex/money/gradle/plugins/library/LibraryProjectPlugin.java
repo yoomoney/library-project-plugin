@@ -4,15 +4,12 @@ import io.spring.gradle.dependencymanagement.DependencyManagementPlugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.dsl.RepositoryHandler;
-import org.gradle.api.logging.Logger;
-import org.gradle.api.logging.Logging;
 import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
 import ru.yandex.money.gradle.plugins.library.git.BranchName;
 import ru.yandex.money.gradle.plugins.library.git.GitRepositoryProperties;
 import ru.yandex.money.gradle.plugins.library.git.TagName;
 import ru.yandex.money.gradle.plugins.library.readme.ReadmePlugin;
-import ru.yandex.money.gradle.plugins.library.release.jira.JiraReleasePlugin;
 
 import java.io.File;
 import java.util.Arrays;
@@ -35,8 +32,7 @@ public class LibraryProjectPlugin implements Plugin<Project> {
             DependencyManagementPlugin.class,
             ReadmePlugin.class,
             CheckChangelogPlugin.class,
-            CheckDependenciesPlugin.class,
-            JiraReleasePlugin.class
+            CheckDependenciesPlugin.class
     );
 
     @Override
@@ -50,17 +46,18 @@ public class LibraryProjectPlugin implements Plugin<Project> {
      */
     private void configureRepositories(Project project) {
         Stream<String> repositoriesToApply = Stream.of(
-                "http://nexus.yamoney.ru/content/repositories/central/",
-                "http://nexus.yamoney.ru/content/repositories/releases/",
-                "http://nexus.yamoney.ru/content/repositories/thirdparty/",
-                "http://nexus.yamoney.ru/content/repositories/spp-releases/"
+                "https://nexus.yamoney.ru/content/repositories/central/",
+                "https://nexus.yamoney.ru/content/repositories/releases/",
+                "https://nexus.yamoney.ru/content/repositories/thirdparty/",
+                "https://nexus.yamoney.ru/content/repositories/spp-releases/",
+                "https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/"
         );
 
         if (canConsumeSnapshots(project.getProjectDir())) {
             System.out.println("Using snapshot repositories");
             repositoriesToApply = Stream.concat(repositoriesToApply, Stream.of(
-                    "http://nexus.yamoney.ru/content/repositories/snapshots/",
-                    "http://nexus.yamoney.ru/content/repositories/spp-snapshots/"
+                    "https://nexus.yamoney.ru/content/repositories/snapshots/",
+                    "https://nexus.yamoney.ru/content/repositories/spp-snapshots/"
             ));
         }
 

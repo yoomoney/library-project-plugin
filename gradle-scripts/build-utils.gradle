@@ -1,0 +1,87 @@
+ext {
+    tryParse = { String text ->
+        try {
+            return Integer.parseInt(text)
+        } catch (NumberFormatException e) {
+            return null
+        }
+    }
+
+    compareVersions = { String version1, String version2 ->
+        List verA = version1.tokenize('.')
+        List verB = version2.tokenize('.')
+
+        def commonIndices = Math.min(verA.size(), verB.size())
+        for (int i = 0; i < commonIndices; ++i) {
+            def numA = tryParse(verA[i].replace('-SNAPSHOT', ''))
+            def numB = tryParse(verB[i].replace('-SNAPSHOT', ''))
+
+            if (numA != numB) {
+                return numA <=> numB
+            }
+        }
+
+        verA.size() <=> verB.size()
+    }
+
+    getArtifactLatestVersion = { String depGroup, String depName ->
+        def path = depGroup.replace('.', '/')
+        def repoUrls = depGroup.startsWith("ru.yandex.money") || depGroup.startsWith("ru.yamoney") ? ["releases", "spp-releases"] : ["central", "thirdparty"]
+        def isFound = false
+        def maxVersion = null
+        repoUrls.each { String repoUrl ->
+            if (isFound) {
+                return
+            }
+            def url = "https://nexus.yamoney.ru/content/repositories/$repoUrl/$path/$depName/maven-metadata.xml"
+            try {
+                def metadata = new XmlSlurper().parseText(url.toURL().text)
+                def versions = metadata.versioning.versions.version.collect { it.text() }
+                versions.removeAll {
+                    def lowerName = it.toLowerCase()
+                    lowerName.contains('alpha') || lowerName.contains('beta') || lowerName.contains('rc') ||
+                            lowerName.matches('.*r\\d.*') || lowerName.matches('.*-b\\d.*') || lowerName.contains('sec')
+                }
+                isFound = true
+                maxVersion = ''
+                versions.each {
+                    if (compareVersions(it, maxVersion) == 1) {
+                        maxVersion = it
+                    }
+                }
+            } catch (FileNotFoundException e) {
+            } catch (org.xml.sax.SAXParseException e) {
+                println "Unable to parse $url: $e.message"
+            }
+        }
+        if (!isFound) {
+            println "Not found artifact $depGroup:$depName"
+        }
+        return maxVersion
+    }
+
+    getLimit = { String limitsFileName, String limitName ->
+        def limitsFile = file("${project.projectDir.getAbsolutePath()}/$limitsFileName")
+        if (!limitsFile.exists() || !limitsFile.isFile()) {
+            logger.warn("Have not found $limitsFileName")
+            return java.util.Optional.empty()
+        }
+        def limits = new Properties()
+        limits.load(new FileInputStream(limitsFile))
+        String limitStr = limits[limitName]
+        if (limitStr == null) {
+            logger.warn("Not found settings in $limitsFile.name for: type=$limitName")
+            return java.util.Optional.empty()
+        }
+        java.util.Optional.of(limitStr)
+    }
+
+    getStaticAnalysisLimit = { String limitName ->
+        getLimit("static-analysis.properties", limitName).map({limit -> Integer.parseInt(limit)})
+    }
+
+    getCoverageLimit = { String limitName ->
+        getLimit("coverage.properties", limitName).map({limit -> Double.parseDouble(limit).round(2)})
+    }
+
+}

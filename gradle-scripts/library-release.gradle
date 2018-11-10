@@ -1,0 +1,211 @@
+/**
+ *  Скрипт осуществляет выпуск релиза библиотеки и его публикацию
+ *
+ *
+ *  Gradle Tasks:
+ *  release -PautoArtifactPublish - выполняет полный процесс выпуска релиза библиотеки:
+ *      создание релизного тега, переключение на него, запуск слоу-тестов,
+ *      публикацию и возврат в исходную релизную ветку
+ *
+ *  Usage:
+ *
+ *    apply from: 'library-release.gradle'
+ *
+ *    ./gradlew release -PautoArtifactPublish - выполняет полный цикл релиза библиотеки с ее публикацией
+ *
+ */
+
+def hasReleaseChanges = {
+    return !repo.log(maxCommits: 1).get(0).shortMessage.contains("[Gradle Release Plugin]")
+}
+
+def gitFetchTagsFromRemote = {
+    logger.info("fetch tags from remote")
+    new ByteArrayOutputStream().withStream { outputExec ->
+        exec {
+            executable = "git"
+            args = ["fetch", "--tags"]
+            standardOutput = outputExec
+            errorOutput = outputExec
+        }
+        logger.info("fetch tags from remote, output info: ${outputExec.toString()}")
+    }
+}
+
+/**
+ * Проверка отсутствия custom tagTemplate в проекте
+ */
+def checkAbsenceCustomReleaseTagTemplate = {
+    if (release.tagTemplate != null && !release.tagTemplate.matches($/(\d+\.\d+\.\d+)(-SNAPSHOT)*/$)) {
+        throw new IllegalStateException("You can't use a custom tagTemplate. Please, remove the setting 'release { tagTemplate = ... }' from your project." +
+                "This setting probably is in the file 'build.gradle'.")
+    }
+}
+
+/**
+ *  Проверка существования тега в репозитории
+ *  Если уже существуется тег с именем {@param tagName},
+ *      то выбрасываем исключение IllegalStateException
+ */
+def checkNoDuplicateTag = { String tagName ->
+    gitFetchTagsFromRemote()
+    def tags = project.ext.repo.tag.list().collect { it.getName() }
+    if (tags.contains(tagName)) {
+        throw new IllegalStateException("Creation release with version $tagName failed, because you have release tag with same name. " +
+                "It's like that you already have release with version $tagName")
+    }
+}
+
+if (!project.hasProperty('autoArtifactPublish')) {
+    return
+}
+
+task checkReleaseState {
+    doLast {
+        def isForceRelease = project.hasProperty("forceRelease") && project.getProperty("forceRelease") == "true"
+        if (isForceRelease) {
+            logger.lifecycle("Force release action, continue")
+        } else if (hasReleaseChanges()) {
+            logger.lifecycle("Release has changes, continue")
+        } else {
+            String skipMessage = "Release has no changes, skip task"
+            logger.lifecycle(skipMessage)
+            tasks.release.enabled = false
+            throw new StopExecutionException(skipMessage)
+        }
+
+        if (!project.ext.isReleaseBranch && !project.ext.isMasterBranch) {
+            throw new IllegalStateException("You must release in master branch or in release branch! Current branch is ${project.ext.branchName}")
+        }
+        if (!project.version.toUpperCase().endsWith('-SNAPSHOT')) {
+            throw new IllegalStateException("You must release project that has SNAPSHOT postfix in version. Current version is $project.version")
+        }
+        checkAbsenceCustomReleaseTagTemplate()
+        checkNoDuplicateTag(project.version.minus("-SNAPSHOT"))
+    }
+}
+
+if (!project.hasProperty('autoArtifactPublish')) {
+    return
+}
+
+release {
+    git {
+        requireBranch = ''
+    }
+}
+
+def autoPublishOriginBranch = project.ext.branchName
+tasks.runBuildTasks.enabled = false
+project.ext.'release.useAutomaticVersion' = true
+
+def getReleaseVersionFromGradleProperties = {
+    Properties gradleProperties = new Properties()
+    gradleProperties.load(new FileInputStream("${project.projectDir.getAbsolutePath()}/gradle.properties"))
+    return gradleProperties.get("version")
+}
+
+/**
+ *  Проверка необходимости отката произведенных изменений: коммита, удаляющего snapshot из версии, и релизного тега
+ *  Показателем успешного выполнения этих изменений является изменение версии в gradle.properties
+ *  Если во время релиза прошла ошибка после создания релизного тега,
+ *      то нужно откатывать (коммит и тег были созданы их нужно удалить)
+ *  а если ошибка произошла раньше, откат не требуется (
+ */
+def isFailHappenedAfterCreationTag = { String tagName ->
+    return !tagName.toUpperCase().endsWith('-SNAPSHOT')
+}
+
+def gitCheckoutBranchOrTag = { String branchOrTagName ->
+    logger.info("checkout branch or tag, called: $branchOrTagName")
+    new ByteArrayOutputStream().withStream { outputExec ->
+        exec {
+            executable = "git"
+            args = ["checkout", branchOrTagName]
+            standardOutput = outputExec
+            errorOutput = outputExec
+        }
+        logger.info("checkout output info: ${outputExec.toString()}")
+    }
+}
+
+def gitRemoveLocalTag = { String tagName ->
+    return project.ext.repo.tag.remove(names: [tagName])
+}
+
+def gitRemoveReleaseTag = { String tagName ->
+    logger.info("remove release tag: $tagName")
+    def removedTags = gitRemoveLocalTag(tagName)
+    logger.lifecycle("Remove release tag: ${removedTags.toString()}")
+    removedTags.each { String tag ->
+        new ByteArrayOutputStream().withStream { outputExec ->
+            exec {
+                executable = "git"
+                args = ["push", "--delete", "origin", tag]
+                standardOutput = outputExec
+                errorOutput = outputExec
+            }
+            logger.info("remove tag '$tag' output info: ${outputExec.toString()}")
+        }
+    }
+}
+
+def gitRevertLastCommit = {
+    def newHeadCommit = project.ext.repo.revert(commits: ['HEAD'])
+    new ByteArrayOutputStream().withStream { outputExec ->
+        exec {
+            executable = "git"
+            args = ["push", "origin", autoPublishOriginBranch]
+            standardOutput = outputExec
+            errorOutput = outputExec
+        }
+        logger.info("push revert commit: ${outputExec.toString()}")
+    }
+    logger.lifecycle("Revert last commit. New HEAD: id = ${newHeadCommit.id}, message = ${newHeadCommit.shortMessage}")
+}
+
+task invokePublishInsideReleaseTask() {
+    doLast {
+        def releaseTagName = getReleaseVersionFromGradleProperties()
+        gitCheckoutBranchOrTag(releaseTagName)
+
+        def gradleTask = "publishInsideRelease"
+        def publishInsideReleaseTask = project.tasks.create([name: "autoPublish_$gradleTask", type: GradleBuild])
+        publishInsideReleaseTask.tasks = [gradleTask]
+
+        def artefactProjectProperties = publishInsideReleaseTask.startParameter.projectProperties
+        def currentProjectProperties = project.gradle.startParameter.projectProperties
+        artefactProjectProperties << currentProjectProperties
+        publishInsideReleaseTask.execute()
+
+        gitCheckoutBranchOrTag(autoPublishOriginBranch)
+    }
+}
+
+def publishInsideReleaseDependsOn = tasks.findByPath("slowTest") ? [clean, build, slowTest, publish] : [clean, build, publish]
+
+task publishInsideRelease(dependsOn: publishInsideReleaseDependsOn) {
+    tasks.build.mustRunAfter(tasks.clean)
+    if (tasks.findByPath("slowTest")) {
+        tasks.slowTest.mustRunAfter(tasks.build)
+        tasks.publish.mustRunAfter(tasks.slowTest)
+    } else {
+        tasks.publish.mustRunAfter(tasks.build)
+    }
+}
+
+tasks.release.dependsOn tasks.checkReleaseState
+tasks.updateVersion.dependsOn tasks.invokePublishInsideReleaseTask
+
+project.gradle.taskGraph.afterTask { Task task, TaskState state ->
+    if (state.failure && task.name == "release") {
+        def releaseVersionWithoutSnapshot = getReleaseVersionFromGradleProperties()
+        if (!isFailHappenedAfterCreationTag(releaseVersionWithoutSnapshot)) {
+            return
+        }
+        logger.warn('Release process failed, reverting back any changes made by Autopublish.')
+        gitCheckoutBranchOrTag(autoPublishOriginBranch)
+        gitRemoveReleaseTag(releaseVersionWithoutSnapshot)
+        gitRevertLastCommit()
+    }
+}
