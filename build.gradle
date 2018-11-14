@@ -1,42 +1,18 @@
-apply from: 'gradle-scripts/build-utils.gradle'
-apply from: 'gradle-scripts/build-git-flow.gradle'
-apply from: 'gradle-scripts/build-jar.gradle'
-apply from: 'gradle-scripts/build-test.gradle'
-apply from: 'gradle-scripts/coverage.gradle'
-apply from: 'gradle-scripts/build-check-version.gradle'
-apply from: 'gradle-scripts/show-dependencies.gradle'
-apply from: 'gradle-scripts/build-publishing.gradle'
-apply from: 'gradle-scripts/build-idea-settings.gradle'
-apply from: 'gradle-scripts/manual-release.gradle'
-apply from: 'gradle-scripts/library-release.gradle'
-apply from: 'gradle-scripts/git-expired-branches.gradle'
-apply from: 'gradle-scripts/snapshot-dependencies.gradle'
-
-apply plugin: 'java-gradle-plugin'
-apply plugin: 'groovy'
+buildscript {
+    apply from: 'project.gradle', to: buildscript
+    copy {
+        from zipTree(buildscript.configurations.classpath.files.find{ it.name.contains('gradle-project-plugin')})
+        into 'tmp'
+        include 'gradle-scripts/**'
+    }
+}
+apply from: 'tmp/gradle-scripts/_root.gradle'
+/////////////////////////////////////////////
 
 //noinspection GroovyUnusedAssignment
 groupIdSuffix = "gradle.plugins"
 //noinspection GroovyUnusedAssignment
 artifactID = "yamoney-library-project-plugin"
-
-repositories {
-    maven { url 'http://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
-}
-
-buildscript {
-    repositories {
-        maven { url 'http://nexus.yamoney.ru/content/repositories/central/' }
-        maven { url 'http://nexus.yamoney.ru/content/repositories/releases/' }
-        maven { url 'http://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
-
-        dependencies {
-            classpath 'org.ajoberstar:gradle-git:1.5.0'
-            classpath 'ru.yandex.money.common:yamoney-doc-publishing:1.0.1'
-            classpath 'net.researchgate:gradle-release:2.4.0'
-        }
-    }
-}
 
 jar {
     from(projectDir.absolutePath) {
@@ -44,7 +20,6 @@ jar {
         into "/"
     }
 }
-
 
 dependencies {
     compile localGroovy(),
@@ -57,7 +32,6 @@ dependencies {
             'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
 
     testCompile gradleTestKit(),
-            "ru.yandex.money.common:yamoney-test-utils:5.0.4",
             'com.netflix.nebula:nebula-test:4.0.0'
 
     testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
