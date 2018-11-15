@@ -2,6 +2,9 @@ package ru.yandex.money.gradle.plugins.library
 
 import nebula.test.IntegrationSpec
 import org.ajoberstar.grgit.Grgit
+import org.apache.commons.io.FileUtils
+
+import java.nio.file.Paths
 
 /**
  *
@@ -10,29 +13,18 @@ import org.ajoberstar.grgit.Grgit
  */
 abstract class AbstractPluginSpec extends IntegrationSpec {
 
-    protected static final String COMMON_BUILD_FILE_CONTENTS = """
-    buildscript {
-        repositories {
-            maven { url 'http://nexus.yamoney.ru/content/repositories/releases/' }
-            maven { url 'http://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
-            maven { url 'http://nexus.yamoney.ru/content/repositories/central/' }
-        }
-        dependencies {
-            classpath 'org.ajoberstar:gradle-git:1.5.0'
-            classpath 'ru.yandex.money.common:yamoney-doc-publishing:1.0.1'
-        }
-    }
-    apply plugin: 'java'
-    apply plugin: 'yamoney-library-project-plugin'
+    private static final String BUILD_FILE_CONTENTS = """
+    apply from: 'tmp/gradle-scripts/_root.gradle'
     """.stripIndent()
 
     protected Grgit grgit
 
     def setup() {
+
         grgit = Grgit.init(dir: projectDir.absolutePath)
-
-        buildFile << COMMON_BUILD_FILE_CONTENTS
-
+        buildFile << BUILD_FILE_CONTENTS
+        FileUtils.copyDirectory(Paths.get(System.getProperty("user.dir"), "gradle-scripts").toFile(),
+               Paths.get(projectDir.absolutePath, "tmp", "gradle-scripts").toFile())
         grgit.add(patterns: ['build.gradle'])
         grgit.commit(message: 'build.gradle commit', all: true)
     }
