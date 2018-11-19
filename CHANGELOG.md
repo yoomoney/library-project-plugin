@@ -2,6 +2,10 @@
 
 ## NEXT_VERSION
 
+## [2.0.3]() (19-11-2018)
+
+Обновил check-dependencies-plugin
+
 ## [2.0.2]() (14-11-2018)
 
 Сборка при помощи gradle-project-plugin=2.x
