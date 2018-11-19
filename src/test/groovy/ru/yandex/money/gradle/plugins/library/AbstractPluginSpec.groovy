@@ -15,6 +15,7 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
 
     private static final String BUILD_FILE_CONTENTS = """
     apply from: 'tmp/gradle-scripts/_root.gradle'
+    ext.checkstyleEnabled = false
     """.stripIndent()
 
     protected Grgit grgit

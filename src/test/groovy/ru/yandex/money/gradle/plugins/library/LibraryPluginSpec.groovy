@@ -2,7 +2,6 @@ package ru.yandex.money.gradle.plugins.library
 
 import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin
-import ru.yandex.money.gradle.plugins.library.readme.PublishReadmeTask
 
 /**
  * @author Oleg Kandaurov
@@ -11,7 +10,7 @@ import ru.yandex.money.gradle.plugins.library.readme.PublishReadmeTask
 class LibraryPluginSpec extends AbstractPluginSpec {
 
     def "проверяем, что таски плагина определены и запускаются"() {
-        def expectedTasks = [PublishReadmeTask.TASK_NAME, CheckChangelogPlugin.CHECK_CHANGELOG_TASK_NAME,
+        def expectedTasks = [CheckChangelogPlugin.CHECK_CHANGELOG_TASK_NAME,
                              CheckDependenciesPlugin.CHECK_DEPENDENCIES_TASK_NAME]
 
         when:
@@ -27,7 +26,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         when:
         writeHelloWorld("ru.yandex.money.common")
         then:
-        runTasksSuccessfully("clean", "build", "slowTest", "checkCoverage")
+        runTasksSuccessfully("clean", "build", "slowTest")
 
     }
 
