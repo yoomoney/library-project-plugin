@@ -10,7 +10,7 @@
 apply plugin: 'net.researchgate.release'
 
 def hasReleaseChanges = {
-    return !repo.log(maxCommits: 1).get(0).shortMessage.contains("[Gradle Release Plugin]")
+    return !repo.log(maxCommits: 1).get(0).shortMessage.startsWith("[Gradle Release Plugin]")
 }
 
 if (!project.tasks.findByName('checkReleaseStateForManualRelease')) {
