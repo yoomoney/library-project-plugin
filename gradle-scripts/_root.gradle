@@ -1,4 +1,4 @@
-if (gradle.gradleVersion < "4.10.2") {
+if (VersionNumber.parse(gradle.gradleVersion) < VersionNumber.parse('4.10.2')) {
     throw new IllegalStateException("Gradle >= 4.10.2 is required")
 }
 apply from: 'tmp/gradle-scripts/build-utils.gradle'
