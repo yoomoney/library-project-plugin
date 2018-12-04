@@ -2,6 +2,10 @@
 
 ## NEXT_VERSION
 
+## [2.0.8]() (06-12-2018)
+
+Добавил kotlin-test
+
 ## [2.0.7]() (05-12-2018)
 
 * Добавил `GitExpiredBranchPlugin`

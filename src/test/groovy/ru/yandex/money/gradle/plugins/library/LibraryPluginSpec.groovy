@@ -30,4 +30,35 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     }
 
+    def "should run java test"() {
+
+        given: "Java тест в resources/src/test/java"
+        directory("src/test/java")
+        copyResources("classes", "src/test/java")
+
+        when:
+        def result = runTasks("clean", "build")
+
+        then: "Запускаются тесты на Java"
+
+        assert result.success
+        assert result.standardOutput.contains("run java test...")
+
+    }
+
+    def "should run kotlin test"() {
+
+        given: "Kotlin тест в resources/src/test/java"
+        directory("src/test/kotlin")
+        copyResources("classes", "src/test/kotlin")
+
+        when:
+        def result = runTasks("clean", "build")
+
+        then: "Запускаются тесты на Kotlin"
+        assert result.success
+        assert result.standardOutput.contains("run kotlin test...")
+
+    }
+
 }
