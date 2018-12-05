@@ -6,6 +6,7 @@ import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPlugin;
 import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
+import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,12 +26,14 @@ public class LibraryProjectPlugin implements Plugin<Project> {
             JavaPlugin.class,
             DependencyManagementPlugin.class,
             CheckChangelogPlugin.class,
-            CheckDependenciesPlugin.class
+            CheckDependenciesPlugin.class,
+            GitExpiredBranchPlugin.class
     );
 
     @Override
     public void apply(Project project) {
         PLUGINS_TO_APPLY.forEach(pluginClass -> project.getPluginManager().apply(pluginClass));
+        ExtensionConfigurator.configure(project);
     }
 
 }
