@@ -6,7 +6,7 @@ ext {
 configurations {
     all.each {
         def configurationLowerName = it.name.toLowerCase()
-        if (!configurationLowerName.endsWith("compile") && !configurationLowerName.endsWith("runtime")) {
+        if (!configurationLowerName.equals("compileclasspath") && !configurationLowerName.endsWith("compile") && !configurationLowerName.endsWith("runtime")) {
             return;
         }
         it.resolutionStrategy {
@@ -15,13 +15,9 @@ configurations {
             def getMajorVer = { String ver -> ver.tokenize(".")[0] }
             eachDependency { DependencyResolveDetails details ->
                 def requestedVersion = details.requested.version
-                if (requestedVersion.toUpperCase().contains('FEATURE-')) {
-                    return
-                }
-                if ((requestedVersion == '+') || (requestedVersion == 'latest.release')) {
-                    if (gradle.startParameter.offline == true) {
-                        return
-                    }
+
+                if ((requestedVersion.contains("+")) || (requestedVersion == 'latest.release')) {
+
                     requestedVersion = getArtifactLatestVersion(details.requested.group, details.requested.name)
                 }
                 def moduleGroupAndName = "${details.requested.group}:${details.requested.name}".toString()
@@ -30,12 +26,15 @@ configurations {
                 if (savedVersion == null) {
                     moduleVersions.put(moduleGroupAndName, requestedVersion)
                 } else {
-                    if (requestedVersion == null){
+                    if (requestedVersion == null) {
                         println("RequestedVersion is null for " + details)
                         return
                     }
                     def isVersionConflict = getMajorVer(requestedVersion) != getMajorVer(savedVersion)
-                    if (enableVersionConflictCheck() && !excludedVersionConflictLibraries().contains(moduleGroupAndName) && isVersionConflict) {
+                    if (enableVersionConflictCheck()
+                            && !excludedVersionConflictLibraries().contains(moduleGroupAndName)
+                            && isVersionConflict
+                            && (moduleGroupAndName.contains("ru.yandex.money") || moduleGroupAndName.contains("ru.yamoney"))) {
                         def versionSet = conflictModules.get(moduleGroupAndName);
                         if (versionSet == null) {
                             versionSet = new HashSet<String>()
