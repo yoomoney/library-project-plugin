@@ -17,13 +17,6 @@ apply plugin: org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 
 sourceSets {
     test.java.srcDirs += 'src/test/kotlin'
-
-    slowTest {
-        kotlin {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-        }
-    }
 }
 
 afterEvaluate {
