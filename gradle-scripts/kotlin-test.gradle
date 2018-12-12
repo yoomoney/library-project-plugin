@@ -1,7 +1,7 @@
 
 buildscript {
     if (System.getProperty("kotlinVersion") == null) {
-        System.setProperty('kotlinVersion', '1.2.71')
+        System.setProperty('kotlinVersion', '1.2.50')
     }
 
     repositories {
