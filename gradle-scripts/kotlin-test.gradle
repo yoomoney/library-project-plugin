@@ -1,6 +1,14 @@
+if (System.getProperty("kotlinVersion") == null) {
+    return
+}
 
 apply plugin: 'kotlin'
 
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${System.getProperty('kotlinVersion')}",
+            "org.jetbrains.kotlin:kotlin-reflect:${System.getProperty('kotlinVersion')}",
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty('kotlinVersion')}"
+}
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
@@ -19,15 +27,5 @@ sourceSets {
             runtimeClasspath += main.output + test.output
             srcDir file('src/slowTest/kotlin')
         }
-    }
-}
-
-afterEvaluate {
-    compileJava.dependsOn.remove(project.tasks.compileKotlin)
-
-    dependencies {
-        testCompile "org.jetbrains.kotlin:kotlin-stdlib:${System.getProperty('kotlinVersion')}",
-                "org.jetbrains.kotlin:kotlin-reflect:${System.getProperty('kotlinVersion')}",
-                "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty('kotlinVersion')}"
     }
 }
