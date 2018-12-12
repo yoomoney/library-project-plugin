@@ -2,6 +2,10 @@
 
 ## NEXT_VERSION
 
+## [2.0.10]() (12-12-2018)
+
+Починка скрипта kotlin-test.gradle 
+
 ## [2.0.9]() (06-12-2018)
 
 Починила скрипт build-check-version.gradle
