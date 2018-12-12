@@ -1,7 +1,7 @@
 
 buildscript {
     if (System.getProperty("kotlinVersion") == null) {
-        System.setProperty('kotlinVersion', '1.2.50')
+        System.setProperty('kotlinVersion', '1.2.71')
     }
 
     repositories {
@@ -36,6 +36,7 @@ afterEvaluate {
 
     dependencies {
         testCompile "org.jetbrains.kotlin:kotlin-stdlib:${System.getProperty('kotlinVersion')}",
-                "org.jetbrains.kotlin:kotlin-reflect:${System.getProperty('kotlinVersion')}"
+                "org.jetbrains.kotlin:kotlin-reflect:${System.getProperty('kotlinVersion')}",
+                "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty('kotlinVersion')}"
     }
 }
