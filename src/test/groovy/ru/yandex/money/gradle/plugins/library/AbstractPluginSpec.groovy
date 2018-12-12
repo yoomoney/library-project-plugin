@@ -14,6 +14,20 @@ import java.nio.file.Paths
 abstract class AbstractPluginSpec extends IntegrationSpec {
 
     private static final String BUILD_FILE_CONTENTS = """
+buildscript {
+System.setProperty("kotlinVersion", "1.2.71")
+
+repositories {
+    maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
+    maven { url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:\${System.getProperty('kotlinVersion')}"
+    }
+}
+}
     apply from: 'tmp/gradle-scripts/_root.gradle'
     ext.checkstyleEnabled = false
     dependencies {
