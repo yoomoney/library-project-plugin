@@ -2,6 +2,10 @@
 
 ## NEXT_VERSION
 
+## [2.0.10]() (13-12-2018)
+
+Подняла версию check-dependencies-plugin
+
 ## [2.0.9]() (06-12-2018)
 
 Починила скрипт build-check-version.gradle
