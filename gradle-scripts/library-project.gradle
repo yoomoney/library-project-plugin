@@ -14,7 +14,3 @@ dependencyManagement {
     }
     
 }
-
-// Исключаем из проверки согласованности версий библиотек следующие конфигурации:
-checkDependencies.excludedConfigurations = ["checkstyle", "errorprone", "optional", "findbugs"]
-checkDependencies.exclusionsRulesSources = ['ru.yandex.money.platform:yamoney-libraries-dependencies']
