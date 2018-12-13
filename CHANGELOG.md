@@ -2,6 +2,10 @@
 
 ## NEXT_VERSION
 
+## [2.0.11]() (13-12-2018)
+
+Изменила kotlinVersion 1.2.70 -> 1.2.61
+
 ## [2.0.10]() (13-12-2018)
 
 Подняла версию check-dependencies-plugin
