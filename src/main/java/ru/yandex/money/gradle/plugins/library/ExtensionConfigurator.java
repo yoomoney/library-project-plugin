@@ -52,7 +52,9 @@ public class ExtensionConfigurator {
                 project.getExtensions().findByType(CheckDependenciesPluginExtension.class);
 
         checkDependenciesPluginExtension.excludedConfigurations = Arrays.asList(
-                "checkstyle", "errorprone", "optional", "findbugs");
+                "checkstyle", "errorprone", "optional", "findbugs",
+                "architecture", "architectureTestCompile", "architectureTestCompileClasspath",
+                "architectureTestRuntime", "architectureTestRuntimeClasspath");
 
         checkDependenciesPluginExtension.exclusionsRulesSources =
                 singletonList("ru.yandex.money.platform:yamoney-libraries-dependencies");
