@@ -12,7 +12,7 @@ buildscript {
     }
 }
 
-apply plugin: 'kotlin'
+apply plugin: org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:${System.getProperty('kotlinVersion')}",
