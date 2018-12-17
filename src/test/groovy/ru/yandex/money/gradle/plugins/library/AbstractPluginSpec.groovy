@@ -14,20 +14,20 @@ import java.nio.file.Paths
 abstract class AbstractPluginSpec extends IntegrationSpec {
 
     private static final String BUILD_FILE_CONTENTS = """
-buildscript {
-System.setProperty("kotlinVersion", "1.2.71")
+    buildscript {
+        System.setProperty("kotlinVersion", "1.2.61")
 
-repositories {
-    maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
+        repositories {
+                maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
+                maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
+                maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
+                maven { url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
 
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:\${System.getProperty('kotlinVersion')}"
+                dependencies {
+                    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:\${System.getProperty('kotlinVersion')}"
+                }
+        }
     }
-}
-}
     apply from: 'tmp/gradle-scripts/_root.gradle'
     ext.checkstyleEnabled = false
     dependencies {
@@ -42,7 +42,7 @@ repositories {
         grgit = Grgit.init(dir: projectDir.absolutePath)
         buildFile << BUILD_FILE_CONTENTS
         FileUtils.copyDirectory(Paths.get(System.getProperty("user.dir"), "gradle-scripts").toFile(),
-               Paths.get(projectDir.absolutePath, "tmp", "gradle-scripts").toFile())
+                Paths.get(projectDir.absolutePath, "tmp", "gradle-scripts").toFile())
         grgit.add(patterns: ['build.gradle'])
         grgit.commit(message: 'build.gradle commit', all: true)
     }
