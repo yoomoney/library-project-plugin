@@ -15,16 +15,29 @@ buildscript {
 
 apply plugin: org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 
-sourceSets {
-    test.java.srcDirs += 'src/test/kotlin'
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${System.getProperty('kotlinVersion')}",
+            "org.jetbrains.kotlin:kotlin-reflect:${System.getProperty('kotlinVersion')}",
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty('kotlinVersion')}"
 }
 
-afterEvaluate {
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
 
-    dependencies {
-        testCompile "org.jetbrains.kotlin:kotlin-stdlib:${System.getProperty('kotlinVersion')}",
-                    "org.jetbrains.kotlin:kotlin-reflect:${System.getProperty('kotlinVersion')}",
-                    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty('kotlinVersion')}"
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+sourceSets {
+    test.java.srcDirs += 'src/test/kotlin'
+
+    slowTest {
+        kotlin {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/slowTest/kotlin')
+        }
     }
 }
 
