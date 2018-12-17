@@ -1,30 +1,23 @@
-
-buildscript {
-    if (System.getProperty("kotlinVersion") == null) {
-        System.setProperty('kotlinVersion', '1.2.61')
-    }
-    
-    repositories {
-        maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
-
-        dependencies {
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${System.getProperty('kotlinVersion')}"
-        }
-    }
+if (System.getProperty("kotlinVersion") == null) {
+    return
 }
 
-apply plugin: org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
+apply plugin: 'kotlin'
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${System.getProperty('kotlinVersion')}",
+            "org.jetbrains.kotlin:kotlin-reflect:${System.getProperty('kotlinVersion')}",
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty('kotlinVersion')}"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
 
 sourceSets {
     test.java.srcDirs += 'src/test/kotlin'
 }
-
-afterEvaluate {
-
-    dependencies {
-        testCompile "org.jetbrains.kotlin:kotlin-stdlib:${System.getProperty('kotlinVersion')}",
-                    "org.jetbrains.kotlin:kotlin-reflect:${System.getProperty('kotlinVersion')}",
-                    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${System.getProperty('kotlinVersion')}"
-    }
-}
-

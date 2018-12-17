@@ -6,6 +6,7 @@
 ```groovy
 System.setProperty("platformLibraryProjectVersion", "2.+")
 System.setProperty("platformDependenciesVersion", "3.+")
+System.setProperty("kotlinVersion", "1.2.61")
 
 repositories {
     maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
@@ -18,6 +19,8 @@ repositories {
                 System.getProperty("platformLibraryProjectVersion")
         classpath group: 'ru.yandex.money.platform', name: 'yamoney-libraries-dependencies', 
                 version: System.getProperty("platformDependenciesVersion"), ext: 'zip'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:' + 
+                        System.getProperty('kotlinVersion')
     }
 }
 ```
