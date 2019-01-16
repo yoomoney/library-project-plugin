@@ -2,6 +2,10 @@
 
 ## NEXT_VERSION
 
+## [2.0.13]() (16-01-2019)
+
+Изменена версия check-dependencies-plugin на 4.0.3
+
 ## [2.0.12]() (17-12-2018)
 
 Поправила kotlin-test.gradle 
