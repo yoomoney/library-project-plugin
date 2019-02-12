@@ -105,21 +105,3 @@ jar {
     }
 }
 
-buildscript {
-    repositories {
-        maven { url 'https://nexus.yamoney.ru/content/repositories/gradle-plugins/' }
-        dependencies {
-            classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.10"
-        }
-    }
-}
-
-apply plugin: net.ltgt.gradle.errorprone.ErrorPronePlugin
-
-configurations.errorprone {
-    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.12'
-}
-
-dependencies {
-    errorprone 'com.google.errorprone:error_prone_core:2.0.12'
-}
