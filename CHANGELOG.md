@@ -1,7 +1,7 @@
-%% NEXT_VERSION_TYPE=MINOR
-%% NEXT_VERSION_DESCRIPTION_BEGIN
+## [2.1.0]() (26-02-2019)
+
 * Переход на platformGradleProjectVersion 4 версии
-%% NEXT_VERSION_DESCRIPTION_END
+
 ## [2.0.15]() (21-02-2019)
 
 * Поднял версию `yamoney-check-dependencies-plugin` до `4.1.0`
