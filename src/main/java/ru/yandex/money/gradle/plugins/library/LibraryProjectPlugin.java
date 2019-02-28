@@ -4,9 +4,9 @@ import io.spring.gradle.dependencymanagement.DependencyManagementPlugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPlugin;
-import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
+import ru.yandex.money.gradle.plugins.release.ReleasePlugin;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,8 +25,8 @@ public class LibraryProjectPlugin implements Plugin<Project> {
     private static final Collection<Class<?>> PLUGINS_TO_APPLY = Arrays.asList(
             JavaPlugin.class,
             DependencyManagementPlugin.class,
-            CheckChangelogPlugin.class,
             CheckDependenciesPlugin.class,
+            ReleasePlugin.class,
             GitExpiredBranchPlugin.class
     );
 

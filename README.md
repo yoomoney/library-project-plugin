@@ -193,3 +193,6 @@ checkDependencies {
 
 Подробнее о настройки IO Spring Dependency Management plugin описано на [официальной странице проекта](https://github.com/spring-gradle-plugins/dependency-management-plugin)
 
+## ReleasePlugin
+Плагин помогает в релизе
+[Подробнее](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/artifact-release-plugin/browse/README.md)
