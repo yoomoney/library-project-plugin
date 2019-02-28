@@ -53,7 +53,7 @@ public class GitManager implements Closeable {
     /**
      * Проверяем, является ли текущая ветка подходящей для релиза
      *
-     * @return true если из текущей ветки может быть срезан релиз
+     * @return true если из текущей ветки можно зарелизить библиотеку
      */
     public boolean isCurrentBranchForRelease() {
         return getCurrentBranch()
