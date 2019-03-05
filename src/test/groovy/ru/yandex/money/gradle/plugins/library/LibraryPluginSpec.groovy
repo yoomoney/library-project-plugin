@@ -1,6 +1,5 @@
 package ru.yandex.money.gradle.plugins.library
 
-import ru.yandex.money.gradle.plugins.library.changelog.CheckChangelogPlugin
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin
 
 /**
@@ -9,9 +8,9 @@ import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlug
  */
 class LibraryPluginSpec extends AbstractPluginSpec {
 
-    def "проверяем, что таски плагина определены и запускаются"() {
-        def expectedTasks = [CheckChangelogPlugin.CHECK_CHANGELOG_TASK_NAME,
-                             CheckDependenciesPlugin.CHECK_DEPENDENCIES_TASK_NAME]
+    def "should contains tasks"() {
+        def expectedTasks = [CheckDependenciesPlugin.CHECK_DEPENDENCIES_TASK_NAME,
+                             "preRelease", "release", "checkChangelog"]
 
         when:
         def result = runTasksSuccessfully("tasks")

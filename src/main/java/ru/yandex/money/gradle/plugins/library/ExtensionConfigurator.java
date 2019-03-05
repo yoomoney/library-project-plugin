@@ -3,7 +3,9 @@ package ru.yandex.money.gradle.plugins.library;
 import org.gradle.api.Project;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPluginExtension;
 import ru.yandex.money.gradle.plugins.library.dependencies.checkversion.MajorVersionCheckerExtension;
+import ru.yandex.money.gradle.plugins.library.git.GitManager;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.EmailConnectionExtension;
+import ru.yandex.money.gradle.plugins.release.ReleaseExtension;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -28,6 +30,20 @@ public class ExtensionConfigurator {
         configureGitExpiredBranchesExtension(project);
         configureMajorVersionCheckerExtension(project);
         configureCheckDependenciesExtension(project);
+        configureReleasePlugin(project);
+    }
+
+    private static void configureReleasePlugin(Project project) {
+        ReleaseExtension releaseExtension = project.getExtensions().getByType(ReleaseExtension.class);
+        releaseExtension.getReleaseTasks().addAll(Arrays.asList("build", "publish"));
+        releaseExtension.setChangelogRequired(true);
+        releaseExtension.setPathToGitPrivateSshKey(System.getenv("GIT_PRIVATE_SSH_KEY_PATH"));
+        try (GitManager git = new GitManager(project.getRootDir())) {
+            if (!git.isCurrentBranchForRelease()) {
+                project.getTasks().getByName("build")
+                        .dependsOn(project.getTasks().getByName("checkChangelog"));
+            }
+        }
     }
 
     private static void configureGitExpiredBranchesExtension(Project project) {
