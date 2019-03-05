@@ -1,9 +1,9 @@
-### NEXT_VERSION_TYPE=MAJOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.0.0]() (05-03-2019)
+
 * Переход на yamoney-artifact-release-plugin
 * Поменялся релизный цикл, теперь вместо release, в мастере надо вызвать preRelease и release
-* Поменялся формат CHANGELOG.md подробности в https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/artifact-release-plugin/browse/README.md  
-### NEXT_VERSION_DESCRIPTION_END
+* Поменялся формат CHANGELOG.md подробности в https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/artifact-release-plugin/browse/README.md
+
 ## [2.1.0]() (26-02-2019)
 
 * Переход на platformGradleProjectVersion 4 версии
