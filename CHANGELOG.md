@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.1.0]() (07-03-2019)
+
 * Подняла версию `yamoney-check-dependencies-plugin` до `4.4.2`
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.0.0]() (05-03-2019)
 
 * Переход на yamoney-artifact-release-plugin
