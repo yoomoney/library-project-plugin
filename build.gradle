@@ -29,7 +29,7 @@ jar {
 dependencies {
     compile localGroovy(),
             'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:1.2.1',
-            'ru.yandex.money.gradle.plugins:yamoney-check-dependencies-plugin:4.4.2',
+            'ru.yandex.money.gradle.plugins:yamoney-check-dependencies-plugin:4.4.3',
             'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:2.0.4'
 
     testCompile gradleTestKit(),
