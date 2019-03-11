@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Поднял версию `yamoney-check-dependencies-plugin` до `4.4.3`
 ### NEXT_VERSION_DESCRIPTION_END
 ## [3.1.0]() (07-03-2019)
 
