@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.1.2]() (20-03-2019)
+
 * Исправлена авторизация в гите по ssh
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.1.1]() (11-03-2019)
 
 * Поднял версию `yamoney-check-dependencies-plugin` до `4.4.3`
