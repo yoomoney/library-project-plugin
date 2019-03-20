@@ -28,7 +28,7 @@ jar {
 
 dependencies {
     compile localGroovy(),
-            'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:1.2.1',
+            'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:1.2.2',
             'ru.yandex.money.gradle.plugins:yamoney-check-dependencies-plugin:4.4.3',
             'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:2.0.4'
 
@@ -38,4 +38,4 @@ dependencies {
     testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
         exclude module: 'groovy-all'
     }
-}
+} 
