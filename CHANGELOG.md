@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Скрипты check-dependencies и build-publishing перенесены в код плагина
 ### NEXT_VERSION_DESCRIPTION_END
 ## [3.3.0]() (26-04-2019)
 
