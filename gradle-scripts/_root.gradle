@@ -13,13 +13,12 @@ apply from: 'tmp/gradle-scripts/library-project.gradle'
 apply from: 'tmp/gradle-scripts/checkstyle.gradle'
 apply from: 'tmp/gradle-scripts/compile-check.gradle'
 apply from: 'tmp/gradle-scripts/snapshot-dependencies.gradle'
+apply from: 'tmp/gradle-scripts/coverage.gradle'
 
 if (JavaVersion.current() <= JavaVersion.VERSION_1_8) {
     apply from: 'tmp/gradle-scripts/build-error-prone-8.gradle'
-    apply from: 'tmp/gradle-scripts/coverage-8.gradle'
     apply from: 'tmp/gradle-scripts/findbugs.gradle'
 } else {
     apply from: 'tmp/gradle-scripts/build-error-prone-11.gradle'
-    apply from: 'tmp/gradle-scripts/coverage-11.gradle'
     apply from: 'tmp/gradle-scripts/spotbugs.gradle'
 }
