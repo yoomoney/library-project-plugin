@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.1.3]() (24-04-2019)
+
 * Одна версия coverage.gradle для java8 и java11
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.1.2]() (20-03-2019)
 
 * Исправлена авторизация в гите по ssh
