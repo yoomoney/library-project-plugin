@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.3.1]() (26-04-2019)
+
 * Добавлен `JavaModulePlugin`
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.3.0]() (26-04-2019)
 
 * Часть скриптов сборки перенесена в java-module-plugin
