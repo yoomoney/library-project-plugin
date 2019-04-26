@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.3.0]() (26-04-2019)
+
 * Часть скриптов сборки перенесена в java-module-plugin
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.2.0]() (26-04-2019)
 
 * Подняла версию `yamoney-git-expired-branch-plugin` c '2.0.4' до `3.0.0`.
