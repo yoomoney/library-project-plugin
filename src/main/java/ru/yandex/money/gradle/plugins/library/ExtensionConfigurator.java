@@ -32,6 +32,7 @@ public class ExtensionConfigurator {
         configureMajorVersionCheckerExtension(project);
         configureCheckDependenciesExtension(project);
         configureReleasePlugin(project);
+        configureKotlin(project);
     }
 
     private static void configureReleasePlugin(Project project) {
@@ -80,5 +81,14 @@ public class ExtensionConfigurator {
 
         checkDependenciesPluginExtension.exclusionsRulesSources =
                 singletonList("ru.yandex.money.platform:yamoney-libraries-dependencies");
+    }
+
+    private static void configureKotlin(Project project) {
+        String kotlinVersion = System.getProperty("kotlinVersion");
+        if (kotlinVersion == null) {
+            return;
+        }
+        project.getDependencies().add("testCompile", "org.jetbrains.kotlin:kotlin-stdlib-jdk8:" + kotlinVersion);
+        project.getDependencies().add("testCompile", "org.jetbrains.kotlin:kotlin-reflect:" + kotlinVersion);
     }
 }
