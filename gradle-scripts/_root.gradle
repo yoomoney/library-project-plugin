@@ -5,7 +5,6 @@ apply from: 'tmp/gradle-scripts/build-utils.gradle'
 apply from: 'tmp/gradle-scripts/check-dependencies.gradle'
 apply from: 'tmp/gradle-scripts/build-publishing.gradle'
 apply from: 'tmp/gradle-scripts/checkstyle.gradle'
-apply from: 'tmp/gradle-scripts/compile-check.gradle'
 apply from: 'tmp/gradle-scripts/coverage.gradle'
 
 if (JavaVersion.current() <= JavaVersion.VERSION_1_8) {
