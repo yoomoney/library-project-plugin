@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.3.2]() (26-04-2019)
+
 * Добавлена недостающая таска checkComponentSnapshotDependencies
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.3.1]() (26-04-2019)
 
 * Добавлен `JavaModulePlugin`
