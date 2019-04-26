@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.4.1]() (26-04-2019)
+
 * Поправил сборку артефактов
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.4.0]() (26-04-2019)
 
 * Скрипты check-dependencies и build-publishing перенесены в код плагина
