@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.4.0]() (26-04-2019)
+
 * Скрипты check-dependencies и build-publishing перенесены в код плагина
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.3.2]() (26-04-2019)
 
 * Добавлена недостающая таска checkComponentSnapshotDependencies
