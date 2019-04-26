@@ -12,3 +12,7 @@ if (JavaVersion.current() <= JavaVersion.VERSION_1_8) {
 } else {
     apply from: 'tmp/gradle-scripts/spotbugs.gradle'
 }
+
+task checkComponentSnapshotDependencies {
+    dependsOn("checkLibraryDependencies")
+}
