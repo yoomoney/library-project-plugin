@@ -196,6 +196,3 @@ checkDependencies {
 ## ReleasePlugin
 Делает релиз
 [Подробнее](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/artifact-release-plugin/browse/README.md)
-
-## JavaModulePlugin
-[Подробнее](https://bitbucket-public.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/java-module-plugin/browse/README.md)

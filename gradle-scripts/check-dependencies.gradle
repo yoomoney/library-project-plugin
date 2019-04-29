@@ -1,0 +1,19 @@
+def applyApiRules(DependencyResolveDetails details) {
+    if ("api" != project.ext.groupIdSuffix) {
+        return;
+    }
+    def group = details.requested.group
+    if (group.contains('ru.yandex.money.api')) {
+        throw new IllegalStateException("Api must not depend on other api: $details.requested.group:$details.requested.name");
+    }
+}
+
+configurations {
+    all.each {
+        it.resolutionStrategy {
+            eachDependency { DependencyResolveDetails details ->
+                applyApiRules(details)
+            }
+        }
+    }
+}
