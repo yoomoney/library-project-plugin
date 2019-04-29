@@ -35,8 +35,6 @@ public class PublishingConfigurer {
      * Иницализация
      */
     public void init(Project project) {
-        project.getExtensions().getExtraProperties().set("groupIdSuffix", "");
-        project.getExtensions().getExtraProperties().set("artifactID", project.getName());
         project.getPluginManager().apply(MavenPublishPlugin.class);
         configureJavadoc(project);
         project.afterEvaluate(p -> {
@@ -65,7 +63,7 @@ public class PublishingConfigurer {
         publishingExtension.publications(publicationContainer -> {
             MavenPublication mavenJava = publicationContainer.maybeCreate("mavenJava", MavenPublication.class);
             mavenJava.setGroupId("ru.yandex.money" + groupIdSuffix(project));
-            mavenJava.setArtifactId((String) project.property("artifactID"));
+            mavenJava.setArtifactId(project.getName());
             mavenJava.from(getPublishingComponent(project));
             mavenJava.artifact(project.getTasks().getByName("sourceJar"), mavenArtifact -> mavenArtifact.setClassifier("sources"));
             mavenJava.artifact(project.getTasks().getByName("javadocJar"), mavenArtifact -> mavenArtifact.setClassifier("javadoc"));
@@ -95,7 +93,7 @@ public class PublishingConfigurer {
         Task storeVersion = project.getTasks().create("storeVersion");
         storeVersion.setDescription("Generates file, which contains information about build version");
         storeVersion.doLast(task -> {
-            String debVersion = String.format("%s:%s", project.property("artifactID"), project.getVersion());
+            String debVersion = String.format("%s:%s", project.getName(), project.getVersion());
             storeVersionToFile(project.getBuildDir().getAbsolutePath(), "version.txt", debVersion);
         });
     }
