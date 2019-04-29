@@ -15,7 +15,9 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
 
     private static final String BUILD_FILE_CONTENTS = """
     buildscript {
+    
         System.setProperty("kotlinVersion", "1.2.61")
+        System.setProperty("platformDependenciesVersion", "3+")
 
         repositories {
                 maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
@@ -31,7 +33,11 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
     apply from: 'tmp/gradle-scripts/_root.gradle'
     ext.checkstyleEnabled = false
     dependencies {
+       compile 'com.google.guava:guava:27.1-jre'
        testCompile 'junit:junit:4.12'
+    }
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs << '-Xep:InsecureCipherMode:WARN'
     }
     """.stripIndent()
 
