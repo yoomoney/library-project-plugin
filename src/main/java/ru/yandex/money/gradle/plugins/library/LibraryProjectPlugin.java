@@ -7,9 +7,7 @@ import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.util.VersionNumber;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModulePlugin;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
-import ru.yandex.money.gradle.plugins.library.deps.ForbidApiFromApiDependencies;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
-import ru.yandex.money.gradle.plugins.library.publishing.PublishingConfigurer;
 import ru.yandex.money.gradle.plugins.release.ReleasePlugin;
 
 import java.util.Arrays;
@@ -42,8 +40,6 @@ public class LibraryProjectPlugin implements Plugin<Project> {
         }
         PLUGINS_TO_APPLY.forEach(pluginClass -> project.getPluginManager().apply(pluginClass));
         ExtensionConfigurator.configure(project);
-        new ForbidApiFromApiDependencies().init(project);
-        new PublishingConfigurer().init(project);
     }
 
 }

@@ -1,0 +1,103 @@
+apply plugin: 'maven-publish'
+apply plugin: 'java'
+
+ext {
+    artifactID = project.name
+    groupIdSuffix = ""
+}
+
+javadoc {
+    classpath += project.configurations.optional
+    options {
+        docEncoding = 'UTF-8'
+        charSet = 'UTF-8'
+        encoding = 'UTF-8'
+        failOnError = false
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+def getPublishingComponent() {
+    if (!project.hasProperty("publishingComponent")) {
+        return components.java
+    }
+    return project.publishingComponent
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId "ru.yandex.money" + (project.extensions.properties.get("groupIdSuffix") == "" ? "" : ".${project.extensions.properties.get("groupIdSuffix")}")
+            artifactId "${project.extensions.properties.get("artifactID")}"
+
+            from getPublishingComponent()
+
+            pom.withXml {
+
+                // https://discuss.gradle.org/t/maven-publish-plugin-generated-pom-making-dependency-scope-runtime/7496
+                asNode().dependencies.'*'.findAll() {
+                    it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->
+                        dep.name == it.artifactId.text()
+                    }
+                }.each() {
+                    it.scope*.value = 'compile'
+                }
+            }
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+            artifact javadocJar {
+                classifier = 'javadoc'
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url project.version.endsWith('-SNAPSHOT') ? project.extensions.properties.get('snapshotRepoProxyUrl') : project.extensions.properties.get('releaseRepoProxyUrl')
+            credentials {
+                username System.getenv('NEXUS_USER')
+                password System.getenv('NEXUS_PASSWORD')
+            }
+        }
+    }
+}
+
+tasks.withType(PublishToMavenRepository) { it.dependsOn test }
+
+
+/**
+ * Сохраняет версию модуля в файл.
+ * Данный файл используется для публикации версии компонента на странице сборки компонента в jenkins
+ */
+task storeVersion {
+    description = "Generates file, which contains information about build version"
+
+    def storeVersionToFile = { String versionDir, String filename, String content ->
+        try {
+            File versionFile = new File(versionDir, filename)
+            versionFile.text = content
+            logger.lifecycle("File with version generated successfully into ${versionFile.getAbsolutePath()}")
+        } catch (Exception e) {
+            logger.lifecycle("Error occurred during storing version: '${e.getMessage()}'. SKIPPED")
+        }
+    }
+
+    doLast {
+        String debVersionDir = buildDir
+        String debVersionFilename = "version.txt"
+        String debVersion = "${project.extensions.properties.get("artifactID")}:$version"
+
+        storeVersionToFile(debVersionDir, debVersionFilename, debVersion)
+    }
+}
+tasks.publish.finalizedBy storeVersion
