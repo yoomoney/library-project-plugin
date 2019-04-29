@@ -1,11 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'java'
 
-ext {
-    artifactID = project.name
-    groupIdSuffix = ""
-}
-
 javadoc {
     classpath += project.configurations.optional
     options {
@@ -35,8 +30,8 @@ def getPublishingComponent() {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId "ru.yandex.money" + (project.extensions.properties.get("groupIdSuffix") == "" ? "" : ".${project.extensions.properties.get("groupIdSuffix")}")
-            artifactId "${project.extensions.properties.get("artifactID")}"
+            groupId "ru.yandex.money" + (groupIdSuffix == "" ? "" : ".${groupIdSuffix}")
+            artifactId "${artifactID}"
 
             from getPublishingComponent()
 
@@ -63,7 +58,7 @@ publishing {
 
     repositories {
         maven {
-            url project.version.endsWith('-SNAPSHOT') ? project.extensions.properties.get('snapshotRepoProxyUrl') : project.extensions.properties.get('releaseRepoProxyUrl')
+            url project.version.endsWith('-SNAPSHOT') ? project.ext.snapshotRepoProxyUrl : project.ext.releaseRepoProxyUrl
             credentials {
                 username System.getenv('NEXUS_USER')
                 password System.getenv('NEXUS_PASSWORD')
@@ -95,7 +90,7 @@ task storeVersion {
     doLast {
         String debVersionDir = buildDir
         String debVersionFilename = "version.txt"
-        String debVersion = "${project.extensions.properties.get("artifactID")}:$version"
+        String debVersion = "$artifactID:$version"
 
         storeVersionToFile(debVersionDir, debVersionFilename, debVersion)
     }
