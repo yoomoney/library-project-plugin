@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлён yamoney-java-module-plugin, с подключенным статическим анализатором `SpotBugs`
 ### NEXT_VERSION_DESCRIPTION_END
 ## [3.4.5]() (08-05-2019)
 
