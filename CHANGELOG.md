@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [3.4.3]() (07-05-2019)
 
 * Все изменения вернулись обратно, исправлена сборка и публикация артефактов
