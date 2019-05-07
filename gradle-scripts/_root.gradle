@@ -1,24 +1,15 @@
-if (VersionNumber.parse(gradle.gradleVersion) < VersionNumber.parse('4.10.2')) {
-    throw new IllegalStateException("Gradle >= 4.10.2 is required")
-}
-apply from: 'tmp/gradle-scripts/build-utils.gradle'
-apply from: 'tmp/gradle-scripts/build-git-flow.gradle'
-apply from: 'tmp/gradle-scripts/build-jar.gradle'
-apply from: 'tmp/gradle-scripts/build-test.gradle'
-apply from: 'tmp/gradle-scripts/check-dependencies.gradle'
-apply from: 'tmp/gradle-scripts/build-publishing.gradle'
-apply from: 'tmp/gradle-scripts/build-idea-settings.gradle'
-apply from: 'tmp/gradle-scripts/kotlin-test.gradle'
-apply from: 'tmp/gradle-scripts/library-project.gradle'
-apply from: 'tmp/gradle-scripts/checkstyle.gradle'
-apply from: 'tmp/gradle-scripts/compile-check.gradle'
-apply from: 'tmp/gradle-scripts/snapshot-dependencies.gradle'
-apply from: 'tmp/gradle-scripts/coverage.gradle'
 
-if (JavaVersion.current() <= JavaVersion.VERSION_1_8) {
-    apply from: 'tmp/gradle-scripts/build-error-prone-8.gradle'
+apply from: 'tmp/gradle-scripts/build-utils.gradle'
+apply from: 'tmp/gradle-scripts/errorprone.gradle'
+
+if (JavaVersion.current().java8) {
     apply from: 'tmp/gradle-scripts/findbugs.gradle'
 } else {
-    apply from: 'tmp/gradle-scripts/build-error-prone-11.gradle'
     apply from: 'tmp/gradle-scripts/spotbugs.gradle'
+}
+
+apply plugin: 'yamoney-library-project-plugin'
+
+task checkComponentSnapshotDependencies {
+    dependsOn("checkLibraryDependencies")
 }

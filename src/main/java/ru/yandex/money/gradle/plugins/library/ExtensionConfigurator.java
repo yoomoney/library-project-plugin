@@ -1,6 +1,7 @@
 package ru.yandex.money.gradle.plugins.library;
 
 import org.gradle.api.Project;
+import ru.yandex.money.gradle.plugins.backend.build.JavaModuleExtensions;
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPluginExtension;
 import ru.yandex.money.gradle.plugins.library.dependencies.checkversion.MajorVersionCheckerExtension;
 import ru.yandex.money.gradle.plugins.library.git.GitManager;
@@ -32,6 +33,17 @@ public class ExtensionConfigurator {
         configureMajorVersionCheckerExtension(project);
         configureCheckDependenciesExtension(project);
         configureReleasePlugin(project);
+        configureKotlin(project);
+        configureJavaModulePlugin(project);
+    }
+
+    private static void configureJavaModulePlugin(Project project) {
+        project.afterEvaluate(p -> {
+            if (p.hasProperty("checkstyleEnabled")) {
+                JavaModuleExtensions module = p.getExtensions().getByType(JavaModuleExtensions.class);
+                module.setCheckstyleEnabled((Boolean) p.property("checkstyleEnabled"));
+            }
+        });
     }
 
     private static void configureReleasePlugin(Project project) {
@@ -80,5 +92,14 @@ public class ExtensionConfigurator {
 
         checkDependenciesPluginExtension.exclusionsRulesSources =
                 singletonList("ru.yandex.money.platform:yamoney-libraries-dependencies");
+    }
+
+    private static void configureKotlin(Project project) {
+        String kotlinVersion = System.getProperty("kotlinVersion");
+        if (kotlinVersion == null) {
+            return;
+        }
+        project.getDependencies().add("testCompile", "org.jetbrains.kotlin:kotlin-stdlib-jdk8:" + kotlinVersion);
+        project.getDependencies().add("testCompile", "org.jetbrains.kotlin:kotlin-reflect:" + kotlinVersion);
     }
 }

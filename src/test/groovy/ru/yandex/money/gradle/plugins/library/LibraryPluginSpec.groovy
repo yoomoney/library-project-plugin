@@ -1,6 +1,10 @@
 package ru.yandex.money.gradle.plugins.library
 
+import org.apache.commons.io.IOUtils
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin
+
+import java.nio.charset.Charset
+import java.nio.file.Paths
 
 /**
  * @author Oleg Kandaurov
@@ -26,7 +30,6 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         writeHelloWorld("ru.yandex.money.common")
         then:
         runTasksSuccessfully("clean", "build", "slowTest")
-
     }
 
     def "should run java test"() {
@@ -57,7 +60,31 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         then: "Запускаются тесты на Kotlin"
         assert result.success
         assert result.standardOutput.contains("run kotlin test...")
+    }
 
+    def "should check snapshot dependencies"() {
+        when:
+        def result = runTasks("checkComponentSnapshotDependencies")
+
+        then: "Запускается проверка на SNAPSHOT зависимости"
+        assert result.success
+        assert result.standardOutput.contains("checkLibraryDependencies")
+    }
+
+    def "should publish to maven local"() {
+        given: "Hello world app"
+        writeHelloWorld("ru.yandex.money.common")
+        when: "Run publish task"
+        def result = runTasksSuccessfully("clean", "jar", "publishMavenJavaPublicationToMavenLocal")
+        then: "Artifacts published"
+        assert result.success
+        def appName = "yamoney-should-publish-to-maven-local"
+        assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}.jar").toFile().exists()
+        assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-javadoc.jar").toFile().exists()
+        assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-sources.jar").toFile().exists()
+        def pomFile = Paths.get(projectDir.absolutePath, "target", "publications", "mavenJava", "pom-default.xml").toFile()
+        assert pomFile.exists()
+        assert IOUtils.toString(pomFile.toURI(), Charset.defaultCharset()).contains("yamoney-libraries-dependencies")
     }
 
 }
