@@ -24,7 +24,7 @@ dependencies {
     compile localGroovy(),
             'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:1.2.2',
             'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:3.0.0',
-            'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.6.1'
+            'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.7.0'
 
     testCompile gradleTestKit(),
             'com.netflix.nebula:nebula-test:7.1.0',

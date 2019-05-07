@@ -6,23 +6,21 @@
 ## Подключение
 Для подключения в проект этого плагина, нужно добавить файл ```project.gradle```:
 ```groovy
-System.setProperty("platformLibraryProjectVersion", "2.+")
+System.setProperty("platformLibraryProjectVersion", "3.+")
 System.setProperty("platformDependenciesVersion", "3.+")
-System.setProperty("kotlinVersion", "1.2.61")
 
 repositories {
-    maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
+    maven { url 'https://nexus.yamoney.ru/repository/gradle-plugins/' }
+    maven { url 'https://nexus.yamoney.ru/repository/thirdparty/' }
+    maven { url 'https://nexus.yamoney.ru/repository/central/' }
+    maven { url 'https://nexus.yamoney.ru/repository/releases/' }
+    maven { url 'https://nexus.yamoney.ru/repository/jcenter.bintray.com/' }
 
     dependencies {
         classpath 'ru.yandex.money.gradle.plugins:yamoney-library-project-plugin:' + 
                 System.getProperty("platformLibraryProjectVersion")
         classpath group: 'ru.yandex.money.platform', name: 'yamoney-libraries-dependencies', 
                 version: System.getProperty("platformDependenciesVersion"), ext: 'zip'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:' + 
-                        System.getProperty('kotlinVersion')
     }
 }
 ```
@@ -37,6 +35,28 @@ buildscript {
     }
 }
 apply from: 'tmp/gradle-scripts/_root.gradle'
+/////////////////////////////////////////////
+
+groupIdSuffix = "common"
+artifactID = "yamoney-json-utils"
+
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+}
+```
+
+Если проект полность написан на kotlin то надо применить плагин `yamoney-kotlin-module-plugin` после `yamoney-library-project-plugin`
+```groovy
+buildscript {
+    apply from: 'project.gradle', to: buildscript
+    copy {
+        from zipTree(buildscript.configurations.classpath.files.find{ it.name.contains('library-project-plugin')})
+        into 'tmp'
+        include 'gradle-scripts/**'
+    }
+}
+apply from: 'tmp/gradle-scripts/_root.gradle'
+apply plugin: 'yamoney-kotlin-module-plugin'
 /////////////////////////////////////////////
 
 groupIdSuffix = "common"
