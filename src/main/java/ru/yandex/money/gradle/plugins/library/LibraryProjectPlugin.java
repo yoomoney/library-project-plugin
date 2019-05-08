@@ -1,13 +1,10 @@
 package ru.yandex.money.gradle.plugins.library;
 
-import io.spring.gradle.dependencymanagement.DependencyManagementPlugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin;
 import org.gradle.util.VersionNumber;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModulePlugin;
-import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
 import ru.yandex.money.gradle.plugins.library.deps.ForbidApiFromApiDependencies;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
 import ru.yandex.money.gradle.plugins.library.publishing.PublishingConfigurer;
@@ -23,15 +20,9 @@ import java.util.Collection;
  * @since 22.12.2016
  */
 public class LibraryProjectPlugin implements Plugin<Project> {
-    /**
-     * Для подключения новой функциональности, достаточно добавить плагин в этот список.
-     * Все остальные настройки должны делаться в самом добавляемом плагине.
-     */
+
     private static final Collection<Class<?>> PLUGINS_TO_APPLY = Arrays.asList(
-            JavaPlugin.class,
             MavenPublishPlugin.class,
-            DependencyManagementPlugin.class,
-            CheckDependenciesPlugin.class,
             ReleasePlugin.class,
             GitExpiredBranchPlugin.class,
             JavaModulePlugin.class

@@ -1,19 +1,13 @@
 package ru.yandex.money.gradle.plugins.library;
 
 import org.gradle.api.Project;
-import ru.yandex.money.gradle.plugins.backend.build.JavaModuleExtensions;
-import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPluginExtension;
-import ru.yandex.money.gradle.plugins.library.dependencies.checkversion.MajorVersionCheckerExtension;
+import ru.yandex.money.gradle.plugins.backend.build.JavaModuleExtension;
 import ru.yandex.money.gradle.plugins.library.git.GitManager;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.EmailConnectionExtension;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.GitConnectionExtension;
 import ru.yandex.money.gradle.plugins.release.ReleaseExtension;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import static java.util.Collections.singletonList;
 
 /**
  * Конфигуратор настроек плагинов.
@@ -30,17 +24,14 @@ public class ExtensionConfigurator {
      */
     static void configure(Project project) {
         configureGitExpiredBranchesExtension(project);
-        configureMajorVersionCheckerExtension(project);
-        configureCheckDependenciesExtension(project);
         configureReleasePlugin(project);
-        configureKotlin(project);
         configureJavaModulePlugin(project);
     }
 
     private static void configureJavaModulePlugin(Project project) {
         project.afterEvaluate(p -> {
             if (p.hasProperty("checkstyleEnabled")) {
-                JavaModuleExtensions module = p.getExtensions().getByType(JavaModuleExtensions.class);
+                JavaModuleExtension module = p.getExtensions().getByType(JavaModuleExtension.class);
                 module.setCheckstyleEnabled((Boolean) p.property("checkstyleEnabled"));
             }
         });
@@ -72,34 +63,4 @@ public class ExtensionConfigurator {
         gitConnectionExtension.setPathToGitPrivateSshKey(System.getenv("GIT_PRIVATE_SSH_KEY_PATH"));
     }
 
-    private static void configureMajorVersionCheckerExtension(Project project) {
-        Set<String> includeGroupIdPrefixes = new HashSet<>();
-        includeGroupIdPrefixes.add("ru.yamoney");
-        includeGroupIdPrefixes.add("ru.yandex.money");
-
-        project.getExtensions().findByType(MajorVersionCheckerExtension.class)
-                .includeGroupIdPrefixes = includeGroupIdPrefixes;
-    }
-
-    private static void configureCheckDependenciesExtension(Project project) {
-        CheckDependenciesPluginExtension checkDependenciesPluginExtension =
-                project.getExtensions().findByType(CheckDependenciesPluginExtension.class);
-
-        checkDependenciesPluginExtension.excludedConfigurations = Arrays.asList(
-                "checkstyle", "errorprone", "optional", "findbugs",
-                "architecture", "architectureTestCompile", "architectureTestCompileClasspath",
-                "architectureTestRuntime", "architectureTestRuntimeClasspath");
-
-        checkDependenciesPluginExtension.exclusionsRulesSources =
-                singletonList("ru.yandex.money.platform:yamoney-libraries-dependencies");
-    }
-
-    private static void configureKotlin(Project project) {
-        String kotlinVersion = System.getProperty("kotlinVersion");
-        if (kotlinVersion == null) {
-            return;
-        }
-        project.getDependencies().add("testCompile", "org.jetbrains.kotlin:kotlin-stdlib-jdk8:" + kotlinVersion);
-        project.getDependencies().add("testCompile", "org.jetbrains.kotlin:kotlin-reflect:" + kotlinVersion);
-    }
 }

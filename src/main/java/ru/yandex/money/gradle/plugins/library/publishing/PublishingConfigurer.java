@@ -13,6 +13,7 @@ import org.gradle.api.publish.maven.tasks.PublishToMavenRepository;
 import org.gradle.api.tasks.bundling.Jar;
 import org.gradle.api.tasks.javadoc.Javadoc;
 
+import javax.annotation.Nonnull;
 import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,7 +69,7 @@ public class PublishingConfigurer {
         PublishingExtension publishingExtension = project.getExtensions().getByType(PublishingExtension.class);
         publishingExtension.publications(publicationContainer -> {
             MavenPublication mavenJava = publicationContainer.maybeCreate("mavenJava", MavenPublication.class);
-            mavenJava.setGroupId("ru.yandex.money" + groupIdSuffix(project));
+            mavenJava.setGroupId(getGroupId(project));
             mavenJava.setArtifactId((String) project.property("artifactID"));
             mavenJava.from(getPublishingComponent(project));
             mavenJava.artifact(project.getTasks().getByName("sourcesJar"));
@@ -90,6 +91,11 @@ public class PublishingConfigurer {
         project.getTasks().withType(PublishToMavenRepository.class).forEach(task -> task.dependsOn("jar", "test"));
     }
 
+    @Nonnull
+    private String getGroupId(Project project) {
+        return "ru.yandex.money" + groupIdSuffix(project);
+    }
+
     private void configureStoreVersion(Project project) {
         storeVersion(project);
         project.getTasks().getByName("publish").finalizedBy("storeVersion");
@@ -99,8 +105,11 @@ public class PublishingConfigurer {
         Task storeVersion = project.getTasks().create("storeVersion");
         storeVersion.setDescription("Generates file, which contains information about build version");
         storeVersion.doLast(task -> {
-            String debVersion = String.format("%s:%s", project.property("artifactID"), project.getVersion());
-            storeVersionToFile(project.getBuildDir().getAbsolutePath(), "version.txt", debVersion);
+            String version = String.format("%s:%s:%s",
+                    getGroupId(project),
+                    project.property("artifactID"),
+                    project.getVersion());
+            storeVersionToFile(project.getBuildDir().getAbsolutePath(), "version.txt", version);
         });
     }
 
