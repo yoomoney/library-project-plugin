@@ -1,8 +1,8 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.4.5]() (08-05-2019)
+
 * Сборка переведена на yamoney-gradle-project-plugin=5.+
 * Обновлён yamoney-java-module-plugin
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.4.4]() (08-05-2019)
 
 * Фикс с округлением coverage
