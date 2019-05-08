@@ -26,21 +26,13 @@ public class ExtensionConfigurator {
         configureGitExpiredBranchesExtension(project);
         configureReleasePlugin(project);
         configureJavaModulePlugin(project);
-        addMissingCheckSnapshotsTask(project);
-    }
-
-    private static void addMissingCheckSnapshotsTask(Project project) {
-        project.getTasks().create("checkComponentSnapshotDependencies").dependsOn("checkSnapshotsDependencies");
     }
 
     private static void configureJavaModulePlugin(Project project) {
         project.afterEvaluate(p -> {
-            JavaModuleExtension module = p.getExtensions().getByType(JavaModuleExtension.class);
             if (p.hasProperty("checkstyleEnabled")) {
+                JavaModuleExtension module = p.getExtensions().getByType(JavaModuleExtension.class);
                 module.setCheckstyleEnabled((Boolean) p.property("checkstyleEnabled"));
-            }
-            if (p.hasProperty("findbugsEnabled")) {
-                module.setSpotbugsEnabled((Boolean) p.property("findbugsEnabled"));
             }
         });
     }
