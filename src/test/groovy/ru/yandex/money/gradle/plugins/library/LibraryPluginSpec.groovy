@@ -68,7 +68,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
         then: "Запускается проверка на SNAPSHOT зависимости"
         assert result.success
-        assert result.standardOutput.contains("checkSnapshotsDependencies")
+        assert result.standardOutput.contains("checkLibraryDependencies")
     }
 
     def "should publish to maven local"() {

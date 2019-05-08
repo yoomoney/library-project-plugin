@@ -1,3 +1,15 @@
 
+apply from: 'tmp/gradle-scripts/build-utils.gradle'
 apply from: 'tmp/gradle-scripts/errorprone.gradle'
+
+if (JavaVersion.current().java8) {
+    apply from: 'tmp/gradle-scripts/findbugs.gradle'
+} else {
+    apply from: 'tmp/gradle-scripts/spotbugs.gradle'
+}
+
 apply plugin: 'yamoney-library-project-plugin'
+
+task checkComponentSnapshotDependencies {
+    dependsOn("checkLibraryDependencies")
+}
