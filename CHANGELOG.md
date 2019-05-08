@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.4.4]() (08-05-2019)
+
 * Фикс с округлением coverage
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.4.3]() (07-05-2019)
 
 * Все изменения вернулись обратно, исправлена сборка и публикация артефактов
