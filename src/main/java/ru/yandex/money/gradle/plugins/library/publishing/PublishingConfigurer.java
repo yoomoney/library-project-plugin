@@ -78,10 +78,11 @@ public class PublishingConfigurer {
         publishingExtension.repositories(artifactRepositories -> {
             artifactRepositories.maven(repository -> {
                 if (project.getVersion().toString().endsWith("-SNAPSHOT")) {
-                    repository.setUrl(URI.create("https://nexus.yamoney.ru/content/repositories/snapshots/"));
+                    repository.setUrl(URI.create("https://nexus.yamoney.ru/repository/snapshots/"));
                 } else {
-                    repository.setUrl(URI.create("https://nexus.yamoney.ru/content/repositories/releases/"));
+                    repository.setUrl(URI.create("https://nexus.yamoney.ru/repository/releases/"));
                 }
+
                 repository.credentials(passwordCredentials -> {
                     passwordCredentials.setUsername(System.getenv("NEXUS_USER"));
                     passwordCredentials.setPassword(System.getenv("NEXUS_PASSWORD"));
