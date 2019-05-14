@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.5.2]() (14-05-2019)
+
 * Добавлен репозиторий с Gradle плагинами
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.5.1]() (08-05-2019)
 
 * Откат изменений с подключением `SpotBugs`
