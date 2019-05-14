@@ -45,7 +45,7 @@ dependencies {
 }
 ```
 
-Если проект полность написан на kotlin то надо применить плагин `yamoney-kotlin-module-plugin` после `yamoney-library-project-plugin`
+Если проект полностью написан на kotlin то надо применить плагин `yamoney-kotlin-module-plugin` после `yamoney-library-project-plugin`
 ```groovy
 buildscript {
     apply from: 'project.gradle', to: buildscript
