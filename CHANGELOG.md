@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.7.1]() (15-05-2019)
+
 * Убрал snapshot зависимость
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.7.0]() (14-05-2019)
 
 * Обновлён `yamoney-java-module-plugin`, с новым плагином для Kotlin
