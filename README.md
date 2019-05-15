@@ -6,7 +6,7 @@
 ## Подключение
 Для подключения в проект этого плагина, нужно добавить файл ```project.gradle```:
 ```groovy
-System.setProperty("platformLibraryProjectVersion", "3.+")
+System.setProperty("platformLibraryProjectVersion", "4.+")
 System.setProperty("platformDependenciesVersion", "3.+")
 
 repositories {
@@ -28,13 +28,8 @@ repositories {
 ```groovy
 buildscript {
     apply from: 'project.gradle', to: buildscript
-    copy {
-        from zipTree(buildscript.configurations.classpath.files.find{ it.name.contains('library-project-plugin')})
-        into 'tmp'
-        include 'gradle-scripts/**'
-    }
 }
-apply from: 'tmp/gradle-scripts/_root.gradle'
+apply plugin: 'yamoney-library-project-plugin'
 /////////////////////////////////////////////
 
 groupIdSuffix = "common"
@@ -49,13 +44,8 @@ dependencies {
 ```groovy
 buildscript {
     apply from: 'project.gradle', to: buildscript
-    copy {
-        from zipTree(buildscript.configurations.classpath.files.find{ it.name.contains('library-project-plugin')})
-        into 'tmp'
-        include 'gradle-scripts/**'
-    }
 }
-apply from: 'tmp/gradle-scripts/_root.gradle'
+apply plugin: 'yamoney-library-project-plugin'
 apply plugin: 'yamoney-kotlin-module-plugin'
 /////////////////////////////////////////////
 
