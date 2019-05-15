@@ -1,7 +1,6 @@
-System.setProperty("platformGradleProjectVersion", "5.0.2-feature-BACKEND-2663-kotlin-SNAPSHOT")
+System.setProperty("platformGradleProjectVersion", "5.+")
 
 repositories {
-    maven { url 'https://nexus.yamoney.ru/repository/snapshots/' }
     maven { url 'https://nexus.yamoney.ru/repository/gradle-plugins/' }
     maven { url 'https://nexus.yamoney.ru/repository/thirdparty/' }
     maven { url 'https://nexus.yamoney.ru/repository/central/' }
