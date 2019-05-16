@@ -16,6 +16,7 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
     private static final String BUILD_FILE_CONTENTS = """
     buildscript {    
         System.setProperty("platformDependenciesVersion", "3+")
+        System.setProperty("kotlinVersion", "any")
         repositories {
                 maven { url 'https://nexus.yamoney.ru/repository/gradle-plugins/' }
                 maven { url 'https://nexus.yamoney.ru/repository/thirdparty/' }
