@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [3.7.3]() (16-05-2019)
+
 * Обновлён yamoney-java-module-plugin, с округлением coverage до целых чисел
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.7.2]() (16-05-2019)
 
 * Патч совместимости плагина с генераторами кода
