@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [3.7.3]() (16-05-2019)
 
 * Обновлён yamoney-java-module-plugin, с округлением coverage до целых чисел
