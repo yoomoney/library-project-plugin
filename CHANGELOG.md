@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
-* Патч совместимости плагина с генераторами кода 
-### NEXT_VERSION_DESCRIPTION_END
+## [3.7.2]() (16-05-2019)
+
+* Патч совместимости плагина с генераторами кода
+
 ## [3.7.1]() (15-05-2019)
 
 * Убрал snapshot зависимость
