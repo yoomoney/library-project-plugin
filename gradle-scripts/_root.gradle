@@ -1,3 +1,0 @@
-
-apply from: 'tmp/gradle-scripts/errorprone.gradle'
-apply plugin: 'yamoney-library-project-plugin'
