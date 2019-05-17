@@ -1,14 +1,14 @@
-### NEXT_VERSION_TYPE=MAJOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.0.0]() (17-05-2019)
+
 * Полностью удалены скрипты сборки
 * Изменился способ подключения плагина, изменённый build.gradle выглядит так:
 ```groovy
 buildscript {
-    apply from: 'project.gradle', to: buildscript
+apply from: 'project.gradle', to: buildscript
 }
 apply plugin: 'yamoney-library-project-plugin'
 ```
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [3.7.3]() (16-05-2019)
 
 * Обновлён yamoney-java-module-plugin, с округлением coverage до целых чисел
