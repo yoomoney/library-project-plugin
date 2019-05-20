@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [4.0.1]() (20-05-2019)
 
 * Обновлена версия `yamoney-java-module-plugin`, в которой отколючен errorprone
