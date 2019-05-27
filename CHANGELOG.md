@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.0.2]() (27-05-2019)
+
 * Обновлены зависимости, основное - `yamoney-java-module-plugin`, где доработана поддержка котлина для тестов
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.0.1]() (20-05-2019)
 
 * Обновлена версия `yamoney-java-module-plugin`, в которой отколючен errorprone
