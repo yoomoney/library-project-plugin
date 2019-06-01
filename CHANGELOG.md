@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.1.0]() (01-06-2019)
+
 * Поднята версия java-module-plugin, в которой появилась таска componentTest
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.0.2]() (27-05-2019)
 
 * Обновлены зависимости, основное - `yamoney-java-module-plugin`, где доработана поддержка котлина для тестов
