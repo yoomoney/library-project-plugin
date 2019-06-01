@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [4.1.0]() (01-06-2019)
 
 * Поднята версия java-module-plugin, в которой появилась таска componentTest
