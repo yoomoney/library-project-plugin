@@ -1,5 +1,9 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлена версия yamoney-architecture-test-plugin
+* По умолчанию включены для выполнения следующие тесты:
+'check_unique_enums_codes'
+'check_unique_enums_secondary_codes'
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.2.0]() (03-06-2019)
 

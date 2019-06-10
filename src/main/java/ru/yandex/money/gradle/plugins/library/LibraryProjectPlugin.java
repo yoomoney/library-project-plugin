@@ -4,6 +4,7 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin;
 import org.gradle.util.VersionNumber;
+import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestPlugin;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModulePlugin;
 import ru.yandex.money.gradle.plugins.library.deps.ForbidApiFromApiDependencies;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
@@ -25,7 +26,8 @@ public class LibraryProjectPlugin implements Plugin<Project> {
             MavenPublishPlugin.class,
             ReleasePlugin.class,
             GitExpiredBranchPlugin.class,
-            JavaModulePlugin.class
+            JavaModulePlugin.class,
+            ArchitectureTestPlugin.class
     );
 
     @Override
