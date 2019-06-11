@@ -1,6 +1,7 @@
 package ru.yandex.money.gradle.plugins.library;
 
 import org.gradle.api.Project;
+import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestExtension;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModuleExtension;
 import ru.yandex.money.gradle.plugins.library.git.GitManager;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.EmailConnectionExtension;
@@ -27,6 +28,7 @@ public class ExtensionConfigurator {
         configureReleasePlugin(project);
         configureJavaModulePlugin(project);
         addMissingCheckSnapshotsTask(project);
+        configurationArchitectureTestPlugin(project);
     }
 
     private static void addMissingCheckSnapshotsTask(Project project) {
@@ -71,4 +73,10 @@ public class ExtensionConfigurator {
         gitConnectionExtension.setPathToGitPrivateSshKey(System.getenv("GIT_PRIVATE_SSH_KEY_PATH"));
     }
 
+    private static void configurationArchitectureTestPlugin(Project project) {
+        ArchitectureTestExtension architectureTestExtension = project.getExtensions().getByType(ArchitectureTestExtension.class);
+        architectureTestExtension.getInclude().addAll(Arrays.asList(
+                "check_unique_enums_codes",
+                "check_unique_enums_secondary_codes"));
+    }
 }
