@@ -1,10 +1,10 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.3.0]() (11-06-2019)
+
 * Обновлена версия yamoney-architecture-test-plugin
 * По умолчанию включены для выполнения следующие тесты:
 'check_unique_enums_codes'
 'check_unique_enums_secondary_codes'
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.2.0]() (03-06-2019)
 
 * Обновлена версия java-module-plugin до 1.11.1
