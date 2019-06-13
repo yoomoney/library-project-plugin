@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.4.0]() (13-06-2019)
+
 * Включен yamoney-build-monitoring-plugin
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.3.0]() (11-06-2019)
 
 * Обновлена версия yamoney-architecture-test-plugin
