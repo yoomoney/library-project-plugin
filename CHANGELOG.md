@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [4.4.1]() (20-06-2019)
 
 * Поднята версия java-module-plugin 1.11.1 -> 1.12.0
