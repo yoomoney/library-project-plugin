@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.5.0]() (26-06-2019)
+
 * Поднята версия build-monitoring-plugin 1.2.0 -> 1.3.0
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.4.1]() (20-06-2019)
 
 * Поднята версия java-module-plugin 1.11.1 -> 1.12.0
