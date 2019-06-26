@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [4.5.0]() (26-06-2019)
 
 * Поднята версия build-monitoring-plugin 1.2.0 -> 1.3.0
