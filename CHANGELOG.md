@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.6.0]() (02-07-2019)
+
 * Поднята версия artifact-release-plugin 1.4.3 -> 1.4.5
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.5.0]() (26-06-2019)
 
 * Поднята версия build-monitoring-plugin 1.2.0 -> 1.3.0
