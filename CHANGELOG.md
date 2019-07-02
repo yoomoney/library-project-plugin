@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [4.6.0]() (02-07-2019)
 
 * Поднята версия artifact-release-plugin 1.4.3 -> 1.4.5
