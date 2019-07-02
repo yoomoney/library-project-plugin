@@ -1,5 +1,9 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлены версии 
+    * git-expired-branch-plugin до `4.0.0`
+    * artifact-release-plugin до `2.0.0`
+  Этим плагинам добавлено проставление настроек для git - user и email.
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.5.0]() (26-06-2019)
 
