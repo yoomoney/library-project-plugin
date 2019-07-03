@@ -24,7 +24,7 @@ dependencies {
     compile localGroovy(),
             'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:1.4.5',
             'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:3.0.2',
-            'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.12.0',
+            'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.12.1',
             'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:1.3.0',
             'ru.yandex.money.gradle.plugins:yamoney-architecture-test-plugin:1.4.0'
 
