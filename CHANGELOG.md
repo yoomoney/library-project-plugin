@@ -1,5 +1,7 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Повышена версия java-module-plugin `1.13.0`
+* В новой версии исправлена проблема с отсутствием информации об ошибках компиляции в консоле
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.6.2]() (03-07-2019)
 
