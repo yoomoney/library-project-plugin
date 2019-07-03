@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.6.2]() (03-07-2019)
+
 * Обновлена версия java-module-plugin до `1.12.1`
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.6.1]() (03-07-2019)
 
 * Обновлены версии
