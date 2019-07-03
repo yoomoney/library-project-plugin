@@ -17,6 +17,8 @@ import java.util.Arrays;
  * @since 05.12.2018
  */
 public class ExtensionConfigurator {
+    private static final String GIT_EMAIL = "SvcReleaserBackend@yamoney.ru";
+    private static final String GIT_USER = "SvcReleaserBackend";
 
     /**
      * Конфигурирует плагины.
@@ -52,6 +54,9 @@ public class ExtensionConfigurator {
         releaseExtension.getReleaseTasks().addAll(Arrays.asList("build", "publish"));
         releaseExtension.setChangelogRequired(true);
         releaseExtension.setPathToGitPrivateSshKey(System.getenv("GIT_PRIVATE_SSH_KEY_PATH"));
+        releaseExtension.setGitEmail(GIT_EMAIL);
+        releaseExtension.setGitUsername(GIT_USER);
+
         try (GitManager git = new GitManager(project.getRootDir())) {
             if (!git.isCurrentBranchForRelease()) {
                 project.getTasks().getByName("build")
@@ -71,6 +76,8 @@ public class ExtensionConfigurator {
                 project.getExtensions().findByType(GitConnectionExtension.class);
 
         gitConnectionExtension.setPathToGitPrivateSshKey(System.getenv("GIT_PRIVATE_SSH_KEY_PATH"));
+        gitConnectionExtension.setEmail(GIT_EMAIL);
+        gitConnectionExtension.setUsername(GIT_USER);
     }
 
     private static void configurationArchitectureTestPlugin(Project project) {
