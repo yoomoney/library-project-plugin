@@ -1,5 +1,7 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлена версия yamoney-artifact-release-plugin=2.0.0 -> 2.1.0, 
+для исправления автора коммита при локальной сборке
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.6.3]() (04-07-2019)
 
