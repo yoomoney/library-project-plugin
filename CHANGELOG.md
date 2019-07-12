@@ -1,9 +1,9 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.6.5]() (12-07-2019)
+
 * Повышена версия java-module-plugin `1.14.1`
 * Новая версия инициирует автоподнятие coverage при увеличении тестового покрытия при локальной сборке
 * В новой версии исправлено отключение findbugs при удалении лимита findbugs static-analysis.properties
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.6.4]() (05-07-2019)
 
 * Обновлена версия yamoney-artifact-release-plugin=2.0.0 -> 2.1.0,
