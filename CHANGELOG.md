@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [4.6.6]() (16-07-2019)
 
 * Обновлена версия java-module-plugin `1.14.2`, в которой исправлен баг с проставлением timestamp
