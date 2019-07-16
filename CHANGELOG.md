@@ -1,5 +1,7 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлена версия java-module-plugin `1.14.2`, в которой исправлен баг с проставлением timestamp 
+при локальном автоподнятии coverage
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.6.5]() (12-07-2019)
 
