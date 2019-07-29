@@ -27,9 +27,8 @@ public class GitManager implements Closeable {
     public GitManager(File projectDirectory) {
         try {
             this.git = new Git(new FileRepositoryBuilder()
-                    .setGitDir(new File(projectDirectory, ".git"))
                     .readEnvironment()
-                    .findGitDir()
+                    .findGitDir(projectDirectory)
                     .build());
         } catch (IOException e) {
             throw new RuntimeException(e);

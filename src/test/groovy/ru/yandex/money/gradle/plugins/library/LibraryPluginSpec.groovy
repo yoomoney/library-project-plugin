@@ -62,15 +62,6 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         assert result.standardOutput.contains("run kotlin test...")
     }
 
-    def "should check snapshot dependencies"() {
-        when:
-        def result = runTasks("checkComponentSnapshotDependencies")
-
-        then: "Запускается проверка на SNAPSHOT зависимости"
-        assert result.success
-        assert result.standardOutput.contains("checkSnapshotsDependencies")
-    }
-
     def "should publish to maven local"() {
         given: "Hello world app"
         writeHelloWorld("ru.yandex.money.common")

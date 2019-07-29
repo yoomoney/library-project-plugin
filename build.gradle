@@ -7,7 +7,7 @@ pluginId = 'yamoney-library-project-plugin'
 gradlePlugin {
     plugins {
         libraryProjectPlugin {
-            id = project.ext.pluginId
+            id = pluginId
             implementationClass = "ru.yandex.money.gradle.plugins.library.LibraryProjectPlugin"
         }
     }
@@ -18,12 +18,11 @@ dependencies {
             'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:2.0.1',
             'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:4.0.1',
             'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.14.2',
-            'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:1.3.0',
-            'ru.yandex.money.gradle.plugins:yamoney-architecture-test-plugin:1.4.0'
+            'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:2.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-architecture-test-plugin:1.5.0'
 
     testCompile gradleTestKit(),
-            'com.netflix.nebula:nebula-test:7.1.0',
-            'org.ajoberstar:gradle-git:1.5.0'
+            'com.netflix.nebula:nebula-test:7.1.0'
 
     testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
         exclude module: 'groovy-all'

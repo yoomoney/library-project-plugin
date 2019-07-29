@@ -10,7 +10,7 @@ import ru.yandex.money.gradle.plugins.library.deps.ForbidApiFromApiDependencies;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
 import ru.yandex.money.gradle.plugins.library.publishing.PublishingConfigurer;
 import ru.yandex.money.gradle.plugins.release.ReleasePlugin;
-import ru.yandex.money.gradle.plugins.task.monitoring.TaskExecutionMonitoringPlugin;
+import ru.yandex.money.gradle.plugins.task.monitoring.BuildMonitoringPlugin;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +28,7 @@ public class LibraryProjectPlugin implements Plugin<Project> {
             ReleasePlugin.class,
             GitExpiredBranchPlugin.class,
             JavaModulePlugin.class,
-            TaskExecutionMonitoringPlugin.class,
+            BuildMonitoringPlugin.class,
             ArchitectureTestPlugin.class
     );
 
