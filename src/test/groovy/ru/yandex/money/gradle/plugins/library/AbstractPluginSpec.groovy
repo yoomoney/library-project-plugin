@@ -1,7 +1,8 @@
 package ru.yandex.money.gradle.plugins.library
 
 import nebula.test.IntegrationSpec
-import org.ajoberstar.grgit.Grgit
+import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.transport.URIish
 
 /**
  *
@@ -13,7 +14,6 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
     private static final String BUILD_FILE_CONTENTS = """
     buildscript {    
         System.setProperty("platformDependenciesVersion", "3+")
-        System.setProperty("kotlinVersion", "any")
         repositories {
                 maven { url 'https://nexus.yamoney.ru/repository/gradle-plugins/' }
                 maven { url 'https://nexus.yamoney.ru/repository/thirdparty/' }
@@ -30,17 +30,20 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
     }
     """.stripIndent()
 
-    protected Grgit grgit
+    protected Git git
 
     def setup() {
-
-        grgit = Grgit.init(dir: projectDir.absolutePath)
+        git = Git.init().setDirectory(projectDir).setBare(false).call()
         buildFile << BUILD_FILE_CONTENTS
-        grgit.add(patterns: ['build.gradle'])
-        grgit.commit(message: 'build.gradle commit', all: true)
+        git.add().addFilepattern('build.gradle').call()
+        git.commit().setMessage('build.gradle commit').setAll(true).call()
+        git.remoteSetUrl()
+                .setRemoteUri(new URIish("file://${projectDir}/"))
+                .setRemoteName("origin")
+                .call()
     }
 
     def cleanup() {
-        grgit.close()
+        git.close()
     }
 }

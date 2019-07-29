@@ -17,6 +17,7 @@ import java.util.Arrays;
  * @since 05.12.2018
  */
 public class ExtensionConfigurator {
+
     private static final String GIT_EMAIL = "SvcReleaserBackend@yamoney.ru";
     private static final String GIT_USER = "SvcReleaserBackend";
 
@@ -29,12 +30,7 @@ public class ExtensionConfigurator {
         configureGitExpiredBranchesExtension(project);
         configureReleasePlugin(project);
         configureJavaModulePlugin(project);
-        addMissingCheckSnapshotsTask(project);
         configurationArchitectureTestPlugin(project);
-    }
-
-    private static void addMissingCheckSnapshotsTask(Project project) {
-        project.getTasks().create("checkComponentSnapshotDependencies").dependsOn("checkSnapshotsDependencies");
     }
 
     private static void configureJavaModulePlugin(Project project) {
@@ -66,14 +62,14 @@ public class ExtensionConfigurator {
     }
 
     private static void configureGitExpiredBranchesExtension(Project project) {
-        EmailConnectionExtension emailConnection = project.getExtensions().findByType(EmailConnectionExtension.class);
+        EmailConnectionExtension emailConnection = project.getExtensions().getByType(EmailConnectionExtension.class);
         emailConnection.emailHost = "mail.yamoney.ru";
         emailConnection.emailPort = 25;
         emailConnection.emailAuthUser = System.getenv("MAIL_USER");
         emailConnection.emailAuthPassword = System.getenv("MAIL_PASSWORD");
 
         GitConnectionExtension gitConnectionExtension =
-                project.getExtensions().findByType(GitConnectionExtension.class);
+                project.getExtensions().getByType(GitConnectionExtension.class);
 
         gitConnectionExtension.setPathToGitPrivateSshKey(System.getenv("GIT_PRIVATE_SSH_KEY_PATH"));
         gitConnectionExtension.setEmail(GIT_EMAIL);
