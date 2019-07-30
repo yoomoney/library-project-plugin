@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [4.7.1]() (30-07-2019)
 
 * Обновлён `yamoney-build-monitoring-plugin`=`2.0.0`->`2.0.1`,
