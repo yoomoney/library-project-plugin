@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.7.2]() (01-08-2019)
+
 * Поднятие версии yamoney-git-expired-branch-plugin 4.0.1 -> 4.0.2
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.7.1]() (30-07-2019)
 
 * Обновлён `yamoney-build-monitoring-plugin`=`2.0.0`->`2.0.1`,
