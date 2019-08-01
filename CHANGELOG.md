@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Поднятие версии yamoney-git-expired-branch-plugin 4.0.1 -> 4.0.2
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.7.1]() (30-07-2019)
 
