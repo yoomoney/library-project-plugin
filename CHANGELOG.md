@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.7.4]() (27-09-2019)
+
 * Поднятие версии yamoney-git-expired-branch-plugin 4.0.2 -> 4.0.3
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.7.3]() (05-09-2019)
 
 * Обновлена версия yamoney-java-module-plugin `1.14.2` -> `1.14.3`, в которой отключены следующие паттерны в spotbug:
