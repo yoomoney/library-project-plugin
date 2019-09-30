@@ -4,6 +4,7 @@ import org.codehaus.groovy.runtime.ResourceGroovyMethods;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.component.SoftwareComponent;
+import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
 import org.gradle.api.plugins.JavaPluginConvention;
@@ -48,13 +49,17 @@ public class PublishingConfigurer {
         javadoc.setFailOnError(false);
 
         project.getTasks().create("sourcesJar", Jar.class, sourcesJar -> {
-            sourcesJar.from(
-                    project.getConvention()
-                            .getPlugin(JavaPluginConvention.class)
-                            .getSourceSets()
-                            .getByName("main")
-                            .getAllJava()
-            );
+            SourceDirectorySet sourceSet = project
+                    .getConvention()
+                    .getPlugin(JavaPluginConvention.class)
+                    .getSourceSets()
+                    .getByName("main")
+                    .getAllSource();
+            sourceSet
+                    .getFilter()
+                    .include("**/*.java", "**/*.kt", "**/*.kts");
+
+            sourcesJar.from(sourceSet);
             sourcesJar.setClassifier("sources");
         });
 
