@@ -2,13 +2,11 @@ package ru.yandex.money.gradle.plugins.library;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.publish.maven.plugins.MavenPublishPlugin;
 import org.gradle.util.VersionNumber;
 import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestPlugin;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModulePlugin;
-import ru.yandex.money.gradle.plugins.library.deps.ForbidApiFromApiDependencies;
+import ru.yandex.money.gradle.plugins.javapublishing.JavaArtifactPublishPlugin;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
-import ru.yandex.money.gradle.plugins.library.publishing.PublishingConfigurer;
 import ru.yandex.money.gradle.plugins.release.ReleasePlugin;
 import ru.yandex.money.gradle.plugins.task.monitoring.BuildMonitoringPlugin;
 
@@ -24,10 +22,10 @@ import java.util.Collection;
 public class LibraryProjectPlugin implements Plugin<Project> {
 
     private static final Collection<Class<?>> PLUGINS_TO_APPLY = Arrays.asList(
-            MavenPublishPlugin.class,
+            JavaModulePlugin.class,
+            JavaArtifactPublishPlugin.class,
             ReleasePlugin.class,
             GitExpiredBranchPlugin.class,
-            JavaModulePlugin.class,
             BuildMonitoringPlugin.class,
             ArchitectureTestPlugin.class
     );
@@ -37,10 +35,9 @@ public class LibraryProjectPlugin implements Plugin<Project> {
         if (VersionNumber.parse(project.getGradle().getGradleVersion()).compareTo(VersionNumber.parse("4.10.2'")) < 0) {
             throw new IllegalStateException("Gradle >= 4.10.2 is required");
         }
+        ExtensionConfigurator.configurePublishPlugin(project);
         PLUGINS_TO_APPLY.forEach(pluginClass -> project.getPluginManager().apply(pluginClass));
         ExtensionConfigurator.configure(project);
-        new ForbidApiFromApiDependencies().init(project);
-        new PublishingConfigurer().init(project);
     }
 
 }
