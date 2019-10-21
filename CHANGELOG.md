@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.7.6]() (21-10-2019)
+
 * Поднятие версии yamoney-git-expired-branch-plugin 4.0.3 -> 4.1.1
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.7.5]() (30-09-2019)
 
 * Исправлено добавление исходников котлин в sources.jar
