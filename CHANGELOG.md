@@ -1,8 +1,8 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.8.0]() (22-10-2019)
+
 * Подключен yamoney-java-artifact-publish плагин
 * Удалена логика, запрещающая зависимость api от api
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.7.6]() (21-10-2019)
 
 * Поднятие версии yamoney-git-expired-branch-plugin 4.0.3 -> 4.1.1
