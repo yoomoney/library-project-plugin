@@ -16,7 +16,7 @@ gradlePlugin {
 dependencies {
     compile localGroovy(),
             'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:2.0.1',
-            'ru.yandex.money.gradle.plugins:yamoney-java-artifact-publish-plugin:1.0.0-feature-init-SNAPSHOT',
+            'ru.yandex.money.gradle.plugins:yamoney-java-artifact-publish-plugin:1.0.0',
             'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:4.0.3',
             'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.14.3',
             'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:2.0.1',

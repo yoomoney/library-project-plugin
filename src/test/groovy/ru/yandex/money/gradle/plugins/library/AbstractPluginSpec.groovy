@@ -23,6 +23,8 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
         }
     }
     apply plugin: 'yamoney-library-project-plugin'
+    artifactID = 'test-artifact'
+    groupIdSuffix = 'test-group'
     ext.checkstyleEnabled = false
     dependencies {
        compile 'com.google.guava:guava:27.1-jre'
