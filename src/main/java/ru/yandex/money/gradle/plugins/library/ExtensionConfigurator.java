@@ -1,8 +1,13 @@
 package ru.yandex.money.gradle.plugins.library;
 
+import groovy.lang.MissingPropertyException;
+import org.apache.commons.lang3.StringUtils;
+import org.gradle.api.GradleException;
 import org.gradle.api.Project;
 import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestExtension;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModuleExtension;
+import ru.yandex.money.gradle.plugins.javapublishing.JavaArtifactPublishExtension;
+import ru.yandex.money.gradle.plugins.javapublishing.JavaArtifactPublishPlugin;
 import ru.yandex.money.gradle.plugins.library.git.GitManager;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.EmailConnectionExtension;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.GitConnectionExtension;
@@ -30,7 +35,33 @@ public class ExtensionConfigurator {
         configureGitExpiredBranchesExtension(project);
         configureReleasePlugin(project);
         configureJavaModulePlugin(project);
-        configurationArchitectureTestPlugin(project);
+        configureArchitectureTestPlugin(project);
+    }
+
+    private static String getStringExtProperty(Project project, String propertyName) {
+        String value = (String)project.getExtensions().getExtraProperties().get(propertyName);
+        if (StringUtils.isBlank(value)) {
+            throw new IllegalArgumentException("property " + propertyName + " is empty");
+        }
+        return value;
+    }
+
+    /**
+     * Сконфигурировать публикацию
+     */
+    static void configurePublishPlugin(Project project) {
+        //Создаем extension сами, для того, чтобы выставить очередность afterEvaluate
+        project.getExtensions().create(JavaArtifactPublishPlugin.Companion.getExtensionName(),
+                JavaArtifactPublishExtension.class);
+        project.getExtensions().getExtraProperties().set("groupIdSuffix", "");
+        project.getExtensions().getExtraProperties().set("artifactID", "");
+        JavaArtifactPublishExtension publishExtension = project.getExtensions().getByType(JavaArtifactPublishExtension.class);
+        publishExtension.setNexusUser(System.getenv("NEXUS_USER"));
+        publishExtension.setNexusPassword(System.getenv("NEXUS_PASSWORD"));
+        project.afterEvaluate(p -> {
+            publishExtension.setGroupId("ru.yandex.money." + getStringExtProperty(project, "groupIdSuffix"));
+            publishExtension.setArtifactId(getStringExtProperty(project, "artifactID"));
+        });
     }
 
     private static void configureJavaModulePlugin(Project project) {
@@ -76,7 +107,7 @@ public class ExtensionConfigurator {
         gitConnectionExtension.setUsername(GIT_USER);
     }
 
-    private static void configurationArchitectureTestPlugin(Project project) {
+    private static void configureArchitectureTestPlugin(Project project) {
         ArchitectureTestExtension architectureTestExtension = project.getExtensions().getByType(ArchitectureTestExtension.class);
         architectureTestExtension.getInclude().addAll(Arrays.asList(
                 "check_unique_enums_codes",

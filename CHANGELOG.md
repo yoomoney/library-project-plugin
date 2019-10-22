@@ -1,5 +1,7 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Подключен yamoney-java-artifact-publish плагин
+* Удалена логика, запрещающая зависимость api от api
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.7.6]() (21-10-2019)
 
