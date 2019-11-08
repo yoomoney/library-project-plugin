@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.9.0]() (08-11-2019)
+
 * Обновлена версия yamoney-java-module-plugin 1.15.3 -> 1.16.0
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.8.3]() (01-11-2019)
 
 * Поднята версия yamoney-java-module-plugin 1.15.2 -> 1.15.3
