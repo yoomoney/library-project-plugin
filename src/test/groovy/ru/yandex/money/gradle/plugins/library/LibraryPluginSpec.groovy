@@ -29,7 +29,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         when:
         writeHelloWorld("ru.yandex.money.common")
         then:
-        runTasksSuccessfully("clean", "build", "slowTest")
+        runTasksSuccessfully("clean", "build", "componentTest")
     }
 
     def "should run java test"() {
