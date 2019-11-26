@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [4.10.1]() (26-11-2019)
+
 * Обновлена зависимость ```yamoney-java-module-plugin``` ```4.4.5``` -> ```1.17.1```
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.10.0]() (22-11-2019)
 
 * Обновлена версия `java-module-plugin` 1.16.0 -> 1.17.0
