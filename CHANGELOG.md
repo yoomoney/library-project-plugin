@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлена зависимость `yamoney-java-module-plugin` `1.18.0` -> `1.18.1`
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.10.2]() (27-11-2019)
 
