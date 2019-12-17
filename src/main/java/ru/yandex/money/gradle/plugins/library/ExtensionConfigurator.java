@@ -1,8 +1,6 @@
 package ru.yandex.money.gradle.plugins.library;
 
-import groovy.lang.MissingPropertyException;
 import org.apache.commons.lang3.StringUtils;
-import org.gradle.api.GradleException;
 import org.gradle.api.Project;
 import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestExtension;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModuleExtension;
@@ -51,7 +49,7 @@ public class ExtensionConfigurator {
      */
     static void configurePublishPlugin(Project project) {
         //Создаем extension сами, для того, чтобы выставить очередность afterEvaluate
-        project.getExtensions().create(JavaArtifactPublishPlugin.Companion.getExtensionName(),
+        project.getExtensions().create(JavaArtifactPublishPlugin.extensionName,
                 JavaArtifactPublishExtension.class);
         project.getExtensions().getExtraProperties().set("groupIdSuffix", "");
         project.getExtensions().getExtraProperties().set("artifactID", "");

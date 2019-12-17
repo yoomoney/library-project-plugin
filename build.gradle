@@ -14,19 +14,19 @@ gradlePlugin {
 }
 
 dependencies {
-    compile localGroovy(),
-            'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:2.0.1',
+    implementation localGroovy(),
+            'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:2.1.1-feature-CHALLENGE-188-SNAPSHOT',
             
-            'ru.yandex.money.gradle.plugins:yamoney-java-artifact-publish-plugin:1.0.0',
-            'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:4.2.1',
-            'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.18.1',
-            'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:2.0.1',
-            'ru.yandex.money.gradle.plugins:yamoney-architecture-test-plugin:1.5.0'
+            'ru.yandex.money.gradle.plugins:yamoney-java-artifact-publish-plugin:1.0.1-feature-CHALLENGE-188-SNAPSHOT',
+            'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:4.2.2-feature-CHALLENGE-188-SNAPSHOT',
+            'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.19.1-feature-CHALLENGE-187-SNAPSHOT',
+            'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:2.0.2-feature-CHALLENGE-188-SNAPSHOT',
+            'ru.yandex.money.gradle.plugins:yamoney-architecture-test-plugin:1.6.1-feature-CHALLENGE-188-SNAPSHOT'
 
-    testCompile gradleTestKit(),
-            'com.netflix.nebula:nebula-test:7.1.0'
+    testImplementation gradleTestKit(),
+            'com.netflix.nebula:nebula-test:7.4.0'
 
-    testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
+    testImplementation('org.spockframework:spock-core:1.3-groovy-2.5') {
         exclude module: 'groovy-all'
     }
 } 
