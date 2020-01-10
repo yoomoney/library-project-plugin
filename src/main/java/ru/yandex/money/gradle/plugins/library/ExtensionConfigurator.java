@@ -1,8 +1,6 @@
 package ru.yandex.money.gradle.plugins.library;
 
-import groovy.lang.MissingPropertyException;
 import org.apache.commons.lang3.StringUtils;
-import org.gradle.api.GradleException;
 import org.gradle.api.Project;
 import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestExtension;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModuleExtension;
@@ -14,6 +12,7 @@ import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.GitCon
 import ru.yandex.money.gradle.plugins.release.ReleaseExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Конфигуратор настроек плагинов.
@@ -109,8 +108,6 @@ public class ExtensionConfigurator {
 
     private static void configureArchitectureTestPlugin(Project project) {
         ArchitectureTestExtension architectureTestExtension = project.getExtensions().getByType(ArchitectureTestExtension.class);
-        architectureTestExtension.getInclude().addAll(Arrays.asList(
-                "check_unique_enums_codes",
-                "check_unique_enums_secondary_codes"));
+        architectureTestExtension.getInclude().add("check_unique_enums_codes");
     }
 }
