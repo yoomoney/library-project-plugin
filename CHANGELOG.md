@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлён `yamoney-architecture-test-plugin`=`1.5.0`->`1.6.0`
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.11.0]() (29-11-2019)
 
