@@ -2,7 +2,7 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 * Обновлена версия gradle `4.10.2` -> `6.0.1`
 * Обновлены версии зависимостей
-* Исправлены warnings и checkstyle проблемы### NEXT_VERSION_DESCRIPTION_END
+* Исправлены warnings и checkstyle проблемы
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.11.0]() (29-11-2019)
 
