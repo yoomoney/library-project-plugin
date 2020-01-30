@@ -12,6 +12,7 @@ import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.GitCon
 import ru.yandex.money.gradle.plugins.release.ReleaseExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Конфигуратор настроек плагинов.
@@ -107,8 +108,6 @@ public class ExtensionConfigurator {
 
     private static void configureArchitectureTestPlugin(Project project) {
         ArchitectureTestExtension architectureTestExtension = project.getExtensions().getByType(ArchitectureTestExtension.class);
-        architectureTestExtension.getInclude().addAll(Arrays.asList(
-                "check_unique_enums_codes",
-                "check_unique_enums_secondary_codes"));
+        architectureTestExtension.getInclude().add("check_unique_enums_codes");
     }
 }
