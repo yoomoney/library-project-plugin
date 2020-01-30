@@ -1,9 +1,9 @@
-### NEXT_VERSION_TYPE=MAJOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [5.0.0]() (30-01-2020)
+
 * Обновлена версия gradle `4.10.2` -> `6.0.1`
 * Обновлены версии зависимостей
 * Исправлены warnings и checkstyle проблемы
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [4.12.0]() (10-01-2020)
 
 * Обновлён `yamoney-architecture-test-plugin`=`1.5.0`->`1.6.0`
