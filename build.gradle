@@ -15,13 +15,12 @@ gradlePlugin {
 
 dependencies {
     implementation localGroovy(),
-            'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:2.1.1-feature-CHALLENGE-188-SNAPSHOT',
-            
-            'ru.yandex.money.gradle.plugins:yamoney-java-artifact-publish-plugin:1.0.1-feature-CHALLENGE-188-SNAPSHOT',
-            'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:4.2.2-feature-CHALLENGE-188-SNAPSHOT',
-            'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:1.19.1-feature-CHALLENGE-187-SNAPSHOT',
-            'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:2.0.2-feature-CHALLENGE-188-SNAPSHOT',
-            'ru.yandex.money.gradle.plugins:yamoney-architecture-test-plugin:1.6.1-feature-CHALLENGE-188-SNAPSHOT'
+            'ru.yandex.money.gradle.plugins:yamoney-artifact-release-plugin:3.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-java-artifact-publish-plugin:2.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:5.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-java-module-plugin:2.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:3.0.0',
+            'ru.yandex.money.gradle.plugins:yamoney-architecture-test-plugin:2.0.0'
 
     testImplementation gradleTestKit(),
             'com.netflix.nebula:nebula-test:7.4.0'
