@@ -75,7 +75,5 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-sources.jar").toFile().exists()
         def pomFile = Paths.get(projectDir.absolutePath, "target", "publications", "mavenJava", "pom-default.xml").toFile()
         assert pomFile.exists()
-        assert IOUtils.toString(pomFile.toURI(), Charset.defaultCharset()).contains("yamoney-libraries-dependencies")
     }
-
 }

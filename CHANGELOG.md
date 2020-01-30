@@ -1,5 +1,8 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MAJOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлена версия gradle `4.10.2` -> `6.0.1`
+* Обновлены версии зависимостей
+* Исправлены warnings и checkstyle проблемы
 ### NEXT_VERSION_DESCRIPTION_END
 ## [4.12.0]() (10-01-2020)
 
@@ -341,7 +344,7 @@ groupIdSuffix = "common"
 artifactID = "yamoney-json-utils"
 
 dependencies {
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
 }
 ```
 

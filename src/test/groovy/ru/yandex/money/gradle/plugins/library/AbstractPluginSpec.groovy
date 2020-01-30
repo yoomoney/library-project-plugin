@@ -13,7 +13,6 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
 
     private static final String BUILD_FILE_CONTENTS = """
     buildscript {    
-        System.setProperty("platformDependenciesVersion", "3+")
         repositories {
                 maven { url 'https://nexus.yamoney.ru/repository/gradle-plugins/' }
                 maven { url 'https://nexus.yamoney.ru/repository/thirdparty/' }
@@ -22,13 +21,15 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
                 maven { url 'https://nexus.yamoney.ru/repository/jcenter.bintray.com/' }
         }
     }
+    
+    System.setProperty("ignoreDeprecations", "true")
     apply plugin: 'yamoney-library-project-plugin'
     artifactID = 'test-artifact'
     groupIdSuffix = 'test-group'
     ext.checkstyleEnabled = false
     dependencies {
        compile 'com.google.guava:guava:27.1-jre'
-       testCompile 'junit:junit:4.12'
+       testImplementation 'junit:junit:4.12'
     }
     """.stripIndent()
 
