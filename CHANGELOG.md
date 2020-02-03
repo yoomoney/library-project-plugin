@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [5.0.1]() (03-02-2020)
+
 * Требуемая версия gradle изменена `4.10.2` -> `6.0.1`
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.0.0]() (30-01-2020)
 
 * Обновлена версия gradle `4.10.2` -> `6.0.1`
