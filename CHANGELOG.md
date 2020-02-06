@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [5.1.1]() (06-02-2020)
+
 * Поднята версия git-expired-branch-plugin 5.0.0 -> 5.1.1
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.1.0]() (05-02-2020)
 
 * Сборка на java 11
