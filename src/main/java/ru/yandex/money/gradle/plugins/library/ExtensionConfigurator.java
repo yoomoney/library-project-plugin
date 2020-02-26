@@ -83,6 +83,10 @@ public class ExtensionConfigurator {
         releaseExtension.setGitEmail(GIT_EMAIL);
         releaseExtension.setGitUsername(GIT_USER);
 
+        releaseExtension.setAddPullRequestLinkToChangelog(true);
+        releaseExtension.setBitbucketUser(System.getenv("BITBUCKET_USER"));
+        releaseExtension.setBitbucketPassword(System.getenv("BITBUCKET_PASSWORD"));
+
         try (GitManager git = new GitManager(project.getRootDir())) {
             if (!git.isCurrentBranchForRelease()) {
                 project.getTasks().getByName("build")
