@@ -1,8 +1,8 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
-* Поднята версия yamoney-artifact-release-plugin: 3.0.0 -> 3.2.0. 
+## [5.2.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/1) (27-02-2020)
+
+* Поднята версия yamoney-artifact-release-plugin: 3.0.0 -> 3.2.0.
 Добавление ссылки на bitbucket pull request в changelog при релизе.
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.1.1]() (06-02-2020)
 
 * Поднята версия git-expired-branch-plugin 5.0.0 -> 5.1.1
