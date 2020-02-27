@@ -1,9 +1,7 @@
 package ru.yandex.money.gradle.plugins.library
 
-import org.apache.commons.io.IOUtils
 import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin
 
-import java.nio.charset.Charset
 import java.nio.file.Paths
 
 /**
