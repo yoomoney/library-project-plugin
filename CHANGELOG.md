@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [5.2.1](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/2) (08-04-2020)
+
 * Поднята версия java-module-plugin 2.0.0 -> 2.3.0
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.2.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/1) (27-02-2020)
 
 * Поднята версия yamoney-artifact-release-plugin: 3.0.0 -> 3.2.0.
