@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [5.2.2](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/3) (08-04-2020)
 
 * Откат версии java-module-plugin 2.3.0 -> 2.0.0 из-за конфликта в зависимостях. Versions conflict used libraries with fixed platform libraries.
