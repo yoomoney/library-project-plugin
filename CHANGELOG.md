@@ -1,5 +1,8 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Откат версии java-module-plugin 2.3.0 -> 2.0.0 из-за конфликта в зависимостях. Versions conflict used libraries with fixed platform libraries.
+  org.slf4j:slf4j-simple:1.8.0-beta4 -> 1.7.25
+
 ### NEXT_VERSION_DESCRIPTION_END
 ## [5.2.1](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/2) (08-04-2020)
 
