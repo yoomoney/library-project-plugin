@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [5.3.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/4) (18-06-2020)
+
 * Поднята версия architecture-test-plugin 2.0.2 -> 2.2.0.
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.2.2](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/3) (08-04-2020)
 
 * Откат версии java-module-plugin 2.3.0 -> 2.0.0 из-за конфликта в зависимостях. Versions conflict used libraries with fixed platform libraries.
