@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [5.4.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/5) (03-07-2020)
+
 * Поднята версия gradle: 6.0.1 -> 6.4.1.
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.3.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/4) (18-06-2020)
 
 * Поднята версия architecture-test-plugin 2.0.2 -> 2.2.0.
