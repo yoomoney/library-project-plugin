@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [5.4.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/5) (03-07-2020)
 
 * Поднята версия gradle: 6.0.1 -> 6.4.1.
