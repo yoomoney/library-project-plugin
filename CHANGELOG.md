@@ -1,5 +1,10 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Поднята версия yamoney-java-artifact-publish-plugin 2.0.0 -> 2.2.0
+* Подняты версия yamoney-java-artifact-publish-plugin 5.1.1 -> 5.2.0
+* Подняты версия yamoney-java-module-plugin 2.0.0 -> 2.8.0
+* Подняты версия yamoney-build-monitoring-plugin 3.0.0 -> 3.3.0
+* Подняты версия yamoney-architecture-test-plugin 2.2.0 -> 2.3.0
 ### NEXT_VERSION_DESCRIPTION_END
 ## [5.4.1](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/6) (07-07-2020)
 
