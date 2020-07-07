@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [5.4.1](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/6) (07-07-2020)
+
 * Принудительное обновление версии yamoney-gradle-project-plugin
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.4.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/5) (03-07-2020)
 
 * Поднята версия gradle: 6.0.1 -> 6.4.1.
