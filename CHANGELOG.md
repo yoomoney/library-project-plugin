@@ -1,5 +1,9 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Явно задана версия арх. тестов -> 4.6.1
+* Включены правила `check_api_allowable_values_contract_in_request_response_properties` и 
+`check_override_tostring_in_request_response_model_classes` 
+
 ### NEXT_VERSION_DESCRIPTION_END
 ## [5.4.2](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/7) (07-07-2020)
 
