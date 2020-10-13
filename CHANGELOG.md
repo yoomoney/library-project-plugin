@@ -1,10 +1,9 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
-* Явно задана версия арх. тестов -> 4.6.1
-* Включены правила `check_api_allowable_values_contract_in_request_response_properties` и 
-`check_override_tostring_in_request_response_model_classes` 
+## [5.5.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/8) (13-10-2020)
 
-### NEXT_VERSION_DESCRIPTION_END
+* Явно задана версия арх. тестов -> 4.6.1
+* Включены правила `check_api_allowable_values_contract_in_request_response_properties` и
+`check_override_tostring_in_request_response_model_classes`
+
 ## [5.4.2](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/7) (07-07-2020)
 
 * Поднята версия yamoney-java-artifact-publish-plugin 2.0.0 -> 2.2.0
