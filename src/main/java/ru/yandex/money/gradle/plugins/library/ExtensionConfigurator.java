@@ -112,6 +112,9 @@ public class ExtensionConfigurator {
 
     private static void configureArchitectureTestPlugin(Project project) {
         ArchitectureTestExtension architectureTestExtension = project.getExtensions().getByType(ArchitectureTestExtension.class);
+        architectureTestExtension.setToolVersion("4.6.1");
         architectureTestExtension.getInclude().add("check_unique_enums_codes");
+        architectureTestExtension.getInclude().add("check_api_allowable_values_contract_in_request_response_properties");
+        architectureTestExtension.getInclude().add("check_override_tostring_in_request_response_model_classes");
     }
 }
