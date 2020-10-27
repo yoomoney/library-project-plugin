@@ -1,5 +1,8 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+
+* Обновлена версия yamoney-architecture-test-plugin: 2.3.0 -> 2.3.1
+
 ### NEXT_VERSION_DESCRIPTION_END
 ## [5.5.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/8) (13-10-2020)
 
