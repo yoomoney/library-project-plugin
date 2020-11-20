@@ -22,7 +22,7 @@ import java.util.Collections;
  */
 public class ExtensionConfigurator {
 
-    private static final String GIT_EMAIL = "SvcReleaserBackend@yamoney.ru";
+    private static final String GIT_EMAIL = "SvcReleaserBackend@yoomoney.ru";
     private static final String GIT_USER = "SvcReleaserBackend";
 
     /**
