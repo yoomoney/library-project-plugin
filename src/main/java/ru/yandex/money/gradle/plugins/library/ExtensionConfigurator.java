@@ -97,7 +97,7 @@ public class ExtensionConfigurator {
 
     private static void configureGitExpiredBranchesExtension(Project project) {
         EmailConnectionExtension emailConnection = project.getExtensions().getByType(EmailConnectionExtension.class);
-        emailConnection.emailHost = "mail.yamoney.ru";
+        emailConnection.emailHost = "mail.yoomoney.ru";
         emailConnection.emailPort = 25;
         emailConnection.emailAuthUser = System.getenv("MAIL_USER");
         emailConnection.emailAuthPassword = System.getenv("MAIL_PASSWORD");
