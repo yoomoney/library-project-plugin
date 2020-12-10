@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [5.6.2](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/11) (10-12-2020)
+
 * Поднята версия yamoney-git-expired-branch-plugin: 5.2.0 -> 5.2.2
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.6.1](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/10) (23-11-2020)
 
 * Замена доменов email @yamoney.ru -> @yoomoney.ru
