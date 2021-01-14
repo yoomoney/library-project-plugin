@@ -116,7 +116,7 @@ public class ExtensionConfigurator {
             return;
         }
 
-        architectureTestExtension.setToolVersion("4.6.1");
+        architectureTestExtension.setToolVersion("6.0.1");
         architectureTestExtension.getInclude().add("check_unique_enums_codes");
         architectureTestExtension.getInclude().add("check_api_allowable_values_contract_in_request_response_properties");
         architectureTestExtension.getInclude().add("check_override_tostring_in_request_response_model_classes");
