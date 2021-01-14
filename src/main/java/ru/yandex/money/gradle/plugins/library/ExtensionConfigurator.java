@@ -12,7 +12,6 @@ import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.GitCon
 import ru.yandex.money.gradle.plugins.release.ReleaseExtension;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Конфигуратор настроек плагинов.
@@ -111,7 +110,12 @@ public class ExtensionConfigurator {
     }
 
     private static void configureArchitectureTestPlugin(Project project) {
-        ArchitectureTestExtension architectureTestExtension = project.getExtensions().getByType(ArchitectureTestExtension.class);
+        ArchitectureTestExtension architectureTestExtension = project.getExtensions().findByType(ArchitectureTestExtension.class);
+        // плагин может быть отключен в целевом проекте, по этой причине extension может отсутствовать
+        if (architectureTestExtension == null) {
+            return;
+        }
+
         architectureTestExtension.setToolVersion("4.6.1");
         architectureTestExtension.getInclude().add("check_unique_enums_codes");
         architectureTestExtension.getInclude().add("check_api_allowable_values_contract_in_request_response_properties");
