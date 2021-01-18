@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MAJOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [6.0.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/13) (18-01-2021)
+
 * Поднята версия yamoney-architecture-test: 4.6.1 -> 6.0.1
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [5.7.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/12) (14-01-2021)
 
 * Поднята версия yamoney-architecture-test-plugin: 2.3.1 -> 2.4.0
