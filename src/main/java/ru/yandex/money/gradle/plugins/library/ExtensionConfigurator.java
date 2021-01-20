@@ -1,5 +1,6 @@
 package ru.yandex.money.gradle.plugins.library;
 
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.gradle.api.Project;
 import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestExtension;
@@ -63,6 +64,20 @@ public class ExtensionConfigurator {
     }
 
     private static void configureJavaModulePlugin(Project project) {
+        ImmutableList<String> repositories = ImmutableList.of(
+                "https://nexus.yamoney.ru/content/repositories/releases/",
+                "https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/",
+                "https://nexus.yamoney.ru/content/repositories/thirdparty/",
+                "https://nexus.yamoney.ru/content/repositories/central/");
+
+        ImmutableList<String> snapshotsRepositories = ImmutableList.of(
+                project.getRepositories().mavenLocal().getUrl().toString(),
+                "https://nexus.yamoney.ru/content/repositories/snapshots/");
+
+        JavaModuleExtension extension = project.getExtensions().getByType(JavaModuleExtension.class);
+        extension.setRepositories(repositories);
+        extension.setSnapshotsRepositories(snapshotsRepositories);
+
         project.afterEvaluate(p -> {
             JavaModuleExtension module = p.getExtensions().getByType(JavaModuleExtension.class);
             if (p.hasProperty("checkstyleEnabled")) {
