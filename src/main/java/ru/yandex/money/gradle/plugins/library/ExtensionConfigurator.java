@@ -10,7 +10,7 @@ import ru.yandex.money.gradle.plugins.javapublishing.JavaArtifactPublishPlugin;
 import ru.yandex.money.gradle.plugins.library.git.GitManager;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.EmailConnectionExtension;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.GitConnectionExtension;
-import ru.yandex.money.gradle.plugins.release.ReleaseExtension;
+import ru.yoomoney.gradle.plugins.release.ReleaseExtension;
 
 import java.util.Arrays;
 

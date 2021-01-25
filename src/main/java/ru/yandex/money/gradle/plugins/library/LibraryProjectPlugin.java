@@ -7,8 +7,8 @@ import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestPlugin;
 import ru.yandex.money.gradle.plugins.backend.build.JavaModulePlugin;
 import ru.yandex.money.gradle.plugins.javapublishing.JavaArtifactPublishPlugin;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
-import ru.yandex.money.gradle.plugins.release.ReleasePlugin;
 import ru.yandex.money.gradle.plugins.task.monitoring.BuildMonitoringPlugin;
+import ru.yoomoney.gradle.plugins.release.ReleasePlugin;
 
 import java.util.Arrays;
 import java.util.Collection;
