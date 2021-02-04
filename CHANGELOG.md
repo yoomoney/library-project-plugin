@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [6.3.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/16) (04-02-2021)
+
 * Поднята версия yamoney-artifact-release-plugin 3.6.0 -> 3.8.1
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [6.2.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/15) (25-01-2021)
 
 * Переключение на плагин artifact-release-plugin из github: ru.yandex.money.gradle.plugins -> ru.yoomoney.gradle.plugins
