@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Поднята версия yamoney-artifact-release-plugin 3.6.0 -> 3.8.1
 ### NEXT_VERSION_DESCRIPTION_END
 ## [6.2.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/15) (25-01-2021)
 
