@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [6.4.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/17) (10-02-2021)
+
 * Поднята версия yamoney-architecture-test-plugin 2.4.0 -> 2.5.0
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [6.3.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/16) (04-02-2021)
 
 * Поднята версия yamoney-artifact-release-plugin 3.6.0 -> 3.8.1
