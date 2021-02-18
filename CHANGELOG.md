@@ -1,8 +1,8 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [6.5.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/18) (18-02-2021)
+
 * Подключение java-module-plugin и artifact-dependencies-plugin заменено на подключение
 [module-project-plugin](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/module-project-plugin/browse)
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [6.4.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/17) (10-02-2021)
 
 * Поднята версия yamoney-architecture-test-plugin 2.4.0 -> 2.5.0
