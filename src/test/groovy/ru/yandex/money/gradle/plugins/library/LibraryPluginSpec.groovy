@@ -1,6 +1,6 @@
 package ru.yandex.money.gradle.plugins.library
 
-import ru.yandex.money.gradle.plugins.library.dependencies.CheckDependenciesPlugin
+import ru.yoomoney.gradle.plugins.library.dependencies.CheckDependenciesPlugin
 
 import java.nio.file.Paths
 
@@ -67,7 +67,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         def result = runTasksSuccessfully("clean", "jar", "publishMavenJavaPublicationToMavenLocal")
         then: "Artifacts published"
         assert result.success
-        def appName = "yamoney-should-publish-to-maven-local"
+        def appName = "should-publish-to-maven-local"
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}.jar").toFile().exists()
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-javadoc.jar").toFile().exists()
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-sources.jar").toFile().exists()

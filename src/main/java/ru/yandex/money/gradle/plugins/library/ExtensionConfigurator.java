@@ -1,10 +1,9 @@
 package ru.yandex.money.gradle.plugins.library;
 
-import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
 import org.gradle.api.Project;
+import org.gradle.api.tasks.wrapper.Wrapper;
 import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestExtension;
-import ru.yandex.money.gradle.plugins.backend.build.JavaModuleExtension;
 import ru.yandex.money.gradle.plugins.javapublishing.JavaArtifactPublishExtension;
 import ru.yandex.money.gradle.plugins.javapublishing.JavaArtifactPublishPlugin;
 import ru.yandex.money.gradle.plugins.library.git.GitManager;
@@ -24,6 +23,11 @@ public class ExtensionConfigurator {
 
     private static final String GIT_EMAIL = "SvcReleaserBackend@yoomoney.ru";
     private static final String GIT_USER = "SvcReleaserBackend";
+    /**
+     * Url, по которому будет скачиваться gradle в wrapper таске.
+     */
+    private static final String GRADLE_DISTRIBUTION_URL = "https://nexus.yamoney.ru/content/repositories/" +
+            "http-proxy-services.gradle.org/distributions/gradle-6.4.1-all.zip";
 
     /**
      * Конфигурирует плагины.
@@ -33,8 +37,13 @@ public class ExtensionConfigurator {
     static void configure(Project project) {
         configureGitExpiredBranchesExtension(project);
         configureReleasePlugin(project);
-        configureJavaModulePlugin(project);
         configureArchitectureTestPlugin(project);
+        configureWrapper(project);
+    }
+
+    private static void configureWrapper(Project project) {
+        project.getTasks().maybeCreate("wrapper", Wrapper.class)
+                .setDistributionUrl(GRADLE_DISTRIBUTION_URL);
     }
 
     private static String getStringExtProperty(Project project, String propertyName) {
@@ -60,32 +69,6 @@ public class ExtensionConfigurator {
         project.afterEvaluate(p -> {
             publishExtension.setGroupId("ru.yandex.money." + getStringExtProperty(project, "groupIdSuffix"));
             publishExtension.setArtifactId(getStringExtProperty(project, "artifactID"));
-        });
-    }
-
-    private static void configureJavaModulePlugin(Project project) {
-        ImmutableList<String> repositories = ImmutableList.of(
-                "https://nexus.yamoney.ru/content/repositories/releases/",
-                "https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/",
-                "https://nexus.yamoney.ru/content/repositories/thirdparty/",
-                "https://nexus.yamoney.ru/content/repositories/central/");
-
-        ImmutableList<String> snapshotsRepositories = ImmutableList.of(
-                project.getRepositories().mavenLocal().getUrl().toString(),
-                "https://nexus.yamoney.ru/content/repositories/snapshots/");
-
-        JavaModuleExtension extension = project.getExtensions().getByType(JavaModuleExtension.class);
-        extension.setRepositories(repositories);
-        extension.setSnapshotsRepositories(snapshotsRepositories);
-
-        project.afterEvaluate(p -> {
-            JavaModuleExtension module = p.getExtensions().getByType(JavaModuleExtension.class);
-            if (p.hasProperty("checkstyleEnabled")) {
-                module.setCheckstyleEnabled((Boolean) p.property("checkstyleEnabled"));
-            }
-            if (p.hasProperty("findbugsEnabled")) {
-                module.setSpotbugsEnabled((Boolean) p.property("findbugsEnabled"));
-            }
         });
     }
 
@@ -131,7 +114,6 @@ public class ExtensionConfigurator {
             return;
         }
 
-        architectureTestExtension.setToolVersion("6.0.1");
         architectureTestExtension.getInclude().add("check_unique_enums_codes");
         architectureTestExtension.getInclude().add("check_api_allowable_values_contract_in_request_response_properties");
         architectureTestExtension.getInclude().add("check_override_tostring_in_request_response_model_classes");
