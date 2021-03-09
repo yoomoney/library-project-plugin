@@ -64,14 +64,14 @@ class LibraryPluginSpec extends AbstractPluginSpec {
         given: "Hello world app"
         writeHelloWorld("ru.yandex.money.common")
         when: "Run publish task"
-        def result = runTasksSuccessfully("clean", "jar", "publishMavenJavaPublicationToMavenLocal")
+        def result = runTasksSuccessfully("clean", "jar", "publishToMavenLocal")
         then: "Artifacts published"
         assert result.success
         def appName = "should-publish-to-maven-local"
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}.jar").toFile().exists()
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-javadoc.jar").toFile().exists()
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-sources.jar").toFile().exists()
-        def pomFile = Paths.get(projectDir.absolutePath, "target", "publications", "mavenJava", "pom-default.xml").toFile()
+        def pomFile = Paths.get(projectDir.absolutePath, "target", "publications", "mainArtifact", "pom-default.xml").toFile()
         assert pomFile.exists()
     }
 }
