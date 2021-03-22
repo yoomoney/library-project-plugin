@@ -1,14 +1,11 @@
 package ru.yandex.money.gradle.plugins.library;
 
-import org.apache.commons.lang3.StringUtils;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.wrapper.Wrapper;
 import ru.yandex.money.gradle.plugin.architecturetest.ArchitectureTestExtension;
 import ru.yandex.money.gradle.plugins.library.git.GitManager;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.EmailConnectionExtension;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.settings.GitConnectionExtension;
-import ru.yoomoney.gradle.plugins.javapublishing.JavaArtifactPublishExtension;
-import ru.yoomoney.gradle.plugins.javapublishing.JavaArtifactPublishPlugin;
 import ru.yoomoney.gradle.plugins.release.ReleaseExtension;
 
 import java.util.Arrays;
@@ -44,35 +41,6 @@ public class ExtensionConfigurator {
     private static void configureWrapper(Project project) {
         project.getTasks().maybeCreate("wrapper", Wrapper.class)
                 .setDistributionUrl(GRADLE_DISTRIBUTION_URL);
-    }
-
-    private static String getStringExtProperty(Project project, String propertyName) {
-        String value = (String)project.getExtensions().getExtraProperties().get(propertyName);
-        if (StringUtils.isBlank(value)) {
-            throw new IllegalArgumentException("property " + propertyName + " is empty");
-        }
-        return value;
-    }
-
-    /**
-     * Сконфигурировать публикацию
-     */
-    static void configurePublishPlugin(Project project) {
-        //Создаем extension сами, для того, чтобы выставить очередность afterEvaluate
-        project.getExtensions().create(JavaArtifactPublishPlugin.extensionName,
-                JavaArtifactPublishExtension.class);
-        project.getExtensions().getExtraProperties().set("groupIdSuffix", "");
-        project.getExtensions().getExtraProperties().set("artifactID", "");
-        JavaArtifactPublishExtension publishExtension = project.getExtensions().getByType(JavaArtifactPublishExtension.class);
-        publishExtension.setNexusUser(System.getenv("NEXUS_USER"));
-        publishExtension.setNexusPassword(System.getenv("NEXUS_PASSWORD"));
-        project.afterEvaluate(p -> {
-            publishExtension.setGroupId("ru.yandex.money." + getStringExtProperty(project, "groupIdSuffix"));
-            publishExtension.setArtifactId(getStringExtProperty(project, "artifactID"));
-
-            publishExtension.setSnapshotRepository("https://nexus.yamoney.ru/repository/snapshots/");
-            publishExtension.setReleaseRepository("https://nexus.yamoney.ru/repository/releases/");
-        });
     }
 
     private static void configureReleasePlugin(Project project) {
