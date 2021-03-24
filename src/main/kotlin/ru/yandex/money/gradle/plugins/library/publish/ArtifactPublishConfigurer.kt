@@ -18,7 +18,7 @@ internal class ArtifactPublishConfigurer(private val project: Project) {
     }
 
     private fun getArtifactType(project: Project): ArtifactType {
-        return project.findProperty("yamoney-library-project-plugin.artifact-type")
+        return project.findProperty("yoomoney-library-project-plugin.artifact-type")
                 ?.let { ArtifactType.byCode(it.toString()) }
                 ?: ArtifactType.MAVEN
     }
