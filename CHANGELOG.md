@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [6.7.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/20) (26-03-2021)
+
 * Добавлена возможность публикации docker образов в dev и stable. Подробнее см. README "Публикация артефакта"
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [6.6.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/19) (12-03-2021)
 
 * Переключение на плагин java-artifact-publish-plugin из github: ru.yandex.money.gradle.plugins -> ru.yoomoney.gradle.plugins.
