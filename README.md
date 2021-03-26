@@ -57,7 +57,20 @@ dependencies {
 }
 ```
 
+## Публикация артефакта
+Публикация артефакта производится по вызову gradle задачи `publish`
+
+Плагин поддерживает два вида публикации артефактов:
+- `docker` - публикация предварительно собранного docker образа в реестр образов yoomoney. 
+  Локальный образ должен быть предварительно собран согласно логике, определенной в библиотеке.
+  Имя образа должно соответствовать формату: `yoomoney/{groupIdSuffix}/{artifactID}:{version}`.
+- `maven` - публикация в maven репозиторий
+
+Тит публикуемого артефакта задается настройкой `yamoney-library-project-plugin.artifact-type`.
+По умолчанию, если значение явно не задано, будет публиковаться maven артефакт.
+
 ## Подключенные плагины
-* [yamoney-artifact-release-plugin](https://bitbucket-public.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/artifact-release-plugin/browse/README.md)
-* [yamoney-java-module-plugin](https://bitbucket-public.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/java-module-plugin/browse/README.md)
-* [yamoney-git-expired-branch-plugin](https://bitbucket-public.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/git-expired-branch-plugin/browse/README.md)
+* [artifact-release-plugin](https://github.com/yoomoney-gradle-plugins/artifact-release-plugin/blob/master/README.md)
+* [yoomoney-java-module-plugin](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/module-project-plugin/browse/README.md)
+* [yamoney-git-expired-branch-plugin](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/git-expired-branch-plugin/browse/README.md)
+* [yamoney-build-monitoring-plugin](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/build-monitoring-plugin/browse/README.md)

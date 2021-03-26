@@ -4,8 +4,8 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.util.VersionNumber;
 import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
+import ru.yandex.money.gradle.plugins.library.publish.ArtifactPublishConfigurer;
 import ru.yandex.money.gradle.plugins.task.monitoring.BuildMonitoringPlugin;
-import ru.yoomoney.gradle.plugins.javapublishing.JavaArtifactPublishPlugin;
 import ru.yoomoney.gradle.plugins.moduleproject.ModuleProjectPlugin;
 import ru.yoomoney.gradle.plugins.release.ReleasePlugin;
 
@@ -22,7 +22,6 @@ public class LibraryProjectPlugin implements Plugin<Project> {
 
     private static final Collection<Class<?>> PLUGINS_TO_APPLY = Arrays.asList(
             ModuleProjectPlugin.class,
-            JavaArtifactPublishPlugin.class,
             ReleasePlugin.class,
             GitExpiredBranchPlugin.class,
             BuildMonitoringPlugin.class
@@ -33,7 +32,8 @@ public class LibraryProjectPlugin implements Plugin<Project> {
         if (VersionNumber.parse(project.getGradle().getGradleVersion()).compareTo(VersionNumber.parse("6.0.1'")) < 0) {
             throw new IllegalStateException("Gradle >= 6.0.1 is required");
         }
-        ExtensionConfigurator.configurePublishPlugin(project);
+
+        new ArtifactPublishConfigurer(project).configure();
         PLUGINS_TO_APPLY.forEach(pluginClass -> project.getPluginManager().apply(pluginClass));
         ExtensionConfigurator.configure(project);
     }
