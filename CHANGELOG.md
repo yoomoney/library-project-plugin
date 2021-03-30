@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [6.8.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/21) (30-03-2021)
+
 * Обновлена версия artifact-release-plugin с 3.8.1 на 3.11.1
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [6.7.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/20) (26-03-2021)
 
 * Добавлена возможность публикации docker образов в dev и stable. Подробнее см. README "Публикация артефакта"
