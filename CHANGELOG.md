@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Обновлена версия artifact-release-plugin с 3.8.1 на 3.11.1
 ### NEXT_VERSION_DESCRIPTION_END
 ## [6.7.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/20) (26-03-2021)
 

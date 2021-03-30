@@ -16,7 +16,7 @@ gradlePlugin {
 
 dependencies {
     implementation localGroovy(),
-            'ru.yoomoney.gradle.plugins:artifact-release-plugin:3.8.1',
+            'ru.yoomoney.gradle.plugins:artifact-release-plugin:3.11.1',
             'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:5.2.2',
             'ru.yandex.money.gradle.plugins:yoomoney-module-project-plugin:2.0.1',
             'ru.yoomoney.gradle.plugins:docker-artifact-publish-plugin:1.0.0',
