@@ -1,5 +1,6 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Поднята версия ru.yandex.money.gradle.plugins:yoomoney-module-project-plugin: 2.0.1 -> 2.1.0
 ### NEXT_VERSION_DESCRIPTION_END
 ## [6.8.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/21) (30-03-2021)
 
