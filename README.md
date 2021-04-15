@@ -6,22 +6,13 @@
 ## Подключение
 Для подключения в проект этого плагина, нужно добавить файл ```project.gradle```:
 ```groovy
-System.setProperty("platformLibraryProjectVersion", "4.+")
-System.setProperty("platformDependenciesVersion", "3.+")
-
 repositories {
-    maven { url 'https://nexus.yamoney.ru/repository/gradle-plugins/' }
-    maven { url 'https://nexus.yamoney.ru/repository/thirdparty/' }
-    maven { url 'https://nexus.yamoney.ru/repository/central/' }
-    maven { url 'https://nexus.yamoney.ru/repository/releases/' }
-    maven { url 'https://nexus.yamoney.ru/repository/jcenter.bintray.com/' }
+  mavenCentral()
+  maven { url 'https://plugins.gradle.org/m2/' }
 
-    dependencies {
-        classpath 'ru.yandex.money.gradle.plugins:yamoney-library-project-plugin:' + 
-                System.getProperty("platformLibraryProjectVersion")
-        classpath group: 'ru.yandex.money.platform', name: 'yamoney-libraries-dependencies', 
-                version: System.getProperty("platformDependenciesVersion"), ext: 'zip'
-    }
+  dependencies {
+    classpath 'ru.yoomoney.gradle.plugins:library-project-plugin:7.0.0'
+  }
 }
 ```
 А в `build.gradle` добавить соответствующую секцию, чтобы конфигурационный файл выглядел подобным образом:
@@ -29,28 +20,28 @@ repositories {
 buildscript {
     apply from: 'project.gradle', to: buildscript
 }
-apply plugin: 'yamoney-library-project-plugin'
+apply plugin: "ru.yoomoney.gradle.plugins.library-project-plugin"
 /////////////////////////////////////////////
 
 groupIdSuffix = "common"
-artifactID = "yamoney-json-utils"
+artifactID = "yoomoney-json-utils"
 
 dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
 }
 ```
 
-Если проект полностью написан на kotlin то надо применить плагин `yamoney-kotlin-module-plugin` после `yamoney-library-project-plugin`
+Если проект полностью написан на kotlin то надо применить плагин `ru.yoomoney.gradle.plugins.kotlin-plugin` после `ru.yoomoney.gradle.plugins.library-project-plugin`
 ```groovy
 buildscript {
     apply from: 'project.gradle', to: buildscript
 }
-apply plugin: 'yamoney-library-project-plugin'
-apply plugin: 'yamoney-kotlin-module-plugin'
+apply plugin: "ru.yoomoney.gradle.plugins.library-project-plugin"
+apply plugin: 'ru.yoomoney.gradle.plugins.kotlin-plugin'
 /////////////////////////////////////////////
 
 groupIdSuffix = "common"
-artifactID = "yamoney-json-utils"
+artifactID = "yoomoney-json-utils"
 
 dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'

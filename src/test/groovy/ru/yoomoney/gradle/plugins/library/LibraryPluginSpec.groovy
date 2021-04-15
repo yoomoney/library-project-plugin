@@ -1,4 +1,4 @@
-package ru.yandex.money.gradle.plugins.library
+package ru.yoomoney.gradle.plugins.library
 
 import ru.yoomoney.gradle.plugins.library.dependencies.CheckDependenciesPlugin
 
@@ -25,7 +25,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     def "should complete simple java build"() {
         when:
-        writeHelloWorld("ru.yandex.money.common")
+        writeHelloWorld("ru.yoomoney.common")
         then:
         runTasksSuccessfully("clean", "build", "componentTest")
     }
@@ -62,12 +62,12 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
     def "should publish to maven local"() {
         given: "Hello world app"
-        writeHelloWorld("ru.yandex.money.common")
+        writeHelloWorld("ru.yoomoney.common")
         when: "Run publish task"
         def result = runTasksSuccessfully("clean", "jar", "publishToMavenLocal")
         then: "Artifacts published"
         assert result.success
-        def appName = "should-publish-to-maven-local"
+        def appName = "should-publish-to-maven-local-1.0.0-SNAPSHOT"
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}.jar").toFile().exists()
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-javadoc.jar").toFile().exists()
         assert Paths.get(projectDir.absolutePath, "target", "libs", "${appName}-sources.jar").toFile().exists()

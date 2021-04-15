@@ -1,4 +1,4 @@
-package ru.yandex.money.gradle.plugins.library
+package ru.yoomoney.gradle.plugins.library
 
 import org.gradle.api.Project
 
