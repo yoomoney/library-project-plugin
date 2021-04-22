@@ -1,31 +1,20 @@
 buildscript {
     apply from: 'project.gradle', to: buildscript
 }
-apply plugin: 'yamoney-gradle-project-plugin'
-apply plugin: 'ru.yoomoney.gradle.plugins.kotlin-plugin'
 
-pluginId = 'yamoney-library-project-plugin'
+apply plugin: "ru.yoomoney.gradle.plugins.gradle-project-plugin"
+apply plugin: "ru.yoomoney.gradle.plugins.kotlin-plugin"
+
+apply from: 'dependencies.gradle'
+
+artifactId = 'library-project-plugin'
+
 gradlePlugin {
     plugins {
         libraryProjectPlugin {
-            id = pluginId
-            implementationClass = "ru.yandex.money.gradle.plugins.library.LibraryProjectPlugin"
+            id = 'ru.yoomoney.gradle.plugins.library-project-plugin'
+            implementationClass = "ru.yoomoney.gradle.plugins.library.LibraryProjectPlugin"
+            displayName = 'Library Project Plugin'
         }
     }
 }
-
-dependencies {
-    implementation localGroovy(),
-            'ru.yoomoney.gradle.plugins:artifact-release-plugin:3.11.1',
-            'ru.yandex.money.gradle.plugins:yamoney-git-expired-branch-plugin:5.2.2',
-            'ru.yandex.money.gradle.plugins:yoomoney-module-project-plugin:2.1.0',
-            'ru.yoomoney.gradle.plugins:docker-artifact-publish-plugin:1.0.0',
-            'ru.yandex.money.gradle.plugins:yamoney-build-monitoring-plugin:3.3.1'
-
-    testImplementation gradleTestKit(),
-            'com.netflix.nebula:nebula-test:7.4.0'
-
-    testImplementation('org.spockframework:spock-core:1.3-groovy-2.5') {
-        exclude module: 'groovy-all'
-    }
-} 

@@ -1,4 +1,4 @@
-package ru.yandex.money.gradle.plugins.library.git;
+package ru.yoomoney.gradle.plugins.library.git;
 
 
 import org.eclipse.jgit.api.Git;

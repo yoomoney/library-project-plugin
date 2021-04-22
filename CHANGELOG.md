@@ -1,73 +1,77 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MAJOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* **breaking changes** Внесены изменения в связи с переходом в GitHub:
+    * Переименованы пакеты с yandex/money -> yoomoney
+    * Сборка переведена на travis (ранее использовался jenkins)
 ### NEXT_VERSION_DESCRIPTION_END
-## [6.9.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/22) (30-03-2021)
+
+## [6.9.0]() (30-03-2021)
 
 * Поднята версия ru.yandex.money.gradle.plugins:yoomoney-module-project-plugin: 2.0.1 -> 2.1.0
 
-## [6.8.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/21) (30-03-2021)
+## [6.8.0]() (30-03-2021)
 
 * Обновлена версия artifact-release-plugin с 3.8.1 на 3.11.1
 
-## [6.7.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/20) (26-03-2021)
+## [6.7.0]() (26-03-2021)
 
 * Добавлена возможность публикации docker образов в dev и stable. Подробнее см. README "Публикация артефакта"
 
-## [6.6.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/19) (12-03-2021)
+## [6.6.0]() (12-03-2021)
 
 * Переключение на плагин java-artifact-publish-plugin из github: ru.yandex.money.gradle.plugins -> ru.yoomoney.gradle.plugins.
 
-## [6.5.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/18) (18-02-2021)
+## [6.5.0]() (18-02-2021)
 
 * Подключение java-module-plugin и artifact-dependencies-plugin заменено на подключение
-[module-project-plugin](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/module-project-plugin/browse)
+[module-project-plugin]()
 
-## [6.4.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/17) (10-02-2021)
+## [6.4.0]() (10-02-2021)
 
 * Поднята версия yamoney-architecture-test-plugin 2.4.0 -> 2.5.0
 
-## [6.3.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/16) (04-02-2021)
+## [6.3.0]() (04-02-2021)
 
 * Поднята версия yamoney-artifact-release-plugin 3.6.0 -> 3.8.1
 
-## [6.2.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/15) (25-01-2021)
+## [6.2.0]() (25-01-2021)
 
-* Переключение на плагин artifact-release-plugin из github: ru.yandex.money.gradle.plugins -> ru.yoomoney.gradle.plugins
+* Переключение на плагин artifact-release-plugin из github: ru.yamoney.gradle.plugins -> ru.yoomoney.gradle.plugins
 
-## [6.1.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/14) (20-01-2021)
+## [6.1.0]() (20-01-2021)
 
 * Поднята версия yamoney-artifact-release-plugin 3.2.0 -> 3.3.2
 * Поднята версия yamoney-java-artifact-publish-plugin 2.2.0 -> 2.3.2
 * Поднята версия yamoney-java-module-plugin 3.3.0 -> 3.2.1
 * Поднята версия yamoney-build-monitoring-plugin:3.3.1
 
-## [6.0.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/13) (18-01-2021)
+## [6.0.0]() (18-01-2021)
 
 * Поднята версия yamoney-architecture-test: 4.6.1 -> 6.0.1
 
-## [5.7.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/12) (14-01-2021)
+## [5.7.0]() (14-01-2021)
 
 * Поднята версия yamoney-architecture-test-plugin: 2.3.1 -> 2.4.0
 
-## [5.6.2](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/11) (10-12-2020)
+## [5.6.2]() (10-12-2020)
 
 * Поднята версия yamoney-git-expired-branch-plugin: 5.2.0 -> 5.2.2
 
-## [5.6.1](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/10) (23-11-2020)
+## [5.6.1]() (23-11-2020)
 
 * Замена доменов email @yamoney.ru -> @yoomoney.ru
 
-## [5.6.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/9) (28-10-2020)
+## [5.6.0]() (28-10-2020)
 
 * Обновлена версия yamoney-architecture-test-plugin: 2.3.0 -> 2.3.1
 
-## [5.5.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/8) (13-10-2020)
+## [5.5.0]() (13-10-2020)
 
 * Явно задана версия арх. тестов -> 4.6.1
 * Включены правила `check_api_allowable_values_contract_in_request_response_properties` и
 `check_override_tostring_in_request_response_model_classes`
 
-## [5.4.2](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/7) (07-07-2020)
+## [5.4.2]() (07-07-2020)
 
 * Поднята версия yamoney-java-artifact-publish-plugin 2.0.0 -> 2.2.0
 * Подняты версия yamoney-java-artifact-publish-plugin 5.1.1 -> 5.2.0
@@ -75,28 +79,28 @@
 * Подняты версия yamoney-build-monitoring-plugin 3.0.0 -> 3.3.0
 * Подняты версия yamoney-architecture-test-plugin 2.2.0 -> 2.3.0
 
-## [5.4.1](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/6) (07-07-2020)
+## [5.4.1]() (07-07-2020)
 
 * Принудительное обновление версии yamoney-gradle-project-plugin
 
-## [5.4.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/5) (03-07-2020)
+## [5.4.0]() (03-07-2020)
 
 * Поднята версия gradle: 6.0.1 -> 6.4.1.
 
-## [5.3.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/4) (18-06-2020)
+## [5.3.0]() (18-06-2020)
 
 * Поднята версия architecture-test-plugin 2.0.2 -> 2.2.0.
 
-## [5.2.2](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/3) (08-04-2020)
+## [5.2.2]() (08-04-2020)
 
 * Откат версии java-module-plugin 2.3.0 -> 2.0.0 из-за конфликта в зависимостях. Versions conflict used libraries with fixed platform libraries.
 org.slf4j:slf4j-simple:1.8.0-beta4 -> 1.7.25
 
-## [5.2.1](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/2) (08-04-2020)
+## [5.2.1]() (08-04-2020)
 
 * Поднята версия java-module-plugin 2.0.0 -> 2.3.0
 
-## [5.2.0](https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/library-project-plugin/pull-requests/1) (27-02-2020)
+## [5.2.0]() (27-02-2020)
 
 * Поднята версия yamoney-artifact-release-plugin: 3.0.0 -> 3.2.0.
 Добавление ссылки на bitbucket pull request в changelog при релизе.
@@ -378,7 +382,7 @@ apply plugin: 'yamoney-library-project-plugin'
 
 * Переход на yamoney-artifact-release-plugin
 * Поменялся релизный цикл, теперь вместо release, в мастере надо вызвать preRelease и release
-* Поменялся формат CHANGELOG.md подробности в https://bitbucket.yamoney.ru/projects/BACKEND-GRADLE-PLUGINS/repos/artifact-release-plugin/browse/README.md
+* Поменялся формат CHANGELOG.md подробности в 
 
 ## [2.1.0]() (26-02-2019)
 
@@ -444,48 +448,6 @@ apply plugin: 'yamoney-library-project-plugin'
 
 Скрипты build-scripts/backend-platform/build-common-without-plugins.gradle и все включаемые скрипты перенесены 
 в папку gradle-scripts и публикуются в zip артефакт в целях версионирования.
-
-Минимальная конфигурация выглядит так:
-
-build.gradle:
-```groovy
-buildscript {
-    apply from: 'project.gradle', to: buildscript
-    copy {
-        from zipTree(buildscript.configurations.classpath.files.find{ it.name.contains('library-project-plugin')})
-        into 'tmp'
-        include 'gradle-scripts/**'
-    }
-}
-apply from: 'tmp/gradle-scripts/_root.gradle'
-
-groupIdSuffix = "common"
-artifactID = "yamoney-json-utils"
-
-dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
-}
-```
-
-project.gradle:
-```groovy
-System.setProperty("platformLibraryProjectVersion", "2.+")
-System.setProperty("platformDependenciesVersion", "3.+")
-
-repositories {
-    maven { url 'https://nexus.yamoney.ru/content/repositories/thirdparty/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/central/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/releases/' }
-    maven { url 'https://nexus.yamoney.ru/content/repositories/jcenter.bintray.com/' }
-
-    dependencies {
-        classpath 'ru.yandex.money.gradle.plugins:yamoney-library-project-plugin:' + 
-                System.getProperty("platformLibraryProjectVersion")
-        classpath group: 'ru.yandex.money.platform', name: 'yamoney-libraries-dependencies', 
-                version: System.getProperty("platformDependenciesVersion"), ext: 'zip'
-    }
-}
-```
 
 ## [1.2.0]() (03-08-2017)
 

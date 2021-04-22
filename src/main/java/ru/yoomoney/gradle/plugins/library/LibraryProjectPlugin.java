@@ -1,12 +1,13 @@
-package ru.yandex.money.gradle.plugins.library;
+package ru.yoomoney.gradle.plugins.library;
 
+import io.github.gradlenexus.publishplugin.NexusPublishPlugin;
+import io.spring.gradle.dependencymanagement.DependencyManagementPlugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.util.VersionNumber;
-import ru.yandex.money.gradle.plugins.library.git.expired.branch.GitExpiredBranchPlugin;
-import ru.yandex.money.gradle.plugins.library.publish.ArtifactPublishConfigurer;
-import ru.yandex.money.gradle.plugins.task.monitoring.BuildMonitoringPlugin;
-import ru.yoomoney.gradle.plugins.moduleproject.ModuleProjectPlugin;
+import ru.yoomoney.gradle.plugins.backend.build.JavaPlugin;
+import ru.yoomoney.gradle.plugins.javapublishing.JavaArtifactPublishPlugin;
+import ru.yoomoney.gradle.plugins.library.dependencies.CheckDependenciesPlugin;
 import ru.yoomoney.gradle.plugins.release.ReleasePlugin;
 
 import java.util.Arrays;
@@ -21,10 +22,12 @@ import java.util.Collection;
 public class LibraryProjectPlugin implements Plugin<Project> {
 
     private static final Collection<Class<?>> PLUGINS_TO_APPLY = Arrays.asList(
-            ModuleProjectPlugin.class,
             ReleasePlugin.class,
-            GitExpiredBranchPlugin.class,
-            BuildMonitoringPlugin.class
+            JavaPlugin.class,
+            CheckDependenciesPlugin.class,
+            JavaArtifactPublishPlugin.class,
+            NexusPublishPlugin.class,
+            DependencyManagementPlugin.class
     );
 
     @Override
@@ -33,7 +36,7 @@ public class LibraryProjectPlugin implements Plugin<Project> {
             throw new IllegalStateException("Gradle >= 6.0.1 is required");
         }
 
-        new ArtifactPublishConfigurer(project).configure();
+        new JavaArtifactPublishConfigurator().configure(project);
         PLUGINS_TO_APPLY.forEach(pluginClass -> project.getPluginManager().apply(pluginClass));
         ExtensionConfigurator.configure(project);
     }

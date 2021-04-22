@@ -1,8 +1,10 @@
-package ru.yandex.money.gradle.plugins.library
+package ru.yoomoney.gradle.plugins.library
 
 import nebula.test.IntegrationSpec
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.URIish
+
+import java.nio.file.Paths
 
 /**
  *
@@ -12,23 +14,15 @@ import org.eclipse.jgit.transport.URIish
 abstract class AbstractPluginSpec extends IntegrationSpec {
 
     private static final String BUILD_FILE_CONTENTS = """
-    buildscript {    
-        repositories {
-                maven { url 'https://nexus.yamoney.ru/repository/gradle-plugins/' }
-                maven { url 'https://nexus.yamoney.ru/repository/thirdparty/' }
-                maven { url 'https://nexus.yamoney.ru/repository/central/' }
-                maven { url 'https://nexus.yamoney.ru/repository/releases/' }
-                maven { url 'https://nexus.yamoney.ru/repository/jcenter.bintray.com/' }
-        }
-    }
     
     System.setProperty("ignoreDeprecations", "true")
-    apply plugin: 'yamoney-library-project-plugin'
-    artifactID = 'test-artifact'
+    apply plugin: 'ru.yoomoney.gradle.plugins.library-project-plugin'
+
+    artifactId = 'test-artifact'
     groupIdSuffix = 'test-group'
     ext.checkstyleEnabled = false
     dependencies {
-       compile 'com.google.guava:guava:27.1-jre'
+       implementation 'com.google.guava:guava:27.1-jre'
        testImplementation 'junit:junit:4.12'
     }
     """.stripIndent()
@@ -38,6 +32,13 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
     def setup() {
         git = Git.init().setDirectory(projectDir).setBare(false).call()
         buildFile << BUILD_FILE_CONTENTS
+        def gradleProperties = Paths.get(projectDir.absolutePath, 'gradle.properties').toFile()
+        gradleProperties.createNewFile()
+
+        gradleProperties << "version=1.0.0-SNAPSHOT\n" +
+                "signingPassword=123456\n" +
+                "signingKey="
+
         git.add().addFilepattern('build.gradle').call()
         git.commit().setMessage('build.gradle commit').setAll(true).call()
         git.remoteSetUrl()
