@@ -1,9 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [7.0.1](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/2) (22-04-2021)
 
-* Внесены правки в readme.md 
+* Внесены правки в readme.md
 
-### NEXT_VERSION_DESCRIPTION_END
 ## [7.0.0](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/1) (22-04-2021)
 
 * **breaking changes** Внесены изменения в связи с переходом в GitHub:
