@@ -1,9 +1,9 @@
-### NEXT_VERSION_TYPE=MAJOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [7.0.0](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/1) (22-04-2021)
+
 * **breaking changes** Внесены изменения в связи с переходом в GitHub:
-    * Переименованы пакеты с yandex/money -> yoomoney
-    * Сборка переведена на travis (ранее использовался jenkins)
-### NEXT_VERSION_DESCRIPTION_END
+* Переименованы пакеты с yandex/money -> yoomoney
+* Сборка переведена на travis (ранее использовался jenkins)
+
 
 ## [6.9.0]() (30-03-2021)
 
