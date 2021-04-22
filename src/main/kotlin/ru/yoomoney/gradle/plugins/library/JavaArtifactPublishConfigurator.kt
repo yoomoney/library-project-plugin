@@ -23,8 +23,6 @@ class JavaArtifactPublishConfigurator {
                 JavaArtifactPublishExtension::class.java)
         project.extensions.extraProperties["artifactId"] = ""
         project.extensions.extraProperties["groupIdSuffix"] = ""
-        project.extensions.extraProperties["signingKey"] = ""
-        project.extensions.extraProperties["signingPassword"] = ""
         val publishExtension = project.extensions.getByType(JavaArtifactPublishExtension::class.java)
 
         project.afterEvaluate { p: Project? ->
