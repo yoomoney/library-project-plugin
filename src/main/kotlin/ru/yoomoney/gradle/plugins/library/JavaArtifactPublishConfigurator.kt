@@ -29,7 +29,7 @@ class JavaArtifactPublishConfigurator {
         publishExtension.signing = true
         val publicationAdditionalInfo = PublicationAdditionalInfo()
         publicationAdditionalInfo.addInfo = true
-        publicationAdditionalInfo.description = ExtensionConfigurator.getDescription(project.name)
+        publicationAdditionalInfo.description = ExtensionConfigurator.getDescription(project.rootProject.name)
         publicationAdditionalInfo.organizationUrl = "https://github.com/yoomoney-tech"
         val license = PublicationAdditionalInfo.License()
         license.name = "MIT License"
