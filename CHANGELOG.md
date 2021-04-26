@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [7.1.0](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/3) (26-04-2021)
 
 * Работа с publishExtension вынесена из afterEvaluate.
