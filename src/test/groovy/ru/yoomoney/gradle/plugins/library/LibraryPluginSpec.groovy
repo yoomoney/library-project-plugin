@@ -41,7 +41,7 @@ class LibraryPluginSpec extends AbstractPluginSpec {
 
         then: "Запускаются тесты на Java"
 
-        assert result.success
+        assert false
         assert result.standardOutput.contains("run java test...")
 
     }
