@@ -9,9 +9,10 @@ git:
   clone: false
 
 addons:
-  apt:
-    packages:
-      - lynx
+  artifacts: true
+    s3_region: "eu-west-1"
+    paths:
+      - $HOME/*/target/reports/testJunit/index.html
 
 #Below skips the installation step completely (https://docs.travis-ci.com/user/customizing-the-build/#Skipping-the-Installation-Step)
 #We need it because otherwise Travis CI injects an awkward './gradlew assemble' step into the CI workflow
