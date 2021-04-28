@@ -9,7 +9,7 @@ git:
   clone: false
 
 addons:
-  artifacts: true
+  artifacts:
     s3_region: "eu-west-1"
     paths:
       - $HOME/*/target/reports/testJunit/index.html
