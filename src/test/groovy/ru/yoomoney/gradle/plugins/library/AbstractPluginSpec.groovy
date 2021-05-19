@@ -19,7 +19,6 @@ abstract class AbstractPluginSpec extends IntegrationSpec {
     apply plugin: 'ru.yoomoney.gradle.plugins.library-project-plugin'
 
     artifactId = 'test-artifact'
-    groupIdSuffix = 'test-group'
     ext.checkstyleEnabled = false
     dependencies {
        implementation 'com.google.guava:guava:27.1-jre'

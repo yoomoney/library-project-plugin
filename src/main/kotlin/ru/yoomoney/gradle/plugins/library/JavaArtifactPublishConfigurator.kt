@@ -22,8 +22,9 @@ class JavaArtifactPublishConfigurator {
         project.extensions.create(JavaArtifactPublishPlugin.extensionName,
                 JavaArtifactPublishExtension::class.java)
         project.extensions.extraProperties["artifactId"] = ""
-        project.extensions.extraProperties["groupIdSuffix"] = ""
+
         val publishExtension = project.extensions.getByType(JavaArtifactPublishExtension::class.java)
+        publishExtension.groupId = "ru.yoomoney.tech"
         publishExtension.nexusUser = System.getenv("NEXUS_USER")
         publishExtension.nexusPassword = System.getenv("NEXUS_PASSWORD")
         publishExtension.signing = true
@@ -51,7 +52,6 @@ class JavaArtifactPublishConfigurator {
         project.afterEvaluate { p: Project? ->
             val artifactId = ExtensionConfigurator.getArtifactId(project)
 
-            publishExtension.groupId = "ru.yoomoney.tech"
             publishExtension.artifactId = artifactId
         }
     }
