@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.com/yoomoney-gradle-plugins/library-project-plugin.svg?branch=master)](https://travis-ci.com/yoomoney-gradle-plugins/library-project-plugin)
+[![codecov](https://codecov.io/gh/yoomoney-gradle-plugins/library-project-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/yoomoney-gradle-plugins/library-project-plugin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # library-project-plugin
 Плагин создан для упрощения сборки существующих библиотек и разработки новых.
 Данный плагин выступает в качестве агрегатора функционала - в нём применяются настройки и другие плагины, 
