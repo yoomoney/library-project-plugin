@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=PATCH
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [7.1.1](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/4) (19-05-2021)
+
 * Работа с groupId вынесена из afterEvaluate.
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [7.1.0](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/3) (26-04-2021)
 
 * Работа с publishExtension вынесена из afterEvaluate.
