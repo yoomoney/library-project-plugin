@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [7.1.1](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/4) (19-05-2021)
 
 * Работа с groupId вынесена из afterEvaluate.
