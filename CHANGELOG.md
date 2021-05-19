@@ -1,5 +1,7 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=PATCH
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Добавлена информация о сборке, покрытии, лицензии в README.md.
+* Добавлен файл coverage.properties для контроля тестового покрытия.
 ### NEXT_VERSION_DESCRIPTION_END
 ## [7.1.0](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/3) (26-04-2021)
 
