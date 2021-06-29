@@ -4,6 +4,7 @@ import org.gradle.api.Project
 import ru.yoomoney.gradle.plugins.javapublishing.JavaArtifactPublishExtension
 import ru.yoomoney.gradle.plugins.javapublishing.JavaArtifactPublishPlugin
 import ru.yoomoney.gradle.plugins.javapublishing.PublicationAdditionalInfo
+import ru.yoomoney.gradle.plugins.javapublishing.StagingPublicationSettings
 
 /**
  * Конфигурация плагина JavaArtifactPublishPlugin
@@ -28,6 +29,10 @@ class JavaArtifactPublishConfigurator {
         publishExtension.nexusUser = System.getenv("NEXUS_USER")
         publishExtension.nexusPassword = System.getenv("NEXUS_PASSWORD")
         publishExtension.signing = true
+        val stagingPublicationSettings = StagingPublicationSettings()
+        stagingPublicationSettings.enabled = true
+        stagingPublicationSettings.nexusUrl = "https://oss.sonatype.org/service/local/"
+        publishExtension.staging = stagingPublicationSettings
         val publicationAdditionalInfo = PublicationAdditionalInfo()
         publicationAdditionalInfo.addInfo = true
         publicationAdditionalInfo.description = ExtensionConfigurator.getDescription(project.rootProject.name)

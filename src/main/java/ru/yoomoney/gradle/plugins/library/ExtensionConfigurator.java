@@ -1,6 +1,5 @@
 package ru.yoomoney.gradle.plugins.library;
 
-import io.github.gradlenexus.publishplugin.NexusPublishExtension;
 import org.apache.commons.lang3.StringUtils;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.wrapper.Wrapper;
@@ -39,23 +38,7 @@ public class ExtensionConfigurator {
         configureReleasePlugin(project);
         configureWrapper(project);
         configureJavaPlugin(project);
-        configureNexusStaging(project);
         CheckDependenciesConfigurer.configureCheckDependencies(project);
-    }
-
-    private static void configureNexusStaging(Project project) {
-        NexusPublishExtension nexusPublishingExtension = project.getExtensions().getByType(NexusPublishExtension.class);
-        nexusPublishingExtension.getPackageGroup().set("ru.yoomoney.tech");
-
-        nexusPublishingExtension.getRepositories().sonatype(nexusRepository -> {
-            nexusRepository.getUsername().set(System.getenv("NEXUS_USER"));
-            nexusRepository.getPassword().set(System.getenv("NEXUS_PASSWORD"));
-        });
-
-        //отключаем таску публикации, предоставляемую java-artifact-publish-plugin, т.к. io.github.gradle-nexus:publish-plugin
-        //предоставляет свою
-        project.afterEvaluate(p ->
-                project.getTasks().getByName("publishMainArtifactPublicationToMavenRepository").setEnabled(false));
     }
 
     private static void configureWrapper(Project project) {
@@ -69,8 +52,8 @@ public class ExtensionConfigurator {
 
         //задачи, которые будут запускаться при релизе.
         //publish - опубликовать артефакт
-        //closeAndReleaseSonatypeStagingRepository - закрыть staging репозиторий и выпустить артефакт в релизный репозиторий (MavenCentral)
-        releaseExtension.getReleaseTasks().addAll(Arrays.asList("build", "publish", "closeAndReleaseSonatypeStagingRepository"));
+        //closeAndReleaseMavenStagingRepository - закрыть staging репозиторий и выпустить артефакт в релизный репозиторий (MavenCentral)
+        releaseExtension.getReleaseTasks().addAll(Arrays.asList("build", "publish", "closeAndReleaseMavenStagingRepository"));
         releaseExtension.setPathToGitPrivateSshKey(System.getenv("GIT_PRIVATE_SSH_KEY_PATH"));
         releaseExtension.setPassphraseToGitPrivateSshKey(System.getenv("GIT_KEY_PASSPHRASE"));
 
