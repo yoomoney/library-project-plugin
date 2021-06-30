@@ -1,6 +1,5 @@
 package ru.yoomoney.gradle.plugins.library;
 
-import io.github.gradlenexus.publishplugin.NexusPublishPlugin;
 import io.spring.gradle.dependencymanagement.DependencyManagementPlugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
@@ -22,11 +21,10 @@ import java.util.Collection;
 public class LibraryProjectPlugin implements Plugin<Project> {
 
     private static final Collection<Class<?>> PLUGINS_TO_APPLY = Arrays.asList(
+            JavaArtifactPublishPlugin.class,
             ReleasePlugin.class,
             JavaPlugin.class,
             CheckDependenciesPlugin.class,
-            JavaArtifactPublishPlugin.class,
-            NexusPublishPlugin.class,
             DependencyManagementPlugin.class
     );
 
