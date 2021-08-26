@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.com/yoomoney-gradle-plugins/library-project-plugin.svg?branch=master)](https://travis-ci.com/yoomoney-gradle-plugins/library-project-plugin)
-[![codecov](https://codecov.io/gh/yoomoney-gradle-plugins/library-project-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/yoomoney-gradle-plugins/library-project-plugin)
+[![Build Status](https://travis-ci.com/yoomoney/library-project-plugin.svg?branch=master)](https://travis-ci.com/yoomoney/library-project-plugin)
+[![codecov](https://codecov.io/gh/yoomoney/library-project-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/yoomoney/library-project-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # library-project-plugin
@@ -56,7 +56,7 @@ dependencies {
 Плагин производит публикацию в maven репозиторий.
 
 ## Подключенные плагины
-* [artifact-release-plugin](https://github.com/yoomoney-gradle-plugins/artifact-release-plugin/blob/master/README.md)
-* [java-artifact-publish-plugin](https://github.com/yoomoney-gradle-plugins/java-artifact-publish-plugin)
-* [java-plugin](https://github.com/yoomoney-gradle-plugins/java-plugin)
-* [check-dependencies-plugin](https://github.com/yoomoney-gradle-plugins/check-dependencies-plugin)
+* [artifact-release-plugin](https://github.com/yoomoney/artifact-release-plugin/blob/master/README.md)
+* [java-artifact-publish-plugin](https://github.com/yoomoney/java-artifact-publish-plugin)
+* [java-plugin](https://github.com/yoomoney/java-plugin)
+* [check-dependencies-plugin](https://github.com/yoomoney/check-dependencies-plugin)
