@@ -1,7 +1,7 @@
-### NEXT_VERSION_TYPE=MINOR
-### NEXT_VERSION_DESCRIPTION_BEGIN
+## [7.3.0](https://github.com/yoomoney/library-project-plugin/pull/8) (26-08-2021)
+
 * Переезд организации yoomoney-gradle-plugins -> yoomoney
-### NEXT_VERSION_DESCRIPTION_END
+
 ## [7.2.1](https://github.com/yoomoney/library-project-plugin/pull/7) (03-08-2021)
 
 * Обновлена версия java-artifact-publish-plugin с 3.2.0 на 3.2.1
