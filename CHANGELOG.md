@@ -1,33 +1,34 @@
-### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_TYPE=MINOR
 ### NEXT_VERSION_DESCRIPTION_BEGIN
+* Переезд организации yoomoney-gradle-plugins -> yoomoney
 ### NEXT_VERSION_DESCRIPTION_END
-## [7.2.1](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/7) (03-08-2021)
+## [7.2.1](https://github.com/yoomoney/library-project-plugin/pull/7) (03-08-2021)
 
 * Обновлена версия java-artifact-publish-plugin с 3.2.0 на 3.2.1
 
-## [7.2.0](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/6) (30-06-2021)
+## [7.2.0](https://github.com/yoomoney/library-project-plugin/pull/6) (30-06-2021)
 
 * Конфигурация публикации артефакта в staging репозиторий перенесена в `java-artifact-publish-plugin`;
 * Обновлена версия `java-artifact-publish-plugin` 3.0.2 -> 3.2.0.
 
-## [7.1.2](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/5) (19-05-2021)
+## [7.1.2](https://github.com/yoomoney/library-project-plugin/pull/5) (19-05-2021)
 
 * Добавлена информация о сборке, покрытии, лицензии в README.md.
 * Добавлен файл coverage.properties для контроля тестового покрытия.
 
-## [7.1.1](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/4) (19-05-2021)
+## [7.1.1](https://github.com/yoomoney/library-project-plugin/pull/4) (19-05-2021)
 
 * Работа с groupId вынесена из afterEvaluate.
 
-## [7.1.0](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/3) (26-04-2021)
+## [7.1.0](https://github.com/yoomoney/library-project-plugin/pull/3) (26-04-2021)
 
 * Работа с publishExtension вынесена из afterEvaluate.
 
-## [7.0.1](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/2) (22-04-2021)
+## [7.0.1](https://github.com/yoomoney/library-project-plugin/pull/2) (22-04-2021)
 
 * Внесены правки в readme.md
 
-## [7.0.0](https://github.com/yoomoney-gradle-plugins/library-project-plugin/pull/1) (22-04-2021)
+## [7.0.0](https://github.com/yoomoney/library-project-plugin/pull/1) (22-04-2021)
 
 * **breaking changes** Внесены изменения в связи с переходом в GitHub:
 * Переименованы пакеты с yandex/money -> yoomoney

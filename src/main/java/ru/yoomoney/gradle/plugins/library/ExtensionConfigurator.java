@@ -102,6 +102,6 @@ public class ExtensionConfigurator {
      */
     public static String getDescription(String artifactId) {
         return format("Library by YooMoney. See README: " +
-                "https://github.com/yoomoney-tech/%s", artifactId);
+                "https://github.com/yoomoney/%s", artifactId);
     }
 }
