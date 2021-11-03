@@ -30,7 +30,7 @@
 
 ## [7.0.1](https://github.com/yoomoney/library-project-plugin/pull/2) (22-04-2021)
 
-* Внесены правки в readme.md 
+* Внесены правки в readme.md
 
 ## [7.0.0](https://github.com/yoomoney/library-project-plugin/pull/1) (22-04-2021)
 
