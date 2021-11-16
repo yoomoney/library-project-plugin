@@ -1,3 +1,6 @@
+### NEXT_VERSION_TYPE=MAJOR|MINOR|PATCH
+### NEXT_VERSION_DESCRIPTION_BEGIN
+### NEXT_VERSION_DESCRIPTION_END
 ## [7.3.1](https://github.com/yoomoney/library-project-plugin/pull/9) (16-11-2021)
 
 Обновлена версия java-plugin 4.1.0 -> 4.3.0
